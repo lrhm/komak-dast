@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aftabe 2</string>
+    <string name="default_package_name">Package</string>
+    <string name="coin_box">Coins</string>
+    <string name="background">Background</string>
+    <string name="logo">Aftabe</string>
+    <string name="levels_package">Package</string>
+    <string name="play">Play</string>
+    <string name="nothing" />
+    <string name="not_enought_coins">سکه‌ی کافی برای خریدش نداریم</string>
+    <string name="toast_crash">آفتابه با مشکل عجیبی رو به رو شده... در صورتی که به اینترنت متصل شوید این مشکل به ماگزارش می‌شه و به زودی برطرف می‌شه. صمیمانه ازتون عذر می‌خوایم. :(</string>
+    <string name="empty_list">بسته‌ای وجود ندارد</string>
+    <string name="updated_time_shared_preference">updatedTime</string>
+    <string name="domain_url_head_json">http://rsdn.ir/files/aftabe/head.json</string>
+    <string name="gcm_permission">ir.treeco.aftabeplus.GCM.PERMISSION</string>
+    <string name="gcm_default_SenderId">294812968005</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server_client_id">294812968005-linmhc2bh29ckjv0o40c4ndl7h5l8tnq.apps.googleusercontent.com</string>
+    <string name="connection_to_internet_sure">لطفا از اتصال به اینترنت مطمئن شوید</string>
+    <string name="try_later">لطفا بعدن تلاش کنید</string>
+    <string name="chat_not_available">به زودی !</string>
+    <string name="enemy_internet_fucked">اتصال به اینترنت حریف دچار مشکل شد</string>
+
+</resources>

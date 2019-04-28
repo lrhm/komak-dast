@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/shop_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/nothing" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:scrollbarFadeDuration="6000"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:id="@+id/items_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/very_small_coin"
+                    layout="@layout/item_store" />
+
+                <include
+                    android:id="@+id/small_coin"
+                    layout="@layout/item_store_reversed" />
+
+                <include
+                    android:id="@+id/medium_coin"
+                    layout="@layout/item_store" />
+
+                <include
+                    android:id="@+id/big_coin"
+                    layout="@layout/item_store_reversed" />
+
+                <include
+                    android:id="@+id/tapsell_free_coin"
+                    layout="@layout/item_store" />
+
+
+                <include
+                    android:id="@+id/review_telegram"
+                    layout="@layout/item_store_reversed" />
+
+                <include
+                    android:id="@+id/review_insta"
+                    layout="@layout/item_store" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
