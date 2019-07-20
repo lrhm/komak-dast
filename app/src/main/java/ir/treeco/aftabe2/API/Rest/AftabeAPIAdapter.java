@@ -65,7 +65,7 @@ public class AftabeAPIAdapter {
 
     private static Retrofit retrofit;
     private static AftabeService aftabeService;
-    private static String baseUrl = "https://aftabe2.com:2020";
+    private static String baseUrl = "http://192.168.1.10:3000";
     private static final String TAG = "AftabeAPIAdapter";
     private static Context context;
 
@@ -83,7 +83,7 @@ public class AftabeAPIAdapter {
     private static void init() {
         if (retrofit == null) {
 
-            baseUrl = Tools.getUrl();
+//            baseUrl = Tools.getUrl();
 
             OkHttpClient okHttpClient = new OkHttpClient();
             okHttpClient.setReadTimeout(30, TimeUnit.SECONDS);

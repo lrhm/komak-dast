@@ -253,9 +253,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         PackageFragment packageFragment = new PackageFragment();
         packageFragment.setArguments(bundle);
 
+        MainFragment mainFragment = new MainFragment();
+
 //        transaction.addToBackStack(null);
 
-        fragmentTransaction.replace(R.id.fragment_container, packageFragment, MAIN_FRAGMENT_TAG);
+        fragmentTransaction.replace(R.id.fragment_container, mainFragment, MAIN_FRAGMENT_TAG);
         fragmentTransaction.commitAllowingStateLoss();
 
         setUpCoinBox();
@@ -266,7 +268,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .requestIdToken(getString(R.string.server_client_id))
+          //      .requestIdToken(getString(R.string.server_client_id))
                 .build();
 
 
@@ -413,8 +415,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         coinBox = (ImageView) findViewById(R.id.coin_box);
 
         int coinBoxWidth = lengthManager.getScreenWidth() * 8 / 20;
-        int coinBoxHeight = lengthManager.getHeightWithFixedWidth(R.drawable.coin_box, coinBoxWidth);
-        coinBox.setImageBitmap(imageManager.loadImageFromResource(R.drawable.coin_box, coinBoxWidth, coinBoxHeight));
+        int coinBoxHeight = lengthManager.getHeightWithFixedWidth(R.drawable.coinholder, coinBoxWidth);
+        coinBox.setImageBitmap(imageManager.loadImageFromResource(R.drawable.coinholder, coinBoxWidth, coinBoxHeight));
 
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) coinBox.getLayoutParams();
         layoutParams.topMargin = lengthManager.getScreenWidth() / 15;
@@ -422,7 +424,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         RelativeLayout.LayoutParams digitsLayoutParams = (RelativeLayout.LayoutParams) digits.getLayoutParams();
         digitsLayoutParams.topMargin = lengthManager.getScreenWidth() * 32 / 400;
-        digitsLayoutParams.leftMargin = lengthManager.getScreenWidth() * 577 / 3600;
+        digitsLayoutParams.leftMargin = lengthManager.getScreenWidth() * 377 / 3600;
         digitsLayoutParams.width = (int) (0.98 * lengthManager.getScreenWidth() / 5);
 
 
@@ -461,41 +463,39 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         UiUtil.setWidth(creditsButton, (int) (SizeManager.getScreenWidth() * 0.4));
         UiUtil.setHeight(creditsButton, lengthManager.getScreenWidth() / 4);
 
-        creditsButton.setOnClickListener(new View.OnClickListener() {
+//        creditsButton.setOnClickListener(new View.OnClickListener() {
+//
+//            long lastTimeClicked = 0;
+//            int counter = 2;
+//
+//            @Override
+//            public void onClick(View v) {
+//                Fragment main = getSupportFragmentManager().findFragmentByTag(MAIN_FRAGMENT_TAG);
+//                if (!main.isVisible()) {
+//                    return;
+//                }
+//                if (counter == 2 && Prefs.getBoolean("Credits_Hint", true)) {
+//
+//                    Prefs.putBoolean("Credits_Hint", false);
+//                    ToastMaker.show(MainActivity.this, "راه مخفی", Toast.LENGTH_SHORT);
+//                }
+//
+//                long current = System.currentTimeMillis();
+//
+//                if (current - lastTimeClicked > 1000) {
+//                    counter = 2;
+//                } else {
+//                    counter--;
+//                }
+//                lastTimeClicked = current;
+//                if (counter == 0) {
+//
+//                    Intent intent = new Intent(MainActivity.this, CreditsActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
 
-            long lastTimeClicked = 0;
-            int counter = 2;
-
-            @Override
-            public void onClick(View v) {
-                Fragment main = getSupportFragmentManager().findFragmentByTag(MAIN_FRAGMENT_TAG);
-                if (!main.isVisible()) {
-                    return;
-                }
-                if (counter == 2 && Prefs.getBoolean("Credits_Hint", true)) {
-
-                    Prefs.putBoolean("Credits_Hint", false);
-                    ToastMaker.show(MainActivity.this, "راه مخفی", Toast.LENGTH_SHORT);
-                }
-
-                long current = System.currentTimeMillis();
-
-                if (current - lastTimeClicked > 1000) {
-                    counter = 2;
-                } else {
-                    counter--;
-                }
-                lastTimeClicked = current;
-                if (counter == 0) {
-
-                    Intent intent = new Intent(MainActivity.this, CreditsActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        creditsButton.setVisibility(View.GONE);
-        logo.setVisibility(View.GONE);
     }
 
     public void setOriginalBackground(int drawable) {
@@ -939,6 +939,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     public void purchase(String sku, int price) {
+
+
         if (billingProcessor.isInitialized()) {
             Answers.getInstance().logStartCheckout(new StartCheckoutEvent()
                     .putTotalPrice(BigDecimal.valueOf(price))
@@ -967,6 +969,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
+
+        Logger.d(TAG, "handleSignInResult:" + result.getStatus().getStatus());
+
 
         if (result == null)
             return;

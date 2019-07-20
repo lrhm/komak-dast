@@ -31,9 +31,7 @@ public class StoreAdapter {
     public static final int AMOUNT_SMALL_COIN = 2000;
     public static final int AMOUNT_MEDIUM_COIN = 4000;
     public static final int AMOUNT_BIG_COIN = 12500;
-    //    public static final int COMMENT_BAZAAR = 50;
-    public static final int TELEGRAM = 50;
-    public static final int INSTA = 50;
+
 
 
     static final int[] amounts = new int[]{
@@ -48,21 +46,13 @@ public class StoreAdapter {
             AMOUNT_SMALL_COIN,
             AMOUNT_MEDIUM_COIN,
             AMOUNT_BIG_COIN,
-//            COMMENT_BAZAAR,
-            TELEGRAM,
-            INSTA
+
     };
 
 
     final static int[] prices = new int[]{1000, 3000, 4000, 10000, -1, -1, -1, -1};
 
-    public static int getTelegramAmount() {
-        return TELEGRAM;
-    }
 
-    public static int getInstaAmount() {
-        return INSTA;
-    }
 
 
 

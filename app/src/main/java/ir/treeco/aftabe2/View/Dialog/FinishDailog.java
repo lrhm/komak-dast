@@ -83,9 +83,10 @@ public class FinishDailog extends Dialog implements View.OnClickListener {
 
         ImageView tickView = (ImageView) findViewById(R.id.tickView);
         ((ViewGroup.MarginLayoutParams) tickView.getLayoutParams()).rightMargin = (int) (0.125 * lengthManager.getTickViewSize());
-        tickView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.correct, lengthManager.getTickViewSize(), lengthManager.getTickViewSize()));
-        tools.resizeView(tickView, lengthManager.getTickViewSize(), lengthManager.getTickViewSize());
+        ((ViewGroup.MarginLayoutParams) tickView.getLayoutParams()).leftMargin = (int) (0.125 * lengthManager.getTickViewSize());
 
+        tickView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.yes, lengthManager.getTickViewSize(), lengthManager.getTickViewSize()));
+        tools.resizeView(tickView, lengthManager.getTickViewSize(), lengthManager.getTickViewSize());
         ImageView nextButton = (ImageView) findViewById(R.id.next_level_button);
         ImageView homeButton = (ImageView) findViewById(R.id.home_button);
 

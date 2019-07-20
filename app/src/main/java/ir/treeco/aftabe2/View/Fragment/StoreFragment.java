@@ -75,7 +75,9 @@ public class StoreFragment extends Fragment {
             layout.findViewById(buttonIds[i]).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((MainActivity) getActivity()).purchase(StoreAdapter.getSKUs()[finalI], StoreAdapter.getPrices()[finalI]);
+
+                    coinAdapter.earnCoinDiffless(StoreAdapter.getRevenues()[finalI]);
+//                    ((MainActivity) getActivity()).purchase(StoreAdapter.getSKUs()[finalI], StoreAdapter.getPrices()[finalI]);
                 }
             });
         }
@@ -103,7 +105,7 @@ public class StoreFragment extends Fragment {
         final View tapsell = layout.findViewById(R.id.tapsell_free_coin);
         tapsell.setVisibility(View.GONE);
 
-        setupInstaAndMore();
+//        setupInstaAndMore();
 
         ImageView shopTitle = (ImageView) layout.findViewById(R.id.shop_title);
         Bitmap shopTitleBitmap = imageManager.loadImageFromResource(R.drawable.shoptitle, lengthManager.getShopTitleWidth(), -1);
@@ -116,41 +118,41 @@ public class StoreFragment extends Fragment {
 
         return layout;
     }
-
-    void setupInstaAndMore() {
-        final View telegram = layout.findViewById(R.id.review_telegram);
-
-        if (StoreAdapter.isTelegramUsed())
-            telegram.setVisibility(View.GONE);
-        else
-            telegram.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (StoreAdapter.startTelegramIntent(getContext())) {
-                        coinAdapter.earnCoins(StoreAdapter.getTelegramAmount());
-                        StoreAdapter.useTelegram();
-                        telegram.setVisibility(View.GONE);
-                    }
-                }
-
-            });
-
-        final View insta = layout.findViewById(R.id.review_insta);
-
-        if (StoreAdapter.isInstaUsed())
-            insta.setVisibility(View.GONE);
-        else
-            insta.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (StoreAdapter.startInstaIntent(getContext())) {
-                        coinAdapter.earnCoins(StoreAdapter.getInstaAmount());
-                        StoreAdapter.useInsta();
-                        insta.setVisibility(View.GONE);
-                    }
-                }
-            });
-    }
+//
+//    void setupInstaAndMore() {
+//        final View telegram = layout.findViewById(R.id.review_telegram);
+//
+//        if (StoreAdapter.isTelegramUsed())
+//            telegram.setVisibility(View.GONE);
+//        else
+//            telegram.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (StoreAdapter.startTelegramIntent(getContext())) {
+//                        coinAdapter.earnCoins(StoreAdapter.getTelegramAmount());
+//                        StoreAdapter.useTelegram();
+//                        telegram.setVisibility(View.GONE);
+//                    }
+//                }
+//
+//            });
+//
+//        final View insta = layout.findViewById(R.id.review_insta);
+//
+//        if (StoreAdapter.isInstaUsed())
+//            insta.setVisibility(View.GONE);
+//        else
+//            insta.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (StoreAdapter.startInstaIntent(getContext())) {
+//                        coinAdapter.earnCoins(StoreAdapter.getInstaAmount());
+//                        StoreAdapter.useInsta();
+//                        insta.setVisibility(View.GONE);
+//                    }
+//                }
+//            });
+//    }
 
     private void setupItemsList() {
 
@@ -159,7 +161,7 @@ public class StoreFragment extends Fragment {
 
         LinearLayout itemsList = (LinearLayout) layout.findViewById(R.id.items_list);
 
-        FrameLayout[] items = new FrameLayout[6];
+        FrameLayout[] items = new FrameLayout[4];
         for (int i = 0; i < items.length; i++)
             items[i] = (FrameLayout) itemsList.getChildAt(i);
 

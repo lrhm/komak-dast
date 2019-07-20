@@ -189,14 +189,14 @@ public class Tools {
 
     public void checkDB(Context context) {
 //        Logger.e("db", "check");
-        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
-
-        File currentDB = new File(currentDBPath);
-
-        if (!currentDB.exists()) {
-            restore();
-            restoreDBJournal();
-        }
+//        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
+//
+//        File currentDB = new File(currentDBPath);
+//
+//        if (!currentDB.exists()) {
+//            restore();
+//            restoreDBJournal();
+//        }
     }
 
     public void restore() {
@@ -304,40 +304,40 @@ public class Tools {
     }
 
     public static void backUpDBAsync(Context context) {
-
-        File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
-        String backupDBPath = "Android/.amk";
-        File currentDB = new File(currentDBPath);
-        File backupDB = new File(sd, backupDBPath);
-
-
-        try {
-            byte[] keyBytes = getAESKey();
-            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
-
-            backupDB.createNewFile();
-            FileOutputStream fos = new FileOutputStream(backupDB);
-            FileInputStream fis = new FileInputStream(currentDB);
-
-            CipherOutputStream cos = new CipherOutputStream(fos, cipher);
-
-            byte[] block = new byte[1024];
-            int i;
-            while ((i = fis.read(block)) != -1) {
-                cos.write(block, 0, i);
-
-            }
-            cos.close();
-            fis.close();
-            fos.close();
-
-            backUpDBJournal(context);
-        } catch (IOException | InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException e) {
-//            e.printStackTrace();
-        }
+//
+//        File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
+//        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
+//        String backupDBPath = "Android/.amk";
+//        File currentDB = new File(currentDBPath);
+//        File backupDB = new File(sd, backupDBPath);
+//
+//
+//        try {
+//            byte[] keyBytes = getAESKey();
+//            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
+//            Cipher cipher = Cipher.getInstance("AES");
+//            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+//
+//            backupDB.createNewFile();
+//            FileOutputStream fos = new FileOutputStream(backupDB);
+//            FileInputStream fis = new FileInputStream(currentDB);
+//
+//            CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+//
+//            byte[] block = new byte[1024];
+//            int i;
+//            while ((i = fis.read(block)) != -1) {
+//                cos.write(block, 0, i);
+//
+//            }
+//            cos.close();
+//            fis.close();
+//            fos.close();
+//
+//            backUpDBJournal(context);
+//        } catch (IOException | InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException e) {
+////            e.printStackTrace();
+//        }
     }
 
 
@@ -350,38 +350,38 @@ public class Tools {
 
     public static void backUpDBJournalAsync(Context context) {
 
-        File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-        String currentDBPath = context.getFilesDir().getAbsolutePath() + "/databases/" + "aftabe.db-journal";
-        String backupDBPath = "Android/.bmk";
-        File currentDB = new File(currentDBPath);
-        File backupDB = new File(sd, backupDBPath);
-
-        try {
-
-            byte[] keyBytes = getAESKey();
-            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
-            backupDB.createNewFile();
-
-            FileOutputStream fos = new FileOutputStream(backupDB);
-            FileInputStream fis = new FileInputStream(currentDB);
-
-            CipherOutputStream cos = new CipherOutputStream(fos, cipher);
-
-            byte[] block = new byte[1024];
-            int i;
-            while ((i = fis.read(block)) != -1) {
-                cos.write(block, 0, i);
-            }
-            cos.close();
-            fis.close();
-            fos.close();
-
-//            Logger.e("db", "backup blocks " + i);
-        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException e) {
-//            e.printStackTrace();
-        }
+//        File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
+//        String currentDBPath = context.getFilesDir().getAbsolutePath() + "/databases/" + "aftabe.db-journal";
+//        String backupDBPath = "Android/.bmk";
+//        File currentDB = new File(currentDBPath);
+//        File backupDB = new File(sd, backupDBPath);
+//
+//        try {
+//
+//            byte[] keyBytes = getAESKey();
+//            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
+//            Cipher cipher = Cipher.getInstance("AES");
+//            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+//            backupDB.createNewFile();
+//
+//            FileOutputStream fos = new FileOutputStream(backupDB);
+//            FileInputStream fis = new FileInputStream(currentDB);
+//
+//            CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+//
+//            byte[] block = new byte[1024];
+//            int i;
+//            while ((i = fis.read(block)) != -1) {
+//                cos.write(block, 0, i);
+//            }
+//            cos.close();
+//            fis.close();
+//            fos.close();
+//
+////            Logger.e("db", "backup blocks " + i);
+//        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException e) {
+////            e.printStackTrace();
+//        }
     }
 
     public static byte[] getAESKey() {
@@ -429,71 +429,71 @@ public class Tools {
 
     public static void storeKey() {
 
-
-        if (!isExternalStorageWritable())
-            return;
-        File rootFolder = new File(
-                Environment.getExternalStorageDirectory(),
-                "Android");
-        rootFolder.mkdir();
-
-        if (!Prefs.contains(SHARED_PREFS_TOKEN) || !Prefs.contains(ENCRYPT_KEY))
-            return;
-        try {
-
-            Gson gson = new Gson();
-            TokenHolder tokenHolder = gson.fromJson(Prefs.getString(SHARED_PREFS_TOKEN, ""), TokenHolder.class);
-            SaveHolder saveHolder = new SaveHolder(tokenHolder, Prefs.getString(ENCRYPT_KEY, ""));
-
-            FileOutputStream fileOutputStream = new FileOutputStream(
-                    new File(rootFolder, ".system64a"));
-            fileOutputStream.write(gson.toJson(saveHolder).getBytes());
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        if (!isExternalStorageWritable())
+//            return;
+//        File rootFolder = new File(
+//                Environment.getExternalStorageDirectory(),
+//                "Android");
+//        rootFolder.mkdir();
+//
+//        if (!Prefs.contains(SHARED_PREFS_TOKEN) || !Prefs.contains(ENCRYPT_KEY))
+//            return;
+//        try {
+//
+//            Gson gson = new Gson();
+//            TokenHolder tokenHolder = gson.fromJson(Prefs.getString(SHARED_PREFS_TOKEN, ""), TokenHolder.class);
+//            SaveHolder saveHolder = new SaveHolder(tokenHolder, Prefs.getString(ENCRYPT_KEY, ""));
+//
+//            FileOutputStream fileOutputStream = new FileOutputStream(
+//                    new File(rootFolder, ".system64a"));
+//            fileOutputStream.write(gson.toJson(saveHolder).getBytes());
+//            fileOutputStream.flush();
+//            fileOutputStream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 
     public static void checkKey() {
-        if (!isExternalStorageWritable())
-            return;
-        File rootFolder = new File(Environment.getExternalStorageDirectory(),
-                "Android");
-        if (!rootFolder.exists())
-            return;
-        File file = new File(rootFolder, ".system64a");
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (scanner == null)
-            return;
-
-        String temp = "";
-        while (scanner.hasNextLine()) {
-            temp += scanner.nextLine();
-        }
-
-        if (temp.equals(""))
-            return;
-        Gson gson = new Gson();
-        try {
-            SaveHolder saveHolder = gson.fromJson(temp, SaveHolder.class);
-            Prefs.putString(SHARED_PREFS_TOKEN, gson.toJson(saveHolder.getTokenHolder()));
-            Prefs.putString(ENCRYPT_KEY, saveHolder.getKey());
-
-            if (saveHolder.getInstaUsed())
-                StoreAdapter.useInsta();
-            if (saveHolder.getTelegramUsed())
-                StoreAdapter.useTelegram();
-
-        } catch (Exception e) {
-            return;
-        }
+//        if (!isExternalStorageWritable())
+//            return;
+//        File rootFolder = new File(Environment.getExternalStorageDirectory(),
+//                "Android");
+//        if (!rootFolder.exists())
+//            return;
+//        File file = new File(rootFolder, ".system64a");
+//        Scanner scanner = null;
+//        try {
+//            scanner = new Scanner(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if (scanner == null)
+//            return;
+//
+//        String temp = "";
+//        while (scanner.hasNextLine()) {
+//            temp += scanner.nextLine();
+//        }
+//
+//        if (temp.equals(""))
+//            return;
+//        Gson gson = new Gson();
+//        try {
+//            SaveHolder saveHolder = gson.fromJson(temp, SaveHolder.class);
+//            Prefs.putString(SHARED_PREFS_TOKEN, gson.toJson(saveHolder.getTokenHolder()));
+//            Prefs.putString(ENCRYPT_KEY, saveHolder.getKey());
+//
+//            if (saveHolder.getInstaUsed())
+//                StoreAdapter.useInsta();
+//            if (saveHolder.getTelegramUsed())
+//                StoreAdapter.useTelegram();
+//
+//        } catch (Exception e) {
+//            return;
+//        }
 
 
     }
@@ -540,16 +540,17 @@ public class Tools {
     }
 
     public static TokenHolder getTokenHolder() {
-        String tkJson = Prefs.getString(USER_SAVED_DATA, "");
-        if (tkJson.compareTo("") == 0) {
-            return null;
-        }
-        try {
-            Gson gson = new Gson();
-            return gson.fromJson(tkJson, TokenHolder.class);
-        } catch (Exception e) {
-            return null;
-        }
+//        String tkJson = Prefs.getString(USER_SAVED_DATA, "");
+//        if (tkJson.compareTo("") == 0) {
+//            return null;
+//        }
+//        try {
+//            Gson gson = new Gson();
+//            return gson.fromJson(tkJson, TokenHolder.class);
+//        } catch (Exception e) {
+//            return null;
+//        }
+        return null;
     }
 
     public static boolean isUserRegistered() {
@@ -646,10 +647,10 @@ public class Tools {
             e.printStackTrace();
         }
 
-        if (signature[0].hashCode() == -1769074008 || signature[0].hashCode() == 254943616) {
+//        if (signature[0].hashCode() == -1769074008 || signature[0].hashCode() == 254943616) {
 
             sigChk = "TTy";
-        }
+//        }
 
         return sigChk;
     }

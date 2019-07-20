@@ -25,7 +25,7 @@
 
     <application
         android:name="ir.treeco.aftabe2.MainApplication"
-        android:icon="@drawable/aftabe_icon"
+        android:icon="@drawable/puzzlelogo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:screenOrientation="portrait"

@@ -22,6 +22,10 @@ import ir.treeco.aftabe2.Util.UiUtil;
 public class ToastMaker {
     public static void show(Context context, String content, int duration) {
 
+        Toast.makeText(context, content, duration).show();
+        if(true)
+        return;
+
         TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (manager.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
             Toast.makeText(context, content, duration).show();
