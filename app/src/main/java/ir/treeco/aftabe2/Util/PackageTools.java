@@ -71,53 +71,53 @@ public class PackageTools {
     public void checkOfflinePackageCompatibility() {
 
 
-        String path = context.getFilesDir().getPath() + File.separator + "offline_p_0.zip";
-
-        File olderFile = new File(path);
-
-        boolean hash = true;
-        try {
-
-            hash = checkMd5Sum(context.getFilesDir().getPath() + "/package_0.zip", "673d8949dfc7204a137bfb217b69f3ad");
-        } catch (Exception e) {
-
-        }
-        // if user deleted the app . and have saved database , check if db is old . if old
-        if (olderFile.exists() || !hash) {
-
-            DBAdapter dbAdapter = DBAdapter.getInstance(context);
-
-            Level[] levels = dbAdapter.getLevels(0);
-            int i = -1;
-            if (levels != null)
-                for (Level l : levels)
-                    if (l.isResolved())
-                        i++;
-
-
-            dbAdapter.deletePackage(0);
-
-            String newPath = context.getFilesDir().getPath() + "/Packages/package_" + 0 + "/";
-            File dir = new File(newPath);
-            if (dir.exists() && dir.isDirectory())
-                for (File file : dir.listFiles())
-                    file.delete();
-
-            if (dir.exists())
-                dir.delete();
-
-
-            if (olderFile.exists()) {
-                olderFile.delete();
-            }
-
-            copyLocalpackages();
-
-            for (int j = 0; j <= i; j++) {
-                dbAdapter.resolveLevel(0, j);
-            }
-
-        }
+//        String path = context.getFilesDir().getPath() + File.separator + "offline_p_0.zip";
+//
+//        File olderFile = new File(path);
+//
+//        boolean hash = true;
+//        try {
+//
+//            hash = checkMd5Sum(context.getFilesDir().getPath() + "/package_0.zip", "673d8949dfc7204a137bfb217b69f3ad");
+//        } catch (Exception e) {
+//
+//        }
+//        // if user deleted the app . and have saved database , check if db is old . if old
+//        if (olderFile.exists() || !hash) {
+//
+//            DBAdapter dbAdapter = DBAdapter.getInstance(context);
+//
+//            Level[] levels = dbAdapter.getLevels(0);
+//            int i = -1;
+//            if (levels != null)
+//                for (Level l : levels)
+//                    if (l.isResolved())
+//                        i++;
+//
+//
+//            dbAdapter.deletePackage(0);
+//
+//            String newPath = context.getFilesDir().getPath() + "/Packages/package_" + 0 + "/";
+//            File dir = new File(newPath);
+//            if (dir.exists() && dir.isDirectory())
+//                for (File file : dir.listFiles())
+//                    file.delete();
+//
+//            if (dir.exists())
+//                dir.delete();
+//
+//
+//            if (olderFile.exists()) {
+//                olderFile.delete();
+//            }
+//
+//            copyLocalpackages();
+//
+//            for (int j = 0; j <= i; j++) {
+//                dbAdapter.resolveLevel(0, j);
+//            }
+//
+//        }
 
 
     }

@@ -44,7 +44,7 @@
 
         </RelativeLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="15sp" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
 
@@ -79,12 +79,12 @@
 
     </RelativeLayout>
 
-
-    <android.support.v7.widget.RecyclerView
+    <!--androidx.recyclerview.widget.RecyclerView-->
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friends_recyler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="20dp"></androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

@@ -1,18 +1,18 @@
 package ir.treeco.aftabe2.View.Fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.ogaclejapan.smarttablayout.MySmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import ir.treeco.aftabe2.R;
-import ir.treeco.aftabe2.Util.Logger;
 import ir.treeco.aftabe2.View.Activity.MainActivity;
 import ir.treeco.aftabe2.View.Custom.VerticalViewPager;
 import ir.treeco.aftabe2.View.Dialog.DialogAdapter;
@@ -34,7 +34,7 @@ public class OnlineMenuFragment extends Fragment implements MySmartTabLayout.OnT
 
         View view = inflater.inflate(R.layout.fragment_online_menu, container, false);
 
-        verticalViewPager = (VerticalViewPager) view.findViewById(R.id.fragment_online_menu_vertical_view_pager);
+        verticalViewPager =  view.findViewById(R.id.fragment_online_menu_vertical_view_pager);
 
         FragmentPagerItems.Creator fragmentPagerItemsCreator = FragmentPagerItems.with(getActivity());
         fragmentPagerItemsCreator.add("", OnlinePrimaryPageFragment.class);
@@ -51,9 +51,9 @@ public class OnlineMenuFragment extends Fragment implements MySmartTabLayout.OnT
         if (mainFragment != null && mainFragment.mSmartTabLayout != null)
             mainFragment.mSmartTabLayout.setOnTabClickListener(this);
 
-        verticalViewPager.setDegreeOfFreedom(4);
-
-        verticalViewPager.setOnPageChangeListener(this);
+//        verticalViewPager.setDegreeOfFreedom(4);
+//
+//        verticalViewPager.setOnPageChangeListener(this);
 
 
         return view;

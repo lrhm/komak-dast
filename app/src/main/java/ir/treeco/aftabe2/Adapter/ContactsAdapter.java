@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.ContactsContract;
-import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import ir.treeco.aftabe2.Util.Logger;

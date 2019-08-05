@@ -1,6 +1,5 @@
 package ir.treeco.aftabe2.Adapter;
 
-import android.support.v7.widget.RecyclerView;
 
 import ir.treeco.aftabe2.Util.Logger;
 
@@ -10,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 

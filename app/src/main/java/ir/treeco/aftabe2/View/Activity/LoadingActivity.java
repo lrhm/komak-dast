@@ -56,8 +56,9 @@ public class LoadingActivity extends Activity implements Runnable {
 
         startTime = System.currentTimeMillis();
 
+        Logger.d("Loading", "inLoading");
 
-        new Handler().postDelayed(this, 0);
+        new Handler().postDelayed(this, 600);
 
     }
 

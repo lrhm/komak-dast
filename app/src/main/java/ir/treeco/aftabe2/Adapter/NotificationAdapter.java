@@ -2,11 +2,12 @@ package ir.treeco.aftabe2.Adapter;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
+
+import androidx.core.app.NotificationCompat;
 
 import ir.treeco.aftabe2.View.Activity.LoadingActivity;
 import ir.treeco.aftabe2.View.Activity.MainActivity;

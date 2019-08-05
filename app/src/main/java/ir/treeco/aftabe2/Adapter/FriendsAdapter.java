@@ -3,7 +3,6 @@ package ir.treeco.aftabe2.Adapter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.widget.RecyclerView;
 
 import ir.treeco.aftabe2.Util.Logger;
 
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.joda.time.IllegalFieldValueException;
 

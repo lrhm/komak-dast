@@ -7,8 +7,6 @@ import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 
 import ir.treeco.aftabe2.Util.ImageManager;
 import ir.treeco.aftabe2.Util.Logger;
@@ -19,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 

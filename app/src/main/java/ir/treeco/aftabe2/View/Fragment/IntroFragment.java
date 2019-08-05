@@ -2,8 +2,6 @@ package ir.treeco.aftabe2.View.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +10,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import ir.treeco.aftabe2.Util.ImageManager;
 import ir.treeco.aftabe2.Util.SizeConverter;

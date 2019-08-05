@@ -11,7 +11,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.util.LruCache;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.io.InputStream;

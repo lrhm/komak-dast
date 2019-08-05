@@ -5,13 +5,14 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import ir.treeco.aftabe2.API.Socket.SocketAdapter;
 import ir.treeco.aftabe2.Adapter.Cache.MatchRequestCache;
