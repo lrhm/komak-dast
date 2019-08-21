@@ -109,6 +109,7 @@ import ir.treeco.aftabe2.View.Fragment.MainFragment;
 import ir.treeco.aftabe2.View.Fragment.OnlineGameFragment;
 import ir.treeco.aftabe2.View.Fragment.PackageFragment;
 import ir.treeco.aftabe2.View.Fragment.StoreFragment;
+import ir.treeco.aftabe2.View.Fragment.VideoGameFragment;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,
@@ -257,6 +258,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         MainFragment mainFragment = new MainFragment();
 
 //        transaction.addToBackStack(null);
+
+        VideoGameFragment videoGameFragment = new VideoGameFragment();
 
         fragmentTransaction.replace(R.id.fragment_container, mainFragment, MAIN_FRAGMENT_TAG);
         fragmentTransaction.commitAllowingStateLoss();

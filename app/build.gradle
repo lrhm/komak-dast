@@ -18,7 +18,6 @@ repositories {
 android {
 
 
-
     signingConfigs {
         debug {
             storeFile file('/home/al/Android/keyf.jks')
@@ -47,10 +46,11 @@ android {
 }
 
 dependencies {
-   // compile files('libs/tapsell-video-sdk.jar')
- //   compile files('libs/universal-image-loader-1.9.5.jar')
+    // compile files('libs/tapsell-video-sdk.jar')
+    //   compile files('libs/universal-image-loader-1.9.5.jar')
 
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile('io.socket:socket.io-client:0.7.0') {
@@ -61,27 +61,27 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
     implementation 'com.google.android.exoplayer:exoplayer:2.10.3'
 
-    compile 'io.reactivex:rxjava:1.1.5'
-    compile 'com.artemzin.rxjava:proguard-rules:1.1.5.0'
+    implementation 'io.reactivex:rxjava:1.1.5'
+    implementation 'com.artemzin.rxjava:proguard-rules:1.1.5.0'
 
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
-    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
-    compile 'com.android.support:support-v4:28.0.0'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.ogaclejapan.smarttablayout:library:1.4.1'
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.4.1'
-    compile 'com.android.support:recyclerview-v7:28.0.0'
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.google.android.gms:play-services-auth:10.2.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.pixplicity.easyprefs:library:1.7'
-    compile 'joda-time:joda-time:2.8.2'
+    implementation 'com.squareup.retrofit:retrofit:2.0.0-beta1'
+    implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
+    implementation 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.ogaclejapan.smarttablayout:library:1.4.1'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.4.1'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.google.android.gms:play-services-auth:10.2.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.pixplicity.easyprefs:library:1.7'
+    implementation 'joda-time:joda-time:2.8.2'
 
 
-    compile 'com.android.support:design:28.*'
-    compile 'com.google.android.gms:play-services-gcm:10.2.1'
-    compile 'com.google.android.gms:play-services-plus:10.2.1'
+    implementation 'com.android.support:design:28.*'
+    implementation 'com.google.android.gms:play-services-gcm:10.2.1'
+    implementation 'com.google.android.gms:play-services-plus:10.2.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }

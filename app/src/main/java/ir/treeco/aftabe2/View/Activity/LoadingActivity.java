@@ -8,6 +8,7 @@ import android.os.Bundle;
 import ir.treeco.aftabe2.Util.Logger;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.pixplicity.easyprefs.library.Prefs;
@@ -44,7 +45,7 @@ public class LoadingActivity extends Activity implements Runnable {
         SizeConverter logiConverter = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.7f, 1000, 1000);
         SizeConverter synergyConverter = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.3f, 357,86 );
 
-        imageView.setImageBitmap(ImageManager.getInstance(this).loadImageFromResource(R.drawable.logi, logiConverter.mWidth, logiConverter.mHeight));
+        imageView.setImageBitmap(ImageManager.getInstance(this).loadImageFromResource(R.drawable.interpreting, logiConverter.mWidth, logiConverter.mHeight));
         synegy.setImageBitmap(ImageManager.getInstance(this).loadImageFromResource(R.drawable.synergy, synergyConverter.mWidth, synergyConverter.mHeight , ImageManager.ScalingLogic.FIT));
 
         int freeSize = (int) ((SizeManager.getScreenHeight() - logiConverter.mHeight) *0.6 - synergyConverter.mHeight);
@@ -57,6 +58,8 @@ public class LoadingActivity extends Activity implements Runnable {
         startTime = System.currentTimeMillis();
 
         Logger.d("Loading", "inLoading");
+
+        synegy.setVisibility(View.GONE);
 
         new Handler().postDelayed(this, 600);
 
