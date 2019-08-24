@@ -128,7 +128,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
 //        imagePath = "file://" + getActivity().getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + level.getResources();
 
-        Picasso.with(getActivity()).load(R.drawable.abr).into(imageView);
+        Picasso.with(getActivity()).load(level.getImagesPath(packageId, getActivity()).get(0)).into(imageView);
 
 
         return view;
@@ -144,7 +144,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
                 Util.getUserAgent(getContext(), "nashenavayan"));
 
 
-        Uri mediaUri = Uri.parse("asset:///myVideo.mp4");
+        Uri mediaUri = Uri.parse(level.getVideoPath(packageId, getActivity()));
 
         ProgressiveMediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).
                 createMediaSource(mediaUri);
