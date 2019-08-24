@@ -13,7 +13,9 @@ import java.util.zip.ZipInputStream;
 
 public class Zip {
     public boolean unpackZip(String path, int id, Context context) {
+
         String newPath = context.getFilesDir().getPath() + "/Packages/package_"+id+"/";
+
         Logger.e("path", "newPath: " + newPath);
 
         File fmd1 = new File(newPath);
@@ -30,6 +32,18 @@ public class Zip {
 
             while ((ze = zis.getNextEntry()) != null) {
                 filename = ze.getName();
+
+                // Need to create directories if not exists, or
+                // it will generate an Exception...
+                Logger.d("ZIP", filename);
+
+                if (ze.isDirectory()) {
+                    File fmd = new File(newPath + filename);
+                    fmd.mkdirs();
+                    continue;
+                }
+
+
                 FileOutputStream fout = new FileOutputStream(newPath + filename);
 
                 while ((count = zis.read(buffer)) != -1) {

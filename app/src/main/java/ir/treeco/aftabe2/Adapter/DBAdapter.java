@@ -54,8 +54,7 @@ public class DBAdapter {
     private static final String LEVEL_ID = "LEVEL_ID";
     private static final String LEVEL_SOLUTION = "LEVEL_SOLUTION";
     private static final String LEVEL_RESOLVE = "LEVEL_RESOLVE";
-    private static final String LEVEL_RESOURCES = "LEVEL_RESOURCES";
-    private static final String LEVEL_THUMBNAIL = "LEVEL_THUMBNAIL";
+    private static final String LEVEL_PICS = "LEVEL_PICS";
     private static final String LEVEL_TYPE = "LEVEL_TYPE";
     private static final String LEVEL_PACKAGE_ID = "LEVEL_PACKAGE_ID";
 
@@ -63,8 +62,7 @@ public class DBAdapter {
             LEVEL_SQL_ID + INTEGER_TYPE + PRIMARY_KEY + AUTOINCREMENT + COMMA_SEP +
             LEVEL_ID + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
             LEVEL_SOLUTION + TEXT_TYPE + COMMA_SEP +
-            LEVEL_RESOURCES + TEXT_TYPE + COMMA_SEP +
-            LEVEL_THUMBNAIL + TEXT_TYPE + COMMA_SEP +
+            LEVEL_PICS + TEXT_TYPE + COMMA_SEP +
             LEVEL_TYPE + TEXT_TYPE + COMMA_SEP +
             LEVEL_RESOLVE + BLOB_TYPE + COMMA_SEP +
             LEVEL_PACKAGE_ID + INTEGER_TYPE + BRACKET_CLOSE_SEP + SEMICOLON;
@@ -211,10 +209,9 @@ public class DBAdapter {
         for (int i = 0; i < levels.size(); i++) {
             ContentValues values = new ContentValues();
             values.put(LEVEL_ID, levels.get(i).getId());
-            values.put(LEVEL_SOLUTION, levels.get(i).getJavab());
+            values.put(LEVEL_SOLUTION, levels.get(i).getAnswer());
             values.put(LEVEL_RESOLVE, false);
-            values.put(LEVEL_RESOURCES, levels.get(i).getResources());
-            values.put(LEVEL_THUMBNAIL, levels.get(i).getThumbnail());
+            values.put(LEVEL_PICS, levels.get(i).getPics());
             values.put(LEVEL_TYPE, levels.get(i).getType());
             values.put(LEVEL_PACKAGE_ID, packageID);
             db.insert(LEVELS, null, values);
@@ -226,17 +223,16 @@ public class DBAdapter {
         open();
         Cursor cursor = db.query(LEVELS,
                 new String[]{LEVEL_ID, LEVEL_SOLUTION, LEVEL_RESOLVE,
-                        LEVEL_RESOURCES, LEVEL_THUMBNAIL, LEVEL_TYPE},
+                        LEVEL_PICS , LEVEL_TYPE},
                 LEVEL_PACKAGE_ID + " = " + packageID + " AND " + LEVEL_ID + " = " + levelID,
                 null, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             Level level = new Level();
             level.setId(cursor.getInt(cursor.getColumnIndex(LEVEL_ID)));
-            level.setJavab(cursor.getString(cursor.getColumnIndex(LEVEL_SOLUTION)));
+            level.setAnswer(cursor.getString(cursor.getColumnIndex(LEVEL_SOLUTION)));
             level.setResolved(cursor.getInt(cursor.getColumnIndex(LEVEL_RESOLVE)) > 0);
-            level.setResources(cursor.getString(cursor.getColumnIndex(LEVEL_RESOURCES)));
-            level.setThumbnail(cursor.getString(cursor.getColumnIndex(LEVEL_THUMBNAIL)));
+            level.setPics(cursor.getString(cursor.getColumnIndex(LEVEL_PICS)));
             level.setType(cursor.getString(cursor.getColumnIndex(LEVEL_TYPE)));
             close();
             return level;
@@ -249,7 +245,7 @@ public class DBAdapter {
         open();
         Cursor cursor = db.query(LEVELS,
                 new String[]{LEVEL_ID, LEVEL_SOLUTION, LEVEL_RESOLVE,
-                        LEVEL_RESOURCES, LEVEL_THUMBNAIL, LEVEL_TYPE},
+                        LEVEL_PICS, LEVEL_TYPE},
                 LEVEL_PACKAGE_ID + " = " + packageID,
                 null, null, null, null);
 
@@ -258,10 +254,9 @@ public class DBAdapter {
             for (int i = 0; i < cursor.getCount(); i++, cursor.moveToNext()) {
                 Level level = new Level();
                 level.setId(cursor.getInt(cursor.getColumnIndex(LEVEL_ID)));
-                level.setJavab(cursor.getString(cursor.getColumnIndex(LEVEL_SOLUTION)));
+                level.setAnswer(cursor.getString(cursor.getColumnIndex(LEVEL_SOLUTION)));
                 level.setResolved(cursor.getInt(cursor.getColumnIndex(LEVEL_RESOLVE)) > 0);
-                level.setResources(cursor.getString(cursor.getColumnIndex(LEVEL_RESOURCES)));
-                level.setThumbnail(cursor.getString(cursor.getColumnIndex(LEVEL_THUMBNAIL)));
+                level.setPics(cursor.getString(cursor.getColumnIndex(LEVEL_PICS)));
                 level.setType(cursor.getString(cursor.getColumnIndex(LEVEL_TYPE)));
                 levels[i] = level;
             }

@@ -24,7 +24,9 @@ import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
 import ir.treeco.aftabe2.Adapter.CoinAdapter;
+import ir.treeco.aftabe2.Adapter.DBAdapter;
 import ir.treeco.aftabe2.MainApplication;
+import ir.treeco.aftabe2.Object.Level;
 import ir.treeco.aftabe2.R;
 import ir.treeco.aftabe2.Util.ImageManager;
 import ir.treeco.aftabe2.Util.LengthManager;
@@ -47,8 +49,8 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Integer levelId;
+    private Integer packageId;
 
     KeyboardView keyboardView;
     PlayerView playerView;
@@ -57,8 +59,8 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     LengthManager lengthManager;
     ImageManager imageManager;
     ImageView imageView;
-
-
+    Level level;
+    DBAdapter db;
 
     public VideoGameFragment() {
         // Required empty public constructor
@@ -86,8 +88,9 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            levelId = getArguments().getInt("LevelId");
+            packageId = getArguments().getInt("id");
+
         }
     }
 
@@ -100,6 +103,10 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
         tools = new Tools(getContext());
         lengthManager = ((MainApplication) getActivity().getApplication()).getLengthManager();
         imageManager = ((MainApplication) getActivity().getApplication()).getImageManager();
+         db = DBAdapter.getInstance(getActivity());
+
+        level = db.getLevel(packageId, levelId);
+
 
         FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.fragment_game_keyboard_container);
 

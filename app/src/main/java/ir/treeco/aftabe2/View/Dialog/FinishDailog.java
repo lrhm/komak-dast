@@ -106,7 +106,7 @@ public class FinishDailog extends Dialog implements View.OnClickListener {
         homeButton.setOnClickListener(this);
 
         TextView levelSolution = (TextView) findViewById(R.id.level_solution);
-        customizeTextView(levelSolution, tools.decodeBase64(level.getJavab()).replace(".", " ").replace("/"," "), lengthManager.getLevelSolutionTextSize());
+        customizeTextView(levelSolution, tools.decodeBase64(level.getAnswer()).replace(".", " ").replace("/"," "), lengthManager.getLevelSolutionTextSize());
     }
 
     @Override

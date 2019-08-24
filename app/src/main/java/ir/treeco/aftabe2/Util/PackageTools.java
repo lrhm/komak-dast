@@ -125,6 +125,7 @@ public class PackageTools {
 
     public void copyLocalpackages() {
 
+        Logger.d(TAG, "copy local packages");
         Resources res = context.getResources();
         InputStream in_s = res.openRawResource(R.raw.local);
 
@@ -174,6 +175,9 @@ public class PackageTools {
         if (type.equals("zip")) {
             Zip zip = new Zip();
             zip.unpackZip(path, id, context);
+
+            Logger.d(TAG, "unzipped file");
+
             addLevelListToPackage(packageObject, id);
 
             DBAdapter db = DBAdapter.getInstance(context);
@@ -188,7 +192,8 @@ public class PackageTools {
         LevelListHolder list = null;
 
         try {
-            String a = context.getFilesDir().getPath() + "/Packages/package_" + id + "/" + "level_list.json";
+            Logger.d(TAG, "addLevelListToPackage");
+            String a = context.getFilesDir().getPath() + "/Packages/package_" + id + "/" + "levels.json";
             InputStream inputStream = new FileInputStream(a);
             Reader reader = new InputStreamReader(inputStream, "UTF-8");
             Gson gson = new GsonBuilder().create();

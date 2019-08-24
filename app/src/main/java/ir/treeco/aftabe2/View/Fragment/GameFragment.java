@@ -97,7 +97,7 @@ public class GameFragment extends Fragment implements View.OnClickListener, Keyb
         level = db.getLevel(packageId, levelId);
         packageSize = db.getLevels(packageId).length;
 
-        solution = tools.decodeBase64(level.getJavab());
+        solution = tools.decodeBase64(level.getAnswer());
 
         Answers.getInstance().logLevelStart(new LevelStartEvent()
                 .putLevelName(solution)
@@ -121,7 +121,7 @@ public class GameFragment extends Fragment implements View.OnClickListener, Keyb
         imageView = (ImageView) view.findViewById(R.id.image_game);
         imageView.setOnClickListener(this);
 
-        imagePath = "file://" + getActivity().getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + level.getResources();
+        imagePath = "file://" + getActivity().getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + level.getPics();
 
         Picasso.with(getActivity()).load(imagePath).into(imageView);
 

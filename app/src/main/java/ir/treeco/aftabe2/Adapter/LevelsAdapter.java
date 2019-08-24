@@ -20,6 +20,7 @@ import ir.treeco.aftabe2.Util.UiUtil;
 import ir.treeco.aftabe2.View.Activity.MainActivity;
 import ir.treeco.aftabe2.View.Fragment.GameFragment;
 import ir.treeco.aftabe2.R;
+import ir.treeco.aftabe2.View.Fragment.VideoGameFragment;
 
 public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder> {
     public static final String OFFLINE_GAME_FRAGMENT_TAG = "Offline_Game_Fragment";
@@ -68,7 +69,7 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
                 bundle.putInt("LevelId", levelID);
                 bundle.putInt("id", packageId);
 
-                GameFragment gameFragment = new GameFragment();
+                VideoGameFragment gameFragment = new VideoGameFragment();
                 gameFragment.setArguments(bundle);
 
                 FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
@@ -98,13 +99,13 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
         int levelPosition = page * 16 + position;
         if (levelPosition == 0 || levels[levelPosition].isResolved() || levels[levelPosition - 1].isResolved()) {
 
-            String imagePath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/"
-                    + levels[levelPosition].getResources();
+//            String imagePath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/"
+//                    + levels[levelPosition].getResources();
 
 //            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
 //                    + packageId + "_levelUnlocked.png";
 
-            Picasso.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
+//            Picasso.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
             Picasso.with(context).load(R.drawable.level_unlocked).into(viewHolder.frame);
 
             viewHolder.imageView.setVisibility(View.VISIBLE);

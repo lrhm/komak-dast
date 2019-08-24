@@ -1,13 +1,30 @@
 package ir.treeco.aftabe2.Object;
 
 public class Level {
+
     private int id;
-    private String resources;
-    private String javab;
     private boolean resolved;
     private String type;
-    private String thumbnail;
-    private String status;
+
+    public String getPics() {
+        return pics;
+    }
+
+    public void setPics(String pics) {
+        this.pics = pics;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    private String pics;
+    private String answer;
+
 
     public int getId() {
         return id;
@@ -17,21 +34,6 @@ public class Level {
         this.id = id;
     }
 
-    public String getResources() {
-        return resources;
-    }
-
-    public void setResources(String resources) {
-        this.resources = resources;
-    }
-
-    public String getJavab() {
-        return javab;
-    }
-
-    public void setJavab(String javab) {
-        this.javab = javab;
-    }
 
     public boolean isResolved() {
         return resolved;
@@ -49,19 +51,4 @@ public class Level {
         this.type = type;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
