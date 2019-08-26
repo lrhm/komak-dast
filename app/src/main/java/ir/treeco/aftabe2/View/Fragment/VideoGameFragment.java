@@ -1,17 +1,27 @@
 package ir.treeco.aftabe2.View.Fragment;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -21,34 +31,34 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
+import ir.treeco.aftabe2.Adapter.Cache.PackageSolvedCache;
 import ir.treeco.aftabe2.Adapter.CoinAdapter;
 import ir.treeco.aftabe2.Adapter.DBAdapter;
+import ir.treeco.aftabe2.Adapter.LevelsAdapter;
+import ir.treeco.aftabe2.Adapter.MediaAdapter;
+import ir.treeco.aftabe2.Interface.FinishLevel;
 import ir.treeco.aftabe2.MainApplication;
 import ir.treeco.aftabe2.Object.Level;
 import ir.treeco.aftabe2.R;
 import ir.treeco.aftabe2.Util.ImageManager;
 import ir.treeco.aftabe2.Util.LengthManager;
 import ir.treeco.aftabe2.Util.Tools;
+import ir.treeco.aftabe2.View.Activity.MainActivity;
 import ir.treeco.aftabe2.View.Custom.CheatDrawable;
 import ir.treeco.aftabe2.View.Custom.KeyboardView;
+import ir.treeco.aftabe2.View.Custom.ToastMaker;
+import ir.treeco.aftabe2.View.Dialog.FinishDailog;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link VideoGameFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link VideoGameFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboardEvent {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboardEvent, View.OnClickListener {
+
     private Integer levelId;
     private Integer packageId;
 
@@ -61,28 +71,18 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     ImageView imageView;
     Level level;
     DBAdapter db;
+    private int packageSize;
+    private MainActivity mainActivity;
+    private CoinAdapter coinAdapter;
+    private View[] cheatButtons;
+    private boolean skiped = false;
+    private boolean resulved = false;
+    private View blackWidow;
 
     public VideoGameFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VideoGameFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VideoGameFragment newInstance(String param1, String param2) {
-        VideoGameFragment fragment = new VideoGameFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,20 +99,17 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_game, container, false);
+        mainActivity = (MainActivity) getActivity();
 
         tools = new Tools(getContext());
         lengthManager = ((MainApplication) getActivity().getApplication()).getLengthManager();
         imageManager = ((MainApplication) getActivity().getApplication()).getImageManager();
-         db = DBAdapter.getInstance(getActivity());
+        db = DBAdapter.getInstance(getActivity());
+        coinAdapter = new CoinAdapter(getActivity(), getActivity());
 
         level = db.getLevel(packageId, levelId);
+        packageSize = db.getLevels(packageId).length;
 
-
-        FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.fragment_game_keyboard_container);
-
-        keyboardView = new KeyboardView(getContext(), "سلام");
-        keyboardView.onKeyboardEvent = this;
-        frameLayout.addView(keyboardView);
 
         playerView = view.findViewById(R.id.player_view);
 
@@ -121,17 +118,112 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
         initExoPlayer();
 
 
-
         imageView = (ImageView) view.findViewById(R.id.imageView);
 
 //        imageView.setOnClickListener(this);
 
 //        imagePath = "file://" + getActivity().getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + level.getResources();
 
-        Picasso.with(getActivity()).load(level.getImagesPath(packageId, getActivity()).get(0)).into(imageView);
+        if (level.getType().equals("1pic")) {
+            Picasso.with(getActivity()).load(level.getImagesPath(packageId, getActivity()).get(0)).into(imageView);
 
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    nextLevel(5);
+                }
+            });
+        }
+        if (level.getType().equals("4pics")) {
+
+            imageView.setVisibility(View.GONE);
+            init4Pics(view);
+
+            view.findViewById(R.id.four_pic_next_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+        }
+        if (level.getType().equals("keyboard")) {
+            imageView.setVisibility(View.GONE);
+
+            FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.fragment_game_keyboard_container);
+
+            frameLayout.setVisibility(View.VISIBLE);
+
+            keyboardView = new KeyboardView(getContext(), level.getAnswer());
+            keyboardView.onKeyboardEvent = this;
+            frameLayout.addView(keyboardView);
+
+            ((MainActivity) getActivity()).setupCheatButton(packageId);
+
+        }
 
         return view;
+    }
+
+    void init4Pics(final View parent) {
+
+        ImageView imageView1 = parent.findViewById(R.id.imageView1);
+
+        ImageView imageView2 = parent.findViewById(R.id.imageView2);
+
+        ImageView imageView3 = parent.findViewById(R.id.imageView3);
+
+        ImageView imageView4 = parent.findViewById(R.id.imageView4);
+
+        ImageView[] fourPics = {imageView1, imageView2, imageView3, imageView4};
+
+
+        ArrayList<String> pics = level.getImagesPath(packageId, getActivity());
+
+        for (int i = 0; i < 4; i++) {
+
+            fourPics[i].setVisibility(View.VISIBLE);
+
+            fourPics[i].setTag(i);
+
+            fourPics[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+//                    ((ImageView)view).setImageTintList(ColorStateList.valueOf(Color.parseColor("A5FF0000")));
+
+                    int highlightColor = Color.parseColor("#A5FF0000");
+
+                    if (level.getImagesPath(packageId, getActivity()).get((Integer) view.getTag()).contains(level.getAnswer())) {
+                        highlightColor = Color.parseColor("#A500FF00");
+//                        parent.findViewById(R.id.four_pic_next_button).setVisibility(View.VISIBLE);
+
+
+                        nextLevel(10);
+                    }
+
+                    ((ImageView) view).setColorFilter(highlightColor);
+
+
+//
+//
+//                    PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor, PorterDuff.Mode.SRC_ATOP);
+//
+//                    Paint redHighLight = new Paint();
+//                    redHighLight.setColorFilter(colorFilter);
+//                    redHighLight.setAlpha(190);
+//
+//                    ((ImageView) view).setColorFilter(redHighLight.getColorFilter());
+
+                }
+            });
+//            fourPics[i].setTag(level.getPics());
+            Picasso.with(getActivity()).load(pics.get(i)).into(fourPics[i]);
+
+        }
+
+
     }
 
     public void initExoPlayer() {
@@ -168,6 +260,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
 
     }
+
     private boolean isPlaying() {
         return player != null
                 && player.getPlaybackState() != Player.STATE_ENDED
@@ -177,9 +270,12 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        if (level.getType().equals("keyboard"))
+            ((MainActivity) getActivity()).hideCheatButton();
 
-        player.release();
+        super.onDestroy();
+        if (player != null)
+            player.release();
     }
 
 
@@ -192,6 +288,86 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
         tools.resizeView(frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight());
 
 
+        if (level.getType().equals("keyboard")) {
+            cheatButtons = new View[]{
+                    view.findViewById(R.id.cheat_remove_some_letters),
+                    view.findViewById(R.id.cheat_reveal_a_letter),
+                    view.findViewById(R.id.cheat_skip_level)
+            };
+
+            for (View cheatView : cheatButtons) {
+                cheatView.setOnClickListener(this);
+
+                ViewGroup.LayoutParams layoutParams = cheatView.getLayoutParams();
+                layoutParams.width = lengthManager.getCheatButtonWidth();
+                layoutParams.height = lengthManager.getCheatButtonHeight();
+            }
+
+            String[] cheatTitles = new String[]{
+                    "حذف چند حرف",
+                    "نمایش یک حرف",
+                    "رد کردن مرحله"
+            };
+
+            int[] cheatCosts = new int[]{
+                    CoinAdapter.ALPHABET_HIDING_COST,
+                    CoinAdapter.LETTER_REVEAL_COST,
+                    CoinAdapter.SKIP_LEVEL_COST
+            };
+
+            for (int i = 0; i < 3; i++)
+                tools.setViewBackground(
+                        cheatButtons[i],
+                        new CheatDrawable(  // TODO: 8/7/15 bad performance
+                                view.getContext(),
+                                i,
+                                cheatTitles[i],
+                                level.isResolved() ? "مفت" : tools.numeralStringToPersianDigits("" + cheatCosts[i])
+                        )
+                );
+
+
+            blackWidow = view.findViewById(R.id.black_widow);
+        }
+    }
+
+
+    private void nextLevel(int prize) {
+
+        if (!level.isResolved())
+            coinAdapter.earnCoins(prize);
+        db.resolveLevel(packageId, levelId);
+
+//        tools.backUpDB();
+        new FinishDailog(getActivity(), level, packageSize, false, prize,
+                new FinishLevel() {
+                    @Override
+                    public void NextLevel() {
+
+
+                        Bundle bundle = new Bundle();
+                        int levelID = level.getId() + 1;
+                        bundle.putInt("LevelId", levelID);
+                        bundle.putInt("id", packageId);
+
+                        VideoGameFragment gameFragment = new VideoGameFragment();
+                        gameFragment.setArguments(bundle);
+
+                        if (mainActivity == null && getActivity() != null)
+                            mainActivity = (MainActivity) getActivity();
+                        if (mainActivity != null) {
+                            FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragment_container, gameFragment, LevelsAdapter.OFFLINE_GAME_FRAGMENT_TAG);
+                            transaction.commitAllowingStateLoss();
+
+                        }
+                    }
+
+                    @Override
+                    public void Home() {
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
+                }).show();
     }
 
     @Override
@@ -207,7 +383,17 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
     @Override
     public void onAllAnswered(String guess) {
+        if ((guess.replace("آ", "ا").replace("/", "")).equals((level.getAnswer().replace(".",
+                "")).replace("آ", "ا").replace("/", ""))) {
 
+
+            if (!level.isResolved()) {
+                coinAdapter.earnCoins(CoinAdapter.LEVEL_COMPELETED_PRIZE);
+            }
+
+            nextLevel(30);
+
+        }
     }
 
     @Override
@@ -215,18 +401,161 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    private long lastTimeClicked = 0;
+    private long treshHold = 850;
+
+    @Override
+    public void onClick(View view) {
+
+        long clickTime = System.currentTimeMillis();
+        if (clickTime - lastTimeClicked < treshHold)
+            return;
+
+        lastTimeClicked = clickTime;
+
+        switch (view.getId()) {
+            case R.id.cheat_remove_some_letters:
+                ((MainActivity) getActivity()).toggleCheatButton();
+                cheatHazf();
+                break;
+
+            case R.id.cheat_reveal_a_letter:
+                ((MainActivity) getActivity()).toggleCheatButton();
+                cheatAzafe();
+                break;
+
+            case R.id.cheat_skip_level:
+                ((MainActivity) getActivity()).toggleCheatButton();
+                cheatNext();
+                break;
+        }
+    }
+
+
+    public void showCheats() {
+        for (View view : cheatButtons)
+            view.setVisibility(View.VISIBLE);
+
+        blackWidow.setVisibility(View.VISIBLE);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.playTogether(
+                ObjectAnimator.ofFloat(blackWidow, "alpha", 0, 0.60f),
+                ObjectAnimator.ofFloat(cheatButtons[0], "translationX", -cheatButtons[0].getWidth(), 0),
+                ObjectAnimator.ofFloat(cheatButtons[1], "translationX", +cheatButtons[1].getWidth(), 0),
+                ObjectAnimator.ofFloat(cheatButtons[2], "translationX", -cheatButtons[2].getWidth(), 0)
+        );
+
+
+        animatorSet.setDuration(600).start();
+
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (getActivity() == null)
+                    return;
+
+
+                ((MainActivity) getActivity()).disableCheatButton(true);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+    }
+
+    public void hideCheats() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(
+                ObjectAnimator.ofFloat(blackWidow, "alpha", 0.60f, 0),
+                ObjectAnimator.ofFloat(cheatButtons[0], "translationX", 0, -cheatButtons[0].getWidth()),
+                ObjectAnimator.ofFloat(cheatButtons[1], "translationX", 0, +cheatButtons[1].getWidth()),
+                ObjectAnimator.ofFloat(cheatButtons[2], "translationX", 0, -cheatButtons[2].getWidth())
+        );
+
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                for (View view : cheatButtons) {
+                    view.setVisibility(View.GONE);
+                    view.clearAnimation();
+                }
+
+                blackWidow.setVisibility(View.GONE);
+                if (getActivity() == null)
+                    return;
+
+
+                ((MainActivity) getActivity()).disableCheatButton(true);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        animatorSet.setDuration(600).start();
+    }
+
+    private void cheatNext() {
+        if (level.isResolved()) {
+            nextLevel(30);
+        } else if (coinAdapter.spendCoins(CoinAdapter.SKIP_LEVEL_COST)) {
+            skiped = true;
+            resulved = true;
+            nextLevel(30);
+        }
+    }
+
+    private void cheatHazf() {
+        if (level.isResolved()) {
+            keyboardView.removeSome();
+        } else if (coinAdapter.spendCoins(CoinAdapter.ALPHABET_HIDING_COST)) {
+            if (!keyboardView.removeSome()) {
+                String toastText = "نمیشه دیگه";
+                ToastMaker.show(getContext(), toastText, Toast.LENGTH_SHORT);
+                coinAdapter.earnCoins(CoinAdapter.ALPHABET_HIDING_COST);
+            }
+        }
+
+    }
+
+
+    private void cheatAzafe() {
+        if (level.isResolved()) {
+            keyboardView.showOne();
+        } else if (coinAdapter.spendCoins(CoinAdapter.LETTER_REVEAL_COST)) {
+            if (!keyboardView.showOne()) {
+                String toastText = "نمیشه دیگه";
+                ToastMaker.show(getContext(), toastText, Toast.LENGTH_SHORT);
+                coinAdapter.earnCoins(CoinAdapter.LETTER_REVEAL_COST);
+            }
+        }
+
     }
 }

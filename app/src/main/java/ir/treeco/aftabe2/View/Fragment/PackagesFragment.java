@@ -30,7 +30,7 @@ public class PackagesFragment extends Fragment implements PackageTools.OnNewPack
         View view = inflater.inflate(R.layout.fragment_package, container, false);
 
         db = DBAdapter.getInstance(getActivity());
-        type = getArguments().getInt(MainFragment.FRAGMENT_TYPE);
+//        type = getArguments().getInt(MainFragment.FRAGMENT_TYPE);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.package_recycler_view);
         recyclerView.setHasFixedSize(true);

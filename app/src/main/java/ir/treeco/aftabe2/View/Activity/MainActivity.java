@@ -108,6 +108,7 @@ import ir.treeco.aftabe2.View.Fragment.GameFragment;
 import ir.treeco.aftabe2.View.Fragment.MainFragment;
 import ir.treeco.aftabe2.View.Fragment.OnlineGameFragment;
 import ir.treeco.aftabe2.View.Fragment.PackageFragment;
+import ir.treeco.aftabe2.View.Fragment.PackagesFragment;
 import ir.treeco.aftabe2.View.Fragment.StoreFragment;
 import ir.treeco.aftabe2.View.Fragment.VideoGameFragment;
 
@@ -257,11 +258,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         MainFragment mainFragment = new MainFragment();
 
+        PackagesFragment packagesFragment = new PackagesFragment();
+
 //        transaction.addToBackStack(null);
 
         VideoGameFragment videoGameFragment = new VideoGameFragment();
 
-        fragmentTransaction.replace(R.id.fragment_container, mainFragment, MAIN_FRAGMENT_TAG);
+        fragmentTransaction.replace(R.id.fragment_container, packagesFragment, MAIN_FRAGMENT_TAG);
         fragmentTransaction.commitAllowingStateLoss();
 
         setUpCoinBox();
@@ -580,8 +583,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             areCheatsVisible = true;
 
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (fragment instanceof GameFragment)
-                ((GameFragment) fragment).showCheats();
+            if (fragment instanceof VideoGameFragment)
+                ((VideoGameFragment) fragment).showCheats();
 
         } else {
 
@@ -590,8 +593,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             areCheatsVisible = false;
 
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (fragment instanceof GameFragment)
-                ((GameFragment) fragment).hideCheats();
+            if (fragment instanceof VideoGameFragment)
+                ((VideoGameFragment) fragment).hideCheats();
         }
     }
 

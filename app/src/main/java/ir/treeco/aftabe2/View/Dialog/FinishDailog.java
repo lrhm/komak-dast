@@ -29,16 +29,18 @@ public class FinishDailog extends Dialog implements View.OnClickListener {
     private Context context;
     private Level level;
     private int packageSize;
+    private int prize;
     private FinishLevel finishLevel;
     private ImageManager imageManager;
     private LengthManager lengthManager;
     private boolean skiped;
 
-    public FinishDailog(Context context, Level level, int packageSize, boolean skiped, FinishLevel finishLevel) {
+    public FinishDailog(Context context, Level level, int packageSize, boolean skiped, int prize, FinishLevel finishLevel) {
         super(context);
         this.context = context;
         this.level = level;
-        this.packageSize = packageSize;
+        this.packageSize = packageSize + 1;
+        this.prize = prize;
         this.finishLevel = finishLevel;
         this.skiped = skiped;
         imageManager = ((MainApplication) context.getApplicationContext()).getImageManager();
@@ -68,17 +70,24 @@ public class FinishDailog extends Dialog implements View.OnClickListener {
         int padding = lengthManager.getLevelFinishedDialogPadding();
         contents.setPadding(padding, 0, padding, padding);
 
-        TextView prize = (TextView) findViewById(R.id.prize);
+        TextView prizeTextView = (TextView) findViewById(R.id.prize);
         if (!level.isResolved() && !skiped) {
-            String prizeString = "+۳۰";
-            customizeTextView(prize, prizeString, lengthManager.getLevelAuthorTextSize());
+            String prizeString;
+            if (prize == 30)
+                 prizeString = "+۳۰";
+            else if (prize == 10)
+                prizeString = "+۱۰";
+            else
+                prizeString = "+۵";
 
-            tools.resizeView(prize, lengthManager.getPrizeBoxSize(), lengthManager.getPrizeBoxSize());
-            tools.setViewBackground(prize, new BitmapDrawable(context.getResources(), imageManager.loadImageFromResource(R.drawable.coin, lengthManager.getPrizeBoxSize(), lengthManager.getPrizeBoxSize())));
+            customizeTextView(prizeTextView, prizeString, lengthManager.getLevelAuthorTextSize());
 
-            ObjectAnimator.ofFloat(prize, "rotation", 0, 315).setDuration(0).start();
+            tools.resizeView(prizeTextView, lengthManager.getPrizeBoxSize(), lengthManager.getPrizeBoxSize());
+            tools.setViewBackground(prizeTextView, new BitmapDrawable(context.getResources(), imageManager.loadImageFromResource(R.drawable.coin, lengthManager.getPrizeBoxSize(), lengthManager.getPrizeBoxSize())));
+
+            ObjectAnimator.ofFloat(prizeTextView, "rotation", 0, 315).setDuration(0).start();
         } else {
-            prize.setVisibility(View.GONE);
+            prizeTextView.setVisibility(View.GONE);
         }
 
         ImageView tickView = (ImageView) findViewById(R.id.tickView);
@@ -106,7 +115,8 @@ public class FinishDailog extends Dialog implements View.OnClickListener {
         homeButton.setOnClickListener(this);
 
         TextView levelSolution = (TextView) findViewById(R.id.level_solution);
-        customizeTextView(levelSolution, tools.decodeBase64(level.getAnswer()).replace(".", " ").replace("/"," "), lengthManager.getLevelSolutionTextSize());
+        if(level.getType().equals("keyboard"))
+        customizeTextView(levelSolution,level.getAnswer().replace(".", " ").replace("/"," "), lengthManager.getLevelSolutionTextSize());
     }
 
     @Override
