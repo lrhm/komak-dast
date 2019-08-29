@@ -2,6 +2,8 @@ package ir.iut.komakdast;
 
 import android.app.Application;
 
+import androidx.multidex.MultiDexApplication;
+
 import com.crashlytics.android.Crashlytics;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -12,7 +14,7 @@ import ir.iut.komakdast.Util.ImageManager;
 import ir.iut.komakdast.Util.LengthManager;
 
 
-public class MainApplication extends Application {
+public class MainApplication extends MultiDexApplication {
 
 
     private LengthManager lengthManager;

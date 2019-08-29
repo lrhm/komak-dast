@@ -32,6 +32,7 @@ android {
         applicationId "ir.ece.komakdast"
         minSdkVersion 16
         targetSdkVersion 28
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -51,7 +52,7 @@ dependencies {
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     compile('io.socket:socket.io-client:0.7.0') {
         // excluding org.json which is provided by Android
@@ -60,9 +61,6 @@ dependencies {
 
     implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
     implementation 'com.google.android.exoplayer:exoplayer:2.10.3'
-
-    implementation 'io.reactivex:rxjava:1.1.5'
-    implementation 'com.artemzin.rxjava:proguard-rules:1.1.5.0'
 
     implementation 'com.squareup.retrofit:retrofit:2.0.0-beta1'
     implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
@@ -73,17 +71,27 @@ dependencies {
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.4.1'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.google.code.gson:gson:2.4'
-    implementation 'com.google.android.gms:play-services-auth:10.2.1'
+//    implementation 'com.google.android.gms:play-services-auth:10.2.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.pixplicity.easyprefs:library:1.7'
     implementation 'joda-time:joda-time:2.8.2'
 
 
     implementation 'com.android.support:design:28.*'
-    implementation 'com.google.android.gms:play-services-gcm:10.2.1'
-    implementation 'com.google.android.gms:play-services-plus:10.2.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
-    }
+//    implementation 'com.google.android.gms:play-services-gcm:10.2.1'
+//    implementation 'com.google.android.gms:play-services-plus:10.2.1'
+
+
+    // Check for v11.4.2 or higher
+    implementation 'com.google.firebase:firebase-core:17.1.0'
+
+    // (Recommended) Add Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.1.0'
+
+    // Add dependency
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
 }
 apply plugin: 'com.google.gms.google-services'

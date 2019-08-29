@@ -27,7 +27,6 @@ import ir.iut.komakdast.API.Rest.Utils.ContactsHolder;
 import ir.iut.komakdast.API.Rest.Utils.CountHolder;
 import ir.iut.komakdast.API.Rest.Utils.ForceObject;
 import ir.iut.komakdast.API.Rest.Utils.FriendRequestSent;
-import ir.iut.komakdast.API.Rest.Utils.GCMTokenHolder;
 import ir.iut.komakdast.API.Rest.Utils.GoogleToken;
 import ir.iut.komakdast.API.Rest.Utils.GuestCreateToken;
 import ir.iut.komakdast.API.Rest.Utils.IndexHolder;
@@ -49,7 +48,6 @@ import ir.iut.komakdast.Object.PackageObject;
 import ir.iut.komakdast.Object.TokenHolder;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.API.Rest.Utils.LoginInfo;
-import ir.iut.komakdast.Service.RegistrationIntentService;
 import ir.iut.komakdast.Util.RandomString;
 import ir.iut.komakdast.Util.Tools;
 import retrofit.Call;
@@ -668,35 +666,35 @@ public class AppAPIAdapter {
 
     public static void updateGCMToken(String gcmToken) {
 
-        User myUser = Tools.getCachedUser(context);
-        if (myUser == null || myUser.getId() == null || myUser.getLoginInfo().getAccessToken() == null)
-            myUser = HiddenAdapter.getInstance().getHiddenUsr();
-        if (myUser == null || myUser.getId() == null || myUser.getLoginInfo().getAccessToken() == null)
-            return;
-
-        init();
-
-        GCMTokenHolder gcmTokenHolder = new GCMTokenHolder(gcmToken);
-
-        Call<User> call = aftabeService.updateGCMToken(myUser.getId(), myUser.getLoginInfo().getAccessToken(), gcmTokenHolder);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Response<User> response) {
-                if (response.isSuccess() && response.code() == successCode)
-                    if (response.body() != null) {
-                        Prefs.putBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, true);
-                        return;
-                    }
-                Prefs.putBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, false);
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Prefs.putBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, false);
-
-            }
-        });
+//        User myUser = Tools.getCachedUser(context);
+//        if (myUser == null || myUser.getId() == null || myUser.getLoginInfo().getAccessToken() == null)
+//            myUser = HiddenAdapter.getInstance().getHiddenUsr();
+//        if (myUser == null || myUser.getId() == null || myUser.getLoginInfo().getAccessToken() == null)
+//            return;
+//
+//        init();
+//
+//        GCMTokenHolder gcmTokenHolder = new GCMTokenHolder(gcmToken);
+//
+//        Call<User> call = aftabeService.updateGCMToken(myUser.getId(), myUser.getLoginInfo().getAccessToken(), gcmTokenHolder);
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Response<User> response) {
+//                if (response.isSuccess() && response.code() == successCode)
+//                    if (response.body() != null) {
+//                        Prefs.putBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, true);
+//                        return;
+//                    }
+//                Prefs.putBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, false);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Prefs.putBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, false);
+//
+//            }
+//        });
 
     }
 

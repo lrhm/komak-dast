@@ -28,13 +28,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.BillingWrapper;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.PurchaseEvent;
 import com.crashlytics.android.answers.StartCheckoutEvent;
-import com.google.android.gms.auth.api.Auth;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
@@ -75,7 +75,6 @@ import ir.iut.komakdast.Util.StoreAdapter;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Service.NotifObjects.ActionHolder;
-import ir.iut.komakdast.Service.RegistrationIntentService;
 import ir.iut.komakdast.Service.ServiceConstants;
 import ir.iut.komakdast.Util.FontsHolder;
 import ir.iut.komakdast.Util.ImageManager;
@@ -180,6 +179,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initActivity() {
 
+
         SizeManager.initSizes(this);
 
         mUserFoundListeners = new ArrayList<>();
@@ -252,16 +252,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         billingProcessor = new BillingProcessor(this, BillingWrapper.KEY_CAFE_BAZAAR, this);
 
-        mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-          //      .requestIdToken(getString(R.string.server_client_id))
-                .build();
-
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, mGoogleSignInOptions)
-                .build();
+//        mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//          //      .requestIdToken(getString(R.string.server_client_id))
+//                .build();
+//
+//
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, mGoogleSignInOptions)
+//                .build();
 
 
         String tapsellKey = "rraernffrdhehkkmdtabokdtidjelnbktrnigiqnrgnsmtkjlibkcloprioabedacriasm";
@@ -271,8 +271,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        startService(intent);
 
 //        if (!Prefs.getBoolean(RegistrationIntentService.SENT_TOKEN_TO_SERVER, false)) {
-        Intent intent = new Intent(this, RegistrationIntentService.class);
-        startService(intent);
+//        Intent intent = new Intent(this, RegistrationIntentService.class);
+//        startService(intent);
 //        }
 
 //        coinAdapter.earnCoins(5000);
@@ -587,10 +587,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         Logger.d(TAG, "onActivityResult");
 
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
+//        if (requestCode == RC_SIGN_IN) {
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            handleSignInResult(result);
+//        }
 
         if (billingProcessor == null || !billingProcessor.handleActivityResult(requestCode, resultCode, data))
             super.onActivityResult(requestCode, resultCode, data);
@@ -867,48 +867,48 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void signInWithGoogle() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//        startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
 
-    private void handleSignInResult(GoogleSignInResult result) {
-
-        Logger.d(TAG, "handleSignInResult:" + result.getStatus().getStatus());
-
-
-        if (result == null)
-            return;
-
-        String TAG = "GoogleSignInResult";
-        Logger.d(TAG, "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            final GoogleToken googleToken = new GoogleToken(acct.getIdToken());
-
-
-            AppAPIAdapter.isOldUser(googleToken, new OldUserListener() {
-                @Override
-                public void isOldUser(boolean oldUser) {
-                    if (oldUser) {
-
-
-                        googleToken.setUsername(RandomString.nextString());
-                        AppAPIAdapter.getMyUserByGoogle(googleToken, MainActivity.this);
-
-                        return;
-                    }
-                    new UsernameChooseDialog(MainActivity.this, googleToken, MainActivity.this).show();
-
-
-                }
-            });
-
-
-        } else {
-        }
-    }
+//    private void handleSignInResult(GoogleSignInResult result) {
+//
+//        Logger.d(TAG, "handleSignInResult:" + result.getStatus().getStatus());
+//
+//
+//        if (result == null)
+//            return;
+//
+//        String TAG = "GoogleSignInResult";
+//        Logger.d(TAG, "handleSignInResult:" + result.isSuccess());
+//        if (result.isSuccess()) {
+//            // Signed in successfully, show authenticated UI.
+//            GoogleSignInAccount acct = result.getSignInAccount();
+//            final GoogleToken googleToken = new GoogleToken(acct.getIdToken());
+//
+//
+//            AppAPIAdapter.isOldUser(googleToken, new OldUserListener() {
+//                @Override
+//                public void isOldUser(boolean oldUser) {
+//                    if (oldUser) {
+//
+//
+//                        googleToken.setUsername(RandomString.nextString());
+//                        AppAPIAdapter.getMyUserByGoogle(googleToken, MainActivity.this);
+//
+//                        return;
+//                    }
+//                    new UsernameChooseDialog(MainActivity.this, googleToken, MainActivity.this).show();
+//
+//
+//                }
+//            });
+//
+//
+//        } else {
+//        }
+//    }
 
     public User getMyUser() {
         return myUser;
