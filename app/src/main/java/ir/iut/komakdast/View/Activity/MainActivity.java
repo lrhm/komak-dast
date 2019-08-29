@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import ir.iut.komakdast.Synchronization.Synchronize;
 import ir.iut.komakdast.Util.Logger;
 
 import android.util.TypedValue;
@@ -30,7 +29,6 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.BillingWrapper;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.crashlytics.android.answers.PurchaseEvent;
 import com.crashlytics.android.answers.StartCheckoutEvent;
 import com.google.android.gms.auth.api.Auth;
@@ -66,8 +64,6 @@ import ir.iut.komakdast.API.Rest.Utils.GoogleToken;
 import ir.iut.komakdast.Adapter.Cache.AppListAdapter;
 import ir.iut.komakdast.Adapter.Cache.FriendRequestState;
 import ir.iut.komakdast.Adapter.Cache.FriendsHolder;
-import ir.iut.komakdast.Adapter.Cache.MatchRequestCache;
-import ir.iut.komakdast.Adapter.Cache.UserActionCache;
 import ir.iut.komakdast.Adapter.CoinAdapter;
 import ir.iut.komakdast.Adapter.DBAdapter;
 import ir.iut.komakdast.Adapter.ForceAdapter;
@@ -95,13 +91,7 @@ import ir.iut.komakdast.View.Custom.ToastMaker;
 import ir.iut.komakdast.View.Custom.UserLevelView;
 import ir.iut.komakdast.View.Dialog.ForceUpdateDialog;
 import ir.iut.komakdast.View.Dialog.FriendRequestDialog;
-import ir.iut.komakdast.View.Dialog.LoadingDialog;
-import ir.iut.komakdast.View.Dialog.LoadingForGameResultDialog;
-import ir.iut.komakdast.View.Dialog.MatchRequestDialog;
-import ir.iut.komakdast.View.Dialog.SkipAlertDialog;
 import ir.iut.komakdast.View.Dialog.UsernameChooseDialog;
-import ir.iut.komakdast.View.Fragment.MainFragment;
-import ir.iut.komakdast.View.Fragment.OnlineGameFragment;
 import ir.iut.komakdast.View.Fragment.PackageFragment;
 import ir.iut.komakdast.View.Fragment.PackagesFragment;
 import ir.iut.komakdast.View.Fragment.StoreFragment;
@@ -111,12 +101,11 @@ import ir.iut.komakdast.View.Fragment.VideoGameFragment;
 public class MainActivity extends FragmentActivity implements View.OnClickListener,
         BillingProcessor.IBillingHandler, CoinAdapter.CoinsChangedListener,
         GoogleApiClient.OnConnectionFailedListener, UserFoundListener, SocketListener,
-        SocketFriendMatchListener, FriendRequestListener, OnlineGameFragment.OnGameEndListener, ForceAdapter.ForceListener {
+        SocketFriendMatchListener, FriendRequestListener, ForceAdapter.ForceListener {
 
 
     private static final String MAIN_FRAGMENT_TAG = "FRAGMENT_MAIN_TAG";
     private ArrayList<FriendRequestDialog> mCachedFriendRequestDialogs = new ArrayList<>();
-    LoadingDialog loadingDialogMatchReq = null;
     private boolean isInOnlineGame = false;
     private Object matchRqResultLock = new Object();
 
@@ -135,7 +124,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private boolean store = false;
     public UserLevelView playerOne;
     public UserLevelView playerTwo;
-    public MainFragment mainFragment;
     public TimerView mTimerView;
     public FrameLayout mTimerContainer;
     private ImageView coinBox;
@@ -145,13 +133,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private static final String TAG = "MainActivity";
     private User myUser = null;
     private ArrayList<UserFoundListener> mUserFoundListeners;
-    private LoadingDialog mLoadingDialog;
     private LinearLayout starContainer;
     private StarView[] starViews;
     public FriendsAdapter mFriendsAdapter;
     private long matchResultTime = 0;
-    LoadingForGameResultDialog mLoadingForGameResultDialog = null;
-    LoadingForGameResultDialog mLoadingForRegister = null;
+
     private Button creditsButton;
 
 
@@ -243,7 +229,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (fragmentManager.getBackStackEntryCount() != 0) throw new IllegalStateException();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mainFragment = new MainFragment();
 
         Bundle bundle = new Bundle();
         bundle.putInt("id", 0);
@@ -251,7 +236,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         PackageFragment packageFragment = new PackageFragment();
         packageFragment.setArguments(bundle);
 
-        MainFragment mainFragment = new MainFragment();
 
         PackagesFragment packagesFragment = new PackagesFragment();
 
@@ -627,7 +611,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .putItemPrice(BigDecimal.valueOf(price))
                 .putItemId(productId));
 
-        MediaAdapter.getInstance(this).playPurchaseSound();
 
         Integer amount = StoreAdapter.getSkuAmount(productId);
         if (amount != null)
@@ -697,8 +680,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 for (UserFoundListener userFoundListener : mUserFoundListeners)
                     userFoundListener.onGetMyUser(MainActivity.this.myUser);
 
-                if (mLoadingForRegister != null)
-                    mLoadingForRegister.dismiss();
+
 
                 if (CoinAdapter.shouldCheckUser()
                         && !AppAPIAdapter.isIsUpdateCoinInProgress()
@@ -738,29 +720,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onMatchRequest(final MatchRequestSFHolder request) {
 
-        if (coinAdapter.getCoinsCount() < 100) {
-            SocketAdapter.responseToMatchRequest(request.getFriend().getId(), false);
-
-            return;
-        }
-
-        if (!isInOnlineGame && !isFinishing()) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    if (!isFinishing() && !isPaused) {
-
-
-                        MatchRequestDialog dialog = new MatchRequestDialog(MainActivity.this, request.getFriend());
-                        MatchRequestCache.getInstance().add(dialog);
-                        dialog.show();
-                    }
-                }
-            });
-
-        }
     }
 
     @Override
@@ -770,54 +729,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onMatchResultToSender(MatchResultHolder result) {
-        loadingDialogMatchReq = null;
-        matchResultTime = System.currentTimeMillis();
 
-        Logger.d(TAG, "result is " + new Gson().toJson(result));
-
-        Answers.getInstance().logCustom(new CustomEvent("Match Request Result")
-                .putCustomAttribute("status", result.getStatus()));
-
-
-        if (result.isAccept()) {
-            new Handler(getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-
-                    if (!isFinishing()) {
-                        if (!isFinishing())
-
-                            synchronized (matchRqResultLock) {
-
-
-                                if (loadingDialogMatchReq == null) {
-                                    loadingDialogMatchReq = new LoadingDialog(MainActivity.this);
-                                    loadingDialogMatchReq.show();
-                                }
-                            }
-                    }
-
-                }
-            });
-        }
     }
 
     @Override
     public void onFriendRequest(final User user) {
 
-        new Handler(getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
 
-                if (!isFinishing()) {
-                    FriendRequestDialog dialog = new FriendRequestDialog(MainActivity.this, user);
-                    if (!isInOnlineGame && !isFinishing())
-                        dialog.show();
-                    else
-                        mCachedFriendRequestDialogs.add(dialog);
-                }
-            }
-        });
 
 
     }
@@ -871,22 +789,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
             }, 1000);
         }
-    }
-
-    @Override
-    public void onGameEnded() {
-
-        Logger.d(TAG, "on game end");
-        setIsInOnlineGame(false);
-
-        for (FriendRequestDialog dialog : mCachedFriendRequestDialogs) {
-            if (!isFinishing())
-                dialog.show();
-        }
-        mCachedFriendRequestDialogs.clear();
-
-        setOriginalBackground(R.drawable.circles);
-
     }
 
     public boolean isPaused() {
@@ -991,9 +893,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 public void isOldUser(boolean oldUser) {
                     if (oldUser) {
 
-                        mLoadingForRegister = new LoadingForGameResultDialog(MainActivity.this, 10);
-
-                        mLoadingForRegister.show();
 
                         googleToken.setUsername(RandomString.nextString());
                         AppAPIAdapter.getMyUserByGoogle(googleToken, MainActivity.this);
@@ -1022,26 +921,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onGotGame(final GameResultHolder gameHolder) {
 
-        if (System.currentTimeMillis() - matchResultTime < 1000)
-            new Handler(getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    if (!isFinishing()) {
-                        synchronized (matchRqResultLock) {
 
-
-                            if (loadingDialogMatchReq != null) {
-                                loadingDialogMatchReq.showGame(gameHolder);
-                            } else {
-                                loadingDialogMatchReq = new LoadingDialog(MainActivity.this);
-                                loadingDialogMatchReq.show();
-                                loadingDialogMatchReq.onGotGame(gameHolder);
-                            }
-                        }
-
-                    }
-                }
-            });
 
     }
 
@@ -1054,20 +934,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onGotUserAction(final UserActionHolder actionHolder) {
 
 
-        Logger.d(TAG, "got user action");
-        if (!actionHolder.getUserId().equals(Tools.getCachedUser(this).getId())) {
-            UserActionCache.getInstance().addToOpponentList(actionHolder.getAction());
-            if (actionHolder.getAction().isCorrect())
-                MediaAdapter.getInstance(this).playEnemyCorrect();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    playerTwo.setOnlineState(actionHolder.getAction());
-
-                }
-            });
-
-        }
 
     }
 
@@ -1129,26 +995,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void requestRandomGame() {
 
-        if (myUser == null || !Synchronize.isOnline(this) || SocketAdapter.isDisconnected()) {
-            ToastMaker.show(this, getResources().getString(R.string.connection_to_internet_sure), Toast.LENGTH_SHORT);
-            AppAPIAdapter.tryToLogin(this);
-            SocketAdapter.reconnect();
 
-            return;
-        }
-
-        if (!coinAdapter.spendCoinDiffless(100)) {
-            return;
-        }
-
-        playerOne.setOnlineStateClear();
-        playerTwo.setOnlineStateClear();
-
-
-        mLoadingDialog = new LoadingDialog(this, true);
-
-        mLoadingDialog.show();
-        SocketAdapter.requestGame();
 
     }
 
@@ -1163,9 +1010,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             setOnlineGameVisibilityGone();
     }
 
-    public void setLoadingForGameResultDialog(LoadingForGameResultDialog loadingForGameResultDialog) {
-        mLoadingForGameResultDialog = loadingForGameResultDialog;
-    }
+
 
     int backPressedCount = 0;
     long backPressedTime = 0;
@@ -1174,8 +1019,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onBackPressed() {
 
 
-        final OnlineGameFragment fragment = (OnlineGameFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENT_ONLINE_GAME");
-        if (fragment == null) {
+        if (true) {
             Fragment main = getSupportFragmentManager().findFragmentByTag(MAIN_FRAGMENT_TAG);
             if (main.isVisible()) {
 
@@ -1201,18 +1045,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
             super.onBackPressed();
-            return;
         }
 
-        new SkipAlertDialog(this, "بازی تمام خواهد شد . \n مطمئنی ؟", new TextView.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                fragment.doLose();
-                MainActivity.this.setOnlineGame(false);
-                MainActivity.this.getSupportFragmentManager().popBackStack();
-            }
-        }, null).show();
     }
 
 
@@ -1227,11 +1062,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         MediaAdapter.getInstance(this).free();
 
-        if (mLoadingForGameResultDialog != null)
-            mLoadingForGameResultDialog.dismiss();
 
-        if (mLoadingDialog != null)
-            mLoadingDialog.onBackPressed();
 
         pauseTime = System.currentTimeMillis();
 
@@ -1325,44 +1156,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
 
-        if (actionHolder.isFriendRequest()) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    new FriendRequestDialog(MainActivity.this, actionHolder.getNotifHolder().getFriendSF().getUser()).show();
 
-                }
-            }, 1000);
-            return;
-        }
-        if (actionHolder.isMatchRequest()) {
-            if (actionHolder.isActionSpecified()) {
 
-                if (!coinAdapter.spendCoinDiffless(100)) {
-
-                    SocketAdapter.responseToMatchRequest(actionHolder.getNotifHolder().getMatchSF().getFriendId(), false);
-                    return;
-                }
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        SocketAdapter.responseToMatchRequest(actionHolder.getNotifHolder().getMatchSF().getFriendId(), true);
-
-                    }
-                }, 1300);
-                new LoadingDialog(this).show();
-            } else {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        new MatchRequestDialog(MainActivity.this, actionHolder.getNotifHolder().getMatchSF().getFriend()).show();
-
-                    }
-                }, 1300);
-            }
-        }
 
 
     }

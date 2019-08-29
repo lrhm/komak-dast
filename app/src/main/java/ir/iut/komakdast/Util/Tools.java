@@ -526,9 +526,8 @@ public class Tools {
             }
 
             if (!user.isGuest()) {
-                SocketAdapter.reInitiSocket();
-                AppAPIAdapter.getListOfMyFriends(user, ((MainActivity) context).mainFragment.getFriendListFragment());
-            }
+
+                   }
         }
 
     }

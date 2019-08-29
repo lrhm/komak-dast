@@ -37,7 +37,6 @@ import ir.iut.komakdast.View.Activity.MainActivity;
 import ir.iut.komakdast.View.Custom.ToastMaker;
 import ir.iut.komakdast.View.Custom.UserLevelView;
 import ir.iut.komakdast.View.Dialog.DialogAdapter;
-import ir.iut.komakdast.View.Dialog.LoadingForMatchRequestResult;
 import ir.iut.komakdast.View.Dialog.RegistrationDialog;
 
 /**
@@ -245,7 +244,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                             }
 
                             SocketAdapter.requestToAFriend(user.getId());
-                            new LoadingForMatchRequestResult(context, user).show();
                         }
                     });
 

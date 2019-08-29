@@ -314,7 +314,6 @@ public class UserViewDialog extends Dialog implements View.OnClickListener {
 
                     SocketAdapter.requestToAFriend(mUser.getId());
 
-                    new LoadingForMatchRequestResult(context, mUser).show();
                 }
             });
 

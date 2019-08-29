@@ -36,8 +36,6 @@ public class DialogAdapter {
 
     public static void makeMatchRequestDialog(Context context, User user, View.OnClickListener yesClick) {
 
-        if (DialogAdapter.checkInternetConnection(context))
-            new MatchRequestDialog(context, user, true, yesClick).show();
 
     }
 

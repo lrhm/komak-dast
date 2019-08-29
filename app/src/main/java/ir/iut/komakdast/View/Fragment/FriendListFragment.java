@@ -286,22 +286,13 @@ public class FriendListFragment extends Fragment implements TextWatcher, View.On
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.fragment_friend_list_arrow_up) {
 
-            ((OnlineMenuFragment) getParentFragment()).verticalViewPager.setPagingEnabled(true);
-            ((OnlineMenuFragment) getParentFragment()).verticalViewPager.setCurrentItem(0, true);
-
-
-        }
 
         if (v.getId() == R.id.clear_button) {
             clear();
 
         }
-        if (v.getId() == R.id.search_text_view) {
-            ((OnlineMenuFragment) getParentFragment()).verticalViewPager.setPagingEnabled(false);
 
-        }
     }
 
     public void clear() {
@@ -384,7 +375,6 @@ public class FriendListFragment extends Fragment implements TextWatcher, View.On
         InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
 
-        ((OnlineMenuFragment) getParentFragment()).verticalViewPager.setPagingEnabled(true);
 
     }
 
@@ -496,7 +486,6 @@ public class FriendListFragment extends Fragment implements TextWatcher, View.On
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
 
-        ((OnlineMenuFragment) getParentFragment()).verticalViewPager.setPagingEnabled(!hasFocus);
 
 
     }

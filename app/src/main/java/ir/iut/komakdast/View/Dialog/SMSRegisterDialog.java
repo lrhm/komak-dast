@@ -252,7 +252,6 @@ public class SMSRegisterDialog extends Dialog implements SMSValidationListener, 
         Logger.d("TAG", "valid code");
 
 
-        MediaAdapter.getInstance(context).playCorrectSound();
 
         isSMSValidated = true;
 
