@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="ir.treeco.aftabe2.View.Fragment.FriendListFragment">
+    tools:context="ir.iut.komakdast.View.Fragment.FriendListFragment">
 
 
     <ImageView
@@ -51,7 +51,7 @@
 
             >
 
-            <ir.treeco.aftabe2.View.Custom.MyAutoCompleteTextView
+            <ir.iut.komakdast.View.Custom.MyAutoCompleteTextView
                 android:id="@+id/search_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
