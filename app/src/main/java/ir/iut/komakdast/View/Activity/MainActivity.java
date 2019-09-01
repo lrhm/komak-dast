@@ -488,7 +488,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         if (background == null)
             background = (ImageView) findViewById(R.id.background);
-        background.setImageBitmap(imageManager.loadImageFromResource(R.drawable.logo1, lengthManager.getScreenWidth(), lengthManager.getScreenHeight()));
+        Picasso.with(this).load(R.drawable.background).fit().centerCrop().into(background);
+//        background.setImageBitmap(imageManager.loadImageFromResource(R.drawable.logo1, lengthManager.getScreenWidth(), lengthManager.getScreenHeight()));
 //        background.setImageDrawable(new BackgroundDrawable(this, new int[]{
 //                Color.parseColor("#6b92ea"),//F3c51c
 //                Color.parseColor("#5180ea"),

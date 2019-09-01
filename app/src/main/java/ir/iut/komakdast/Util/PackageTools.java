@@ -147,10 +147,12 @@ public class PackageTools {
 
         for (PackageObject object : objects) {
 
-            for (PackageObject inDb : DBAdapter.getInstance(context).getPackages()) {
-                if (inDb.getId() == object.getId())
-                    continue;
-            }
+            PackageObject[] packages = DBAdapter.getInstance(context).getPackages();
+            if (packages != null)
+                for (PackageObject inDb : packages) {
+                    if (inDb.getId() == object.getId())
+                        continue;
+                }
             String zipFileName = object.getFileName().substring(0, object.getFileName().length() - 4);
             writeRawFiles(object, "package_" + object.getId() + "_front", "png", object.getId());
             writeRawFiles(object, zipFileName, "zip", object.getId());
