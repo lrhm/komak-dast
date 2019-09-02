@@ -180,7 +180,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         hideCheatButton();
 
 
-        starContainer = (LinearLayout) findViewById(R.id.star_container);
+//        starContainer = (LinearLayout) findViewById(R.id.star_container);
 //        initStars();
 
 
@@ -347,6 +347,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void setUpHeader() {
+
         RelativeLayout header = (RelativeLayout) findViewById(R.id.header);
         header.setLayoutParams(new LinearLayout.LayoutParams(
                 lengthManager.getScreenWidth(),
@@ -354,11 +355,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         ));
 
         if (logo == null) logo = (ImageView) findViewById(R.id.logo);
+//
+//        logo.setImageBitmap(imageManager.loadImageFromResource(
+//                R.drawable.header, lengthManager.getScreenWidth(),
+//                lengthManager.getScreenWidth() / 4
+//        ));
+//
+        UiUtil.setWidth(logo, (int) (lengthManager.getScreenWidth() * 0.2f));
 
-        logo.setImageBitmap(imageManager.loadImageFromResource(
-                R.drawable.header, lengthManager.getScreenWidth(),
-                lengthManager.getScreenWidth() / 4
-        ));
+        UiUtil.setLeftMargin(logo,(int) (lengthManager.getScreenWidth() * 0.7) );
+
+        Glide.with(this).load(R.drawable.new_icon).into(logo);
 
         creditsButton = (Button) findViewById(R.id.activity_main_credits_button);
 
