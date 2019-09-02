@@ -30,7 +30,6 @@ import ir.iut.komakdast.Util.Tools;
 import ir.iut.komakdast.Util.UiUtil;
 import ir.iut.komakdast.View.Activity.MainActivity;
 import ir.iut.komakdast.View.Custom.UserLevelView;
-import ir.iut.komakdast.View.Dialog.LeaderboardDialog;
 import ir.iut.komakdast.View.Dialog.RegistrationDialog;
 
 /**
@@ -94,8 +93,8 @@ public class UserInfoFragment extends Fragment implements UserFoundListener {
 
                     Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag("leaderboard");
                     if (prev != null) {
-                        LeaderboardDialog df = (LeaderboardDialog) prev;
-                        df.dismiss();
+//                        LeaderboardDialog df = (LeaderboardDialog) prev;
+//                        df.dismiss();
                     }
                 }
             });

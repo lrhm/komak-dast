@@ -27,7 +27,6 @@ import ir.iut.komakdast.Util.SizeManager;
 import ir.iut.komakdast.Util.Tools;
 import ir.iut.komakdast.Util.UiUtil;
 import ir.iut.komakdast.View.Activity.MainActivity;
-import ir.iut.komakdast.View.Dialog.LeaderboardDialog;
 import ir.iut.komakdast.View.Dialog.RegistrationDialog;
 import ir.iut.komakdast.View.Dialog.UserViewDialog;
 
@@ -422,7 +421,7 @@ public class UserLevelView extends LinearLayout implements View.OnClickListener 
             if (!mUser.isMe()) {
                 new UserViewDialog(getContext(), mUser).show();
             } else {
-                new LeaderboardDialog().show(getActivity().getSupportFragmentManager(), "leaderboard");
+//                new LeaderboardDialog().show(getActivity().getSupportFragmentManager(), "leaderboard");
             }
 
             return;

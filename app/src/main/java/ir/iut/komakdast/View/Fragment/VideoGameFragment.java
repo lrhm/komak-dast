@@ -272,11 +272,17 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
     private void setUpImagePlace(View view) {
         FrameLayout box = (FrameLayout) view.findViewById(R.id.box);
+
         tools.resizeView(box, lengthManager.getLevelImageWidth(), lengthManager.getLevelImageHeight());
 
         ImageView frame = (ImageView) view.findViewById(R.id.frame);
-        frame.setImageBitmap(imageManager.loadImageFromResource(R.drawable.frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight()));
+
         tools.resizeView(frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight());
+
+        Picasso.with(getContext()).load(R.drawable.frame).into(frame);
+//        frame.setImageBitmap(imageManager.loadImageFromResource(R.drawable.frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight()));
+
+
 
 
         if (level.getType().equals("keyboard")) {

@@ -77,28 +77,8 @@
                 android:visibility="gone"
                 />
 
-            <ir.iut.komakdast.View.Custom.UserLevelView
-                android:id="@+id/player1_online_game"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:customDimension="0.16"
-                app:textAlign="below"
-                app:isOnlineTop="true"
-                />
 
 
-            <ir.iut.komakdast.View.Custom.UserLevelView
-                android:id="@+id/player2_online_game"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:customDimension="0.16"
-                app:isOnlineTop="true"
-
-                app:textAlign="below"
-
-                />
 
         </RelativeLayout>
 

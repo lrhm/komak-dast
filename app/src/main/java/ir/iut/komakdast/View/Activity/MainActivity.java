@@ -121,14 +121,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private LengthManager lengthManager;
     private ImageManager imageManager;
     private boolean store = false;
-    public UserLevelView playerOne;
-    public UserLevelView playerTwo;
-    public TimerView mTimerView;
-    public FrameLayout mTimerContainer;
     private ImageView coinBox;
-    private GoogleSignInOptions mGoogleSignInOptions;
-    private GoogleApiClient mGoogleApiClient;
-    private static final int RC_SIGN_IN = 9001;
+
+
+//    private GoogleSignInOptions mGoogleSignInOptions;
+//    private GoogleApiClient mGoogleApiClient;
+//    private static final int RC_SIGN_IN = 9001;
+
     private static final String TAG = "MainActivity";
     private User myUser = null;
     private ArrayList<UserFoundListener> mUserFoundListeners;
@@ -194,25 +193,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         hideCheatButton();
 
-        playerOne = (UserLevelView) findViewById(R.id.player1_online_game);
-        playerTwo = (UserLevelView) findViewById(R.id.player2_online_game);
-
-
-        playerOne.setUserNameTextSize(0.85f);
-        playerTwo.setUserNameTextSize(0.85f);
-
-
-        playerOne.setForOnlineGame(true);
-        playerTwo.setForOnlineGame(true);
-
-        mTimerView = new TimerView(this);
-        mTimerContainer = ((FrameLayout) findViewById(R.id.timer_online));
-        mTimerContainer.addView(mTimerView);
 
         starContainer = (LinearLayout) findViewById(R.id.star_container);
-        initStars();
-
-        setUpPlayers();
+//        initStars();
 
 
         cheatButton.setOnClickListener(this);
@@ -328,56 +311,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
 
-    private void setUpPlayers() {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) playerOne.getLayoutParams();
-        lp.topMargin = (int) ((lengthManager.getHeaderHeight() - playerOne.getHeightPlusTextView()) / 2);
-        lp.leftMargin = (int) (lengthManager.getScreenWidth() * 0.07);
-
-        RelativeLayout.LayoutParams lpTwo = (RelativeLayout.LayoutParams) playerTwo.getLayoutParams();
-        lpTwo.topMargin = (int) ((lengthManager.getHeaderHeight() - playerOne.getHeightPlusTextView()) / 2);
-        lpTwo.leftMargin = (int) (0.93 * lengthManager.getScreenWidth() - playerOne.getRealWidth());
 
 
-    }
-
-    public void setOnlineGame(boolean isOnline) {
-
-        Logger.d(TAG, "set online game " + isOnline);
-
-        isInOnlineGame = isOnline;
-
-        int onlineViewsVisibility = (isOnline ? View.VISIBLE : View.GONE);
-        int headerViewsVisibility = (isOnline ? View.GONE : View.VISIBLE);
 
 
-        logo.setVisibility(headerViewsVisibility);
-        creditsButton.setVisibility(headerViewsVisibility);
-        coinBox.setVisibility(headerViewsVisibility);
-        digits.setVisibility(headerViewsVisibility);
-
-        playerOne.setVisibility(onlineViewsVisibility);
-        playerTwo.setVisibility(onlineViewsVisibility);
-        mTimerContainer.setVisibility(onlineViewsVisibility);
-
-    }
-
-    public void setTimer(int time) {
-        mTimerView.setTimer(time);
-    }
-
-    public void setOnlineGameUser(User op) {
-
-        User mUser = Tools.getCachedUser(this);
-
-        playerOne.setUserName(mUser.getName());
-        playerOne.setUserLevel(mUser.getLevel());
-        playerOne.mUser = mUser;
-
-        playerTwo.setUserName(op.getName());
-        playerTwo.setUserLevel(op.getLevel());
-        playerTwo.mUser = op;
-
-    }
 
     private void setHeaderVisiblity(boolean visible) {
         int headerViewsVisibility = (!visible ? View.GONE : View.VISIBLE);
@@ -389,13 +326,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    public void setOnlineGameVisibilityGone() {
 
-        int headerViewsVisibility = View.GONE;
-        playerOne.setVisibility(headerViewsVisibility);
-        playerTwo.setVisibility(headerViewsVisibility);
-        mTimerContainer.setVisibility(headerViewsVisibility);
-    }
 
     private void setUpCoinBox() {
         coinBox = (ImageView) findViewById(R.id.coin_box);
@@ -1007,8 +938,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         setHeaderVisiblity(!doSet);
         starContainer.setVisibility(visibily);
-        if (doSet)
-            setOnlineGameVisibilityGone();
+//        if (doSet)
+//            setOnlineGameVisibilityGone();
     }
 
 

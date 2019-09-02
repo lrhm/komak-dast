@@ -157,7 +157,7 @@ public class LengthManager {
     }
 
     public int getLevelImageFrameHeight() {
-        return getHeightWithFixedWidth(R.drawable.frame, getLevelImageFrameWidth());
+        return (int) (getLevelImageFrameWidth() * (3.05 / 4.f));
     }
 
 
