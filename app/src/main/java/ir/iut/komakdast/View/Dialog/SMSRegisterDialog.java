@@ -129,7 +129,7 @@ public class SMSRegisterDialog extends Dialog implements SMSValidationListener, 
 
         ImageView correctImageView = (ImageView) findViewById(R.id.dialog_sms_register_correct);
         SizeConverter winImageConverter = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.4f, 450, 450);
-        correctImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.levelwin, winImageConverter.mWidth, winImageConverter.mHeight));
+//        correctImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.levelwin, winImageConverter.mWidth, winImageConverter.mHeight));
 
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

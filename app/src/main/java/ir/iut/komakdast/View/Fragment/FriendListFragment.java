@@ -190,9 +190,9 @@ public class FriendListFragment extends Fragment implements TextWatcher, View.On
 //
         ImageView searchFriendImageView = (ImageView) view.findViewById(R.id.search_friend_image);
         SizeConverter searchFriendConverter = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.8f, 1373, 227);
-        searchFriendImageView.setImageBitmap
-                (imageManager.loadImageFromResource(R.drawable.searchbar, searchFriendConverter.mWidth
-                        , searchFriendConverter.mHeight, ImageManager.ScalingLogic.FIT));
+//        searchFriendImageView.setImageBitmap
+//                (imageManager.loadImageFromResource(R.drawable.searchbar, searchFriendConverter.mWidth
+//                        , searchFriendConverter.mHeight, ImageManager.ScalingLogic.FIT));
 
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.search_friend_progress_bar);

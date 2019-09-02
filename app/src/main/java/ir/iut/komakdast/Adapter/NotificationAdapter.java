@@ -31,7 +31,7 @@ public class NotificationAdapter {
             nBuilder = new NotificationCompat.Builder(context);
             nBuilder.setContentTitle(name)
                     .setContentText("در حال آبگیری")
-                    .setSmallIcon(R.drawable.icon)
+//                    .setSmallIcon(R.drawable.icon)
                     .setOngoing(true)
                     .setAutoCancel(true)
                     .setProgress(0, 0, true);

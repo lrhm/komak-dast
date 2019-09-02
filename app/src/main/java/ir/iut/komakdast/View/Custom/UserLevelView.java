@@ -99,13 +99,13 @@ public class UserLevelView extends LinearLayout implements View.OnClickListener 
         FrameLayout imagesContainer = new FrameLayout(context);
 
 
-        baseView = new ImageView(context);
-        baseView.setImageBitmap(imageManager.loadImageFromResource((R.drawable.base),
-                imageConverter.mWidth, imageConverter.mHeight, ImageManager.ScalingLogic.FIT));
+//        baseView = new ImageView(context);
+//        baseView.setImageBitmap(imageManager.loadImageFromResource((R.drawable.base),
+//                imageConverter.mWidth, imageConverter.mHeight, ImageManager.ScalingLogic.FIT));
 
 
         coverView = new ImageView(context);
-        coverView.setImageBitmap(imageManager.loadImageFromResource((R.drawable.cover), imageConverter.mWidth, imageConverter.mHeight, ImageManager.ScalingLogic.FIT));
+//        coverView.setImageBitmap(imageManager.loadImageFromResource((R.drawable.cover), imageConverter.mWidth, imageConverter.mHeight, ImageManager.ScalingLogic.FIT));
 
 
         mUserNameTextView = new MagicTextView(context);
@@ -293,28 +293,28 @@ public class UserLevelView extends LinearLayout implements View.OnClickListener 
     private int getExpID() {
         int expLevel = mUser.getExp() + 1;
         switch (expLevel) {
-            case 1:
-                return R.drawable.exp1;
-            case 2:
-                return R.drawable.exp2;
-            case 3:
-                return R.drawable.exp3;
-            case 4:
-                return R.drawable.exp4;
-            case 5:
-                return R.drawable.exp5;
-            case 6:
-                return R.drawable.exp6;
-            case 7:
-                return R.drawable.exp7;
-            case 8:
-                return R.drawable.exp8;
-            case 9:
-                return R.drawable.exp8;
+//            case 1:
+//                return R.drawable.exp1;
+//            case 2:
+//                return R.drawable.exp2;
+//            case 3:
+//                return R.drawable.exp3;
+//            case 4:
+//                return R.drawable.exp4;
+//            case 5:
+//                return R.drawable.exp5;
+//            case 6:
+//                return R.drawable.exp6;
+//            case 7:
+//                return R.drawable.exp7;
+//            case 8:
+//                return R.drawable.exp8;
+//            case 9:
+//                return R.drawable.exp8;
 
 
         }
-        return R.drawable.exp1;
+        return 0;
     }
 
     public void setUser(User user) {
@@ -348,7 +348,7 @@ public class UserLevelView extends LinearLayout implements View.OnClickListener 
     public void setForOnlineGame(boolean changeTextSize) {
         if (changeTextSize)
             setLevelTextSize();
-        coverView.setImageBitmap(imageManager.loadImageFromResource((R.drawable.coveronlinegame), imageConverter.mWidth, imageConverter.mHeight, ImageManager.ScalingLogic.FIT));
+//        coverView.setImageBitmap(imageManager.loadImageFromResource((R.drawable.coveronlinegame), imageConverter.mWidth, imageConverter.mHeight, ImageManager.ScalingLogic.FIT));
 
     }
 
@@ -377,30 +377,30 @@ public class UserLevelView extends LinearLayout implements View.OnClickListener 
         Logger.d(this.getClass().getSimpleName(), "got user action " + mFirstState + " " +  gameActionResult.getResult().toString());
 
 
-        if (mFirstState) {
-            expView.setImageBitmap(imageManager.loadImageFromResource(getDrawableIdForRight(gameActionResult), imageConverter.mWidth, imageConverter.mHeight));
-            expView.setVisibility(View.VISIBLE);
-            mFirstState = false;
-            return;
-        }
-        stateView.setImageBitmap(imageManager.loadImageFromResource(getDrawableIdForLeft(gameActionResult), imageConverter.mWidth, imageConverter.mHeight));
-        stateView.setVisibility(View.VISIBLE);
+//        if (mFirstState) {
+//            expView.setImageBitmap(imageManager.loadImageFromResource(getDrawableIdForRight(gameActionResult), imageConverter.mWidth, imageConverter.mHeight));
+//            expView.setVisibility(View.VISIBLE);
+//            mFirstState = false;
+//            return;
+//        }
+//        stateView.setImageBitmap(imageManager.loadImageFromResource(getDrawableIdForLeft(gameActionResult), imageConverter.mWidth, imageConverter.mHeight));
+//        stateView.setVisibility(View.VISIBLE);
 
 
     }
 
 
-    private int getDrawableIdForLeft(GameActionResult gameActionResult) {
-        if (gameActionResult.isWrong() || gameActionResult.isSkiped())
-            return R.drawable.wrong1;
-        return R.drawable.correct1;
-    }
-
-    private int getDrawableIdForRight(GameActionResult gameActionResult) {
-        if (gameActionResult.isWrong() || gameActionResult.isSkiped())
-            return R.drawable.wrong2;
-        return R.drawable.correct2;
-    }
+//    private int getDrawableIdForLeft(GameActionResult gameActionResult) {
+//        if (gameActionResult.isWrong() || gameActionResult.isSkiped())
+//            return R.drawable.wrong1;
+//        return R.drawable.correct1;
+//    }
+//
+//    private int getDrawableIdForRight(GameActionResult gameActionResult) {
+//        if (gameActionResult.isWrong() || gameActionResult.isSkiped())
+//            return R.drawable.wrong2;
+//        return R.drawable.correct2;
+//    }
 
     private long lastTimeClicked = 0;
 

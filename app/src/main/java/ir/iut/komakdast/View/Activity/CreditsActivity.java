@@ -74,21 +74,22 @@ public class CreditsActivity extends Activity implements View.OnClickListener {
 
         UiUtil.setWidth(credits, creditsConverter.mWidth);
         UiUtil.setHeight(credits, creditsConverter.mHeight);
-        Picasso.with(this).load(R.drawable.credits).into(credits);
+//        Picasso.with(this).load(R.drawable.credits).into(credits);
 
 
-        facesDrawables = new int[]{R.drawable.alaangry,
-                R.drawable.alaface,
-                R.drawable.alanormal,
-                R.drawable.aminangry,
-                R.drawable.aminface,
-                R.drawable.amin,
-                R.drawable.aliface,
-                R.drawable.alinormal,
-                R.drawable.aliangry,
-                R.drawable.sina1,
-                R.drawable.sina2,
-                R.drawable.sinanormal,
+        facesDrawables = new int[]{
+//                R.drawable.alaangry,
+//                R.drawable.alaface,
+//                R.drawable.alanormal,
+//                R.drawable.aminangry,
+//                R.drawable.aminface,
+//                R.drawable.amin,
+//                R.drawable.aliface,
+//                R.drawable.alinormal,
+//                R.drawable.aliangry,
+//                R.drawable.sina1,
+//                R.drawable.sina2,
+//                R.drawable.sinanormal,
 
         };
 
