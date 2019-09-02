@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -102,7 +101,7 @@ public class FinishDailog extends Dialog implements View.OnClickListener {
 
 
         if (level.getId() + 1 < packageSize) {
-            nextButton.setImageBitmap(imageManager.loadImageFromResource(R.drawable.next_button, lengthManager.getLevelFinishedButtonsSize(), lengthManager.getLevelFinishedButtonsSize()));
+            nextButton.setImageBitmap(imageManager.loadImageFromResource(R.drawable.next_button_dialog, lengthManager.getLevelFinishedButtonsSize(), lengthManager.getLevelFinishedButtonsSize()));
             tools.resizeView(nextButton, lengthManager.getLevelFinishedButtonsSize(), lengthManager.getLevelFinishedButtonsSize());
             nextButton.setOnClickListener(this);
 

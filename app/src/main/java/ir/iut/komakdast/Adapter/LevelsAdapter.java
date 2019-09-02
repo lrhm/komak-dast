@@ -10,15 +10,15 @@ import android.widget.ImageView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.Level;
+import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.LengthManager;
 import ir.iut.komakdast.Util.SizeManager;
 import ir.iut.komakdast.Util.UiUtil;
 import ir.iut.komakdast.View.Activity.MainActivity;
-import ir.iut.komakdast.R;
 import ir.iut.komakdast.View.Fragment.VideoGameFragment;
 
 public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder> {
@@ -104,8 +104,8 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 //            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
 //                    + packageId + "_levelUnlocked.png";
 
-//            Picasso.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
-            Picasso.with(context).load(R.drawable.level_unlocked).into(viewHolder.frame);
+//            Glide.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
+            Glide.with(context).load(R.drawable.level_unlocked).into(viewHolder.frame);
 
             viewHolder.imageView.setVisibility(View.VISIBLE);
         } else {
@@ -113,7 +113,7 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 //            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
 //                    + packageId + "_levelLocked.png";
 
-            Picasso.with(context).load(R.drawable.level_locked).into(viewHolder.frame);
+            Glide.with(context).load(R.drawable.level_locked).into(viewHolder.frame);
         }
     }
 

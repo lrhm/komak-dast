@@ -5,9 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import ir.iut.komakdast.Util.Logger;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import ir.iut.komakdast.Adapter.Cache.PackageSolvedCache;
 import ir.iut.komakdast.MainApplication;
@@ -24,6 +21,7 @@ import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.FontsHolder;
 import ir.iut.komakdast.Util.ImageManager;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.SizeConverter;
 import ir.iut.komakdast.Util.SizeManager;
 import ir.iut.komakdast.Util.Tools;
@@ -161,7 +159,7 @@ public class PackagePurchaseDialog extends Dialog implements View.OnClickListene
 
 
         User myUser = Tools.getCachedUser(context);
-        Picasso.with(context).load(imagePath).fit().into(packageImageView);
+        Glide.with(context).load(imagePath).into(packageImageView);
 
     }
 

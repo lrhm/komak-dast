@@ -4,14 +4,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-
-import ir.iut.komakdast.API.Rest.AppAPIAdapter;
-import ir.iut.komakdast.Util.ImageManager;
-import ir.iut.komakdast.Util.Logger;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +18,14 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import ir.iut.komakdast.API.Rest.AppAPIAdapter;
 import ir.iut.komakdast.API.Rest.Interfaces.OnPackageBuyListener;
 import ir.iut.komakdast.Adapter.Cache.PackageSolvedCache;
 import ir.iut.komakdast.MainApplication;
@@ -38,7 +35,9 @@ import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.DownloadTask;
 import ir.iut.komakdast.Util.FontsHolder;
+import ir.iut.komakdast.Util.ImageManager;
 import ir.iut.komakdast.Util.LengthManager;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.PackageTools;
 import ir.iut.komakdast.Util.SizeManager;
 import ir.iut.komakdast.Util.Tools;
@@ -326,7 +325,7 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
                 && intPrice != 0)
             imagePath = "file://" + packageObject.getOfferImagePathInSD(context);
 
-        Picasso.with(context).load(imagePath).fit().into(viewHolder.imageView);
+        Glide.with(context).load(Uri.parse(imagePath)).fitCenter().into(viewHolder.imageView);
 
 
         File file = new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/");
@@ -334,11 +333,11 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
         Level[] list = dbAdapter.getLevels(id);
         if (list != null && list[list.length - 1].isResolved()) {
-            Picasso.with(context).load(R.drawable.package_win).into(viewHolder.packageDone);
+            Glide.with(context).load(R.drawable.package_win).into(viewHolder.packageDone);
             viewHolder.packageDone.setVisibility(View.VISIBLE);
         }
 
-        Picasso.with(context).load(R.drawable.package_price).fit().into(viewHolder.packagePrice);
+        Glide.with(context).load(R.drawable.package_price).into(viewHolder.packagePrice);
 
         if (!file.exists()) {
 

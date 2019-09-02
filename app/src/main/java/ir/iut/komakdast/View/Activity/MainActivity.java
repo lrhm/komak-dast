@@ -6,14 +6,10 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-
-import ir.iut.komakdast.Util.Logger;
-
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,27 +24,24 @@ import androidx.fragment.app.FragmentTransaction;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.BillingWrapper;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.crashlytics.android.Crashlytics;
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.PurchaseEvent;
 import com.crashlytics.android.answers.StartCheckoutEvent;
-
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-
 import ir.iut.komakdast.API.Rest.AppAPIAdapter;
-import ir.iut.komakdast.API.Rest.Interfaces.OldUserListener;
+import ir.iut.komakdast.API.Rest.Interfaces.UserFoundListener;
 import ir.iut.komakdast.API.Rest.Utils.ForceObject;
 import ir.iut.komakdast.API.Socket.Interfaces.FriendRequestListener;
+import ir.iut.komakdast.API.Socket.Interfaces.SocketFriendMatchListener;
+import ir.iut.komakdast.API.Socket.Interfaces.SocketListener;
 import ir.iut.komakdast.API.Socket.Objects.Friends.MatchRequestSFHolder;
 import ir.iut.komakdast.API.Socket.Objects.Friends.MatchResultHolder;
 import ir.iut.komakdast.API.Socket.Objects.Friends.OnlineFriendStatusHolder;
@@ -57,10 +50,6 @@ import ir.iut.komakdast.API.Socket.Objects.GameStart.GameStartObject;
 import ir.iut.komakdast.API.Socket.Objects.Result.ResultHolder;
 import ir.iut.komakdast.API.Socket.Objects.UserAction.UserActionHolder;
 import ir.iut.komakdast.API.Socket.SocketAdapter;
-import ir.iut.komakdast.API.Socket.Interfaces.SocketFriendMatchListener;
-import ir.iut.komakdast.API.Socket.Interfaces.SocketListener;
-import ir.iut.komakdast.API.Rest.Interfaces.UserFoundListener;
-import ir.iut.komakdast.API.Rest.Utils.GoogleToken;
 import ir.iut.komakdast.Adapter.Cache.AppListAdapter;
 import ir.iut.komakdast.Adapter.Cache.FriendRequestState;
 import ir.iut.komakdast.Adapter.Cache.FriendsHolder;
@@ -71,7 +60,6 @@ import ir.iut.komakdast.Adapter.FriendsAdapter;
 import ir.iut.komakdast.Adapter.HiddenAdapter;
 import ir.iut.komakdast.Adapter.MediaAdapter;
 import ir.iut.komakdast.MainApplication;
-import ir.iut.komakdast.Util.StoreAdapter;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Service.NotifObjects.ActionHolder;
@@ -79,18 +67,16 @@ import ir.iut.komakdast.Service.ServiceConstants;
 import ir.iut.komakdast.Util.FontsHolder;
 import ir.iut.komakdast.Util.ImageManager;
 import ir.iut.komakdast.Util.LengthManager;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.NotificationManager;
-import ir.iut.komakdast.Util.RandomString;
 import ir.iut.komakdast.Util.SizeManager;
+import ir.iut.komakdast.Util.StoreAdapter;
 import ir.iut.komakdast.Util.Tools;
 import ir.iut.komakdast.Util.UiUtil;
 import ir.iut.komakdast.View.Custom.StarView;
-import ir.iut.komakdast.View.Custom.TimerView;
 import ir.iut.komakdast.View.Custom.ToastMaker;
-import ir.iut.komakdast.View.Custom.UserLevelView;
 import ir.iut.komakdast.View.Dialog.ForceUpdateDialog;
 import ir.iut.komakdast.View.Dialog.FriendRequestDialog;
-import ir.iut.komakdast.View.Dialog.UsernameChooseDialog;
 import ir.iut.komakdast.View.Fragment.PackageFragment;
 import ir.iut.komakdast.View.Fragment.PackagesFragment;
 import ir.iut.komakdast.View.Fragment.StoreFragment;
@@ -419,7 +405,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         if (background == null)
             background = (ImageView) findViewById(R.id.background);
-        Picasso.with(this).load(R.drawable.background).fit().centerCrop().into(background);
+        Glide.with(this).load(R.drawable.background).centerCrop().into(background);
 //        background.setImageBitmap(imageManager.loadImageFromResource(R.drawable.logo1, lengthManager.getScreenWidth(), lengthManager.getScreenHeight()));
 //        background.setImageDrawable(new BackgroundDrawable(this, new int[]{
 //                Color.parseColor("#6b92ea"),//F3c51c
@@ -471,7 +457,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         currentLevel = id;
 
 
-        Picasso.with(this).load(R.drawable.cheat_button).fit().into(cheatButton);
+        Glide.with(this).load(R.drawable.cheat_button).into(cheatButton);
     }
 
     public void hideCheatButton() {
@@ -490,7 +476,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (!areCheatsVisible) {
 
 
-            Picasso.with(this).load(R.drawable.next_button).fit().into(cheatButton);
+            Glide.with(this).load(R.drawable.next_button_dialog).into(cheatButton);
             areCheatsVisible = true;
 
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -500,7 +486,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else {
 
 
-            Picasso.with(this).load(R.drawable.cheat_button).fit().into(cheatButton);
+            Glide.with(this).load(R.drawable.cheat_button).into(cheatButton);
             areCheatsVisible = false;
 
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);

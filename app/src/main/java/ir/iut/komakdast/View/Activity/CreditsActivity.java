@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.Random;
 
 import ir.iut.komakdast.R;
@@ -74,7 +72,7 @@ public class CreditsActivity extends Activity implements View.OnClickListener {
 
         UiUtil.setWidth(credits, creditsConverter.mWidth);
         UiUtil.setHeight(credits, creditsConverter.mHeight);
-//        Picasso.with(this).load(R.drawable.credits).into(credits);
+//        Glide.with(this).load(R.drawable.credits).into(credits);
 
 
         facesDrawables = new int[]{

@@ -15,8 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import ir.iut.komakdast.API.Rest.Utils.ForceObject;
 import ir.iut.komakdast.API.Socket.Objects.Notifs.AdNotification;
@@ -87,18 +86,7 @@ public class ForceUpdateDialog extends Dialog implements View.OnClickListener, D
         UiUtil.setWidth(imageView, sizeConverter.mWidth);
         UiUtil.setHeight(imageView, sizeConverter.mHeight);
 
-        Picasso.with(context).load(Uri.parse(imageUri)).into(imageView, new Callback() {
-            @Override
-            public void onSuccess() {
-                Logger.d(TAG, "load image success");
-            }
-
-            @Override
-            public void onError() {
-
-                Logger.d(TAG, "load image success");
-            }
-        });
+        Glide.with(context).load(Uri.parse(imageUri)).into(imageView);
 
         if (textProgressVisiblity) {
             progresTextView.setVisibility(View.VISIBLE);

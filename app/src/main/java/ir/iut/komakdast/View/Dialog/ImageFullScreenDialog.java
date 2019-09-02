@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.SizeManager;
@@ -42,7 +42,8 @@ public class ImageFullScreenDialog extends Dialog implements View.OnClickListene
 
         imageView.setOnClickListener(this);
 
-        Picasso.with(context).load(path).rotate(-90).into(imageView);
+//        .rotate(-90)
+        Glide.with(context).load(path).into(imageView);
     }
 
     @Override

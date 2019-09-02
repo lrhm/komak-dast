@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +12,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
@@ -27,7 +27,6 @@ import com.google.android.exoplayer2.util.Util;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ import ir.iut.komakdast.View.Activity.MainActivity;
 import ir.iut.komakdast.View.Custom.CheatDrawable;
 import ir.iut.komakdast.View.Custom.KeyboardView;
 import ir.iut.komakdast.View.Custom.ToastMaker;
-import ir.iut.komakdast.View.Dialog.FinishDailog;
+import ir.iut.komakdast.View.Dialog.NextLevelDialog;
 
 
 public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboardEvent, View.OnClickListener {
@@ -116,7 +115,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 //        imagePath = "file://" + getActivity().getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + level.getResources();
 
         if (level.getType().equals("1pic")) {
-            Picasso.with(getActivity()).load(level.getImagesPath(packageId, getActivity()).get(0)).into(imageView);
+            Glide.with(getActivity()).load(level.getImagesPath(packageId, getActivity()).get(0)).into(imageView);
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -176,7 +175,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
             fourPics[i].setVisibility(View.VISIBLE);
 
-            fourPics[i].setTag(i);
+            fourPics[i].setTag(R.id.author, i);
 
             fourPics[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -186,7 +185,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
                     int highlightColor = Color.parseColor("#A5FF0000");
 
-                    if (level.getImagesPath(packageId, getActivity()).get((Integer) view.getTag()).contains(level.getAnswer())) {
+                    if (level.getImagesPath(packageId, getActivity()).get((Integer) view.getTag(R.id.author)).contains(level.getAnswer())) {
                         highlightColor = Color.parseColor("#A500FF00");
 //                        parent.findViewById(R.id.four_pic_next_button).setVisibility(View.VISIBLE);
 
@@ -210,7 +209,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
                 }
             });
 //            fourPics[i].setTag(level.getPics());
-            Picasso.with(getActivity()).load(pics.get(i)).into(fourPics[i]);
+            Glide.with(getActivity()).load(pics.get(i)).into(fourPics[i]);
 
         }
 
@@ -279,7 +278,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
         tools.resizeView(frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight());
 
-        Picasso.with(getContext()).load(R.drawable.frame).into(frame);
+        Glide.with(getContext()).load(R.drawable.frame).into(frame);
 //        frame.setImageBitmap(imageManager.loadImageFromResource(R.drawable.frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight()));
 
 
@@ -331,12 +330,13 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
     private void nextLevel(int prize) {
 
-        if (!level.isResolved())
+        if (!level.isResolved() && !resulved && !skiped)
             coinAdapter.earnCoins(prize);
         db.resolveLevel(packageId, levelId);
+        resulved = true;
 
 //        tools.backUpDB();
-        new FinishDailog(getActivity(), level, packageSize, false, prize,
+        new NextLevelDialog(getActivity(), level, packageSize, skiped, prize,
                 new FinishLevel() {
                     @Override
                     public void NextLevel() {
