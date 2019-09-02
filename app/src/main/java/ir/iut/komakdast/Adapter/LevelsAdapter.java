@@ -1,6 +1,7 @@
 package ir.iut.komakdast.Adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +49,8 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
             int size = (int) (SizeManager.getScreenWidth() * 0.235);
             int myPadding = lengthManager.getLevelThumbnailPadding();
 
-            imageView.getLayoutParams().width = size - myPadding;
-            imageView.getLayoutParams().height = size - myPadding;
+            imageView.getLayoutParams().width = size - myPadding * 2;
+            imageView.getLayoutParams().height = size - myPadding * 2;
 
             UiUtil.setWidth(frame, size - myPadding);
             UiUtil.setHeight(frame, size - myPadding);
@@ -101,11 +102,13 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 //            String imagePath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/"
 //                    + levels[levelPosition].getResources();
 
+            String imagePath = levels[levelPosition].getAnswerImgPath(packageId, context);
 //            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
 //                    + packageId + "_levelUnlocked.png";
 
 //            Glide.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
-            Glide.with(context).load(R.drawable.level_unlocked).into(viewHolder.frame);
+            Glide.with(context).load(Uri.parse(imagePath)).into(viewHolder.imageView);
+            Glide.with(context).load(R.drawable.level_locked).into(viewHolder.frame);
 
             viewHolder.imageView.setVisibility(View.VISIBLE);
         } else {

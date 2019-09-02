@@ -69,12 +69,22 @@ public class Level {
 
             String path =
                     "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
-                            + pic ;
+                            + pic;
 
             list.add(path);
         }
 
         return list;
+
+    }
+
+    public String getAnswerImgPath(int packageId, Context context) {
+        if (type.equals("4pics"))
+            return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+                    + answer;
+        else
+            return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+                    + pics;
 
     }
 

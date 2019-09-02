@@ -2,26 +2,21 @@ package ir.iut.komakdast.View.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
-
-import ir.iut.komakdast.Util.Logger;
-
-import android.view.View;
+import android.os.Handler;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import ir.iut.komakdast.Adapter.ContactsAdapter;
 import ir.iut.komakdast.Adapter.DBAdapter;
 import ir.iut.komakdast.Adapter.LocationAdapter;
 import ir.iut.komakdast.R;
-import ir.iut.komakdast.Util.ImageManager;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.PackageTools;
-import ir.iut.komakdast.Util.SizeConverter;
 import ir.iut.komakdast.Util.SizeManager;
 import ir.iut.komakdast.Util.Tools;
-import ir.iut.komakdast.Util.UiUtil;
 
 public class LoadingActivity extends Activity implements Runnable {
 
@@ -37,28 +32,20 @@ public class LoadingActivity extends Activity implements Runnable {
         setContentView(R.layout.activity_loading);
 
         ImageView imageView = (ImageView) findViewById(R.id.loading_logi);
-        ImageView synegy = (ImageView) findViewById(R.id.loading_sinergy);
 
         SizeManager.initSizes(this);
 
-        SizeConverter logiConverter = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.7f, 1000, 1000);
-        SizeConverter synergyConverter = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.3f, 357,86 );
+        Glide.with(this).load(R.drawable.new_icon).into(imageView);
 
-        imageView.setImageBitmap(ImageManager.getInstance(this).loadImageFromResource(R.drawable.interpreting, logiConverter.mWidth, logiConverter.mHeight));
+//        imageView.setImageBitmap(ImageManager.getInstance(this).loadImageFromResource(R.drawable.interpreting, logiConverter.mWidth, logiConverter.mHeight));
 //        synegy.setImageBitmap(ImageManager.getInstance(this).loadImageFromResource(R.drawable.synergy, synergyConverter.mWidth, synergyConverter.mHeight , ImageManager.ScalingLogic.FIT));
 //
-        int freeSize = (int) ((SizeManager.getScreenHeight() - logiConverter.mHeight) *0.6 - synergyConverter.mHeight);
 
-        UiUtil.setTopMargin(synegy, (int) (freeSize * 0.7));
-
-        int logiTop = (int) ((SizeManager.getScreenHeight() - logiConverter.mHeight) * 0.4);
-        UiUtil.setTopMargin(imageView , logiTop );
 
         startTime = System.currentTimeMillis();
 
         Logger.d("Loading", "inLoading");
 
-        synegy.setVisibility(View.GONE);
 
         new Handler().postDelayed(this, 600);
 
