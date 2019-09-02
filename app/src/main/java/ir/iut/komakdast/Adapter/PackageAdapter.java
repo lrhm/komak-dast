@@ -29,7 +29,6 @@ import ir.iut.komakdast.API.Rest.AppAPIAdapter;
 import ir.iut.komakdast.API.Rest.Interfaces.OnPackageBuyListener;
 import ir.iut.komakdast.Adapter.Cache.PackageSolvedCache;
 import ir.iut.komakdast.MainApplication;
-import ir.iut.komakdast.Object.Level;
 import ir.iut.komakdast.Object.PackageObject;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
@@ -331,11 +330,11 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
         File file = new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/");
 
 
-        Level[] list = dbAdapter.getLevels(id);
-        if (list != null && list[list.length - 1].isResolved()) {
-            Glide.with(context).load(R.drawable.package_win).into(viewHolder.packageDone);
-            viewHolder.packageDone.setVisibility(View.VISIBLE);
-        }
+//        Level[] list = dbAdapter.getLevels(id);
+//        if (list != null && list[list.length - 1].isResolved()) {
+//            Glide.with(context).load(R.drawable.package_win).into(viewHolder.packageDone);
+//            viewHolder.packageDone.setVisibility(View.VISIBLE);
+//        }
 
         Glide.with(context).load(R.drawable.package_price).into(viewHolder.packagePrice);
 

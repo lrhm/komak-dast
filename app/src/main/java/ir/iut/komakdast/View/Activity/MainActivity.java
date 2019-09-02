@@ -476,7 +476,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (!areCheatsVisible) {
 
 
-            Glide.with(this).load(R.drawable.next_button_dialog).into(cheatButton);
+            Glide.with(this).load(R.drawable.next_button).into(cheatButton);
             areCheatsVisible = true;
 
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);

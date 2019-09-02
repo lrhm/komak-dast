@@ -3,6 +3,7 @@ package ir.iut.komakdast.View.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -49,22 +50,30 @@ public class NextLevelDialog extends Dialog implements View.OnClickListener {
 
         setContentView(R.layout.dialog_next_level);
 
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView prizeTextView = (TextView) findViewById(R.id.prizeTextView);
 
-//        TextView prizeTextView = (TextView) findViewById(R.id.prize);
-//        if (!level.isResolved() && !skiped) {
-//            String prizeString;
-//            if (prize == 30)
-//                prizeString = "+۳۰";
-//            else if (prize == 10)
-//                prizeString = "+۱۰";
-//            else
-//                prizeString = "+۵";
-//
-//            customizeTextView(prizeTextView, prizeString, lengthManager.getLevelAuthorTextSize());
-//
-//        } else {
-//            prizeTextView.setVisibility(View.GONE);
-//        }
+        ImageView scarf = findViewById(R.id.scarf_image_view);
+
+        if (!level.isResolved() && !skiped) {
+            String prizeString;
+            if (prize == 30)
+                prizeString = "+۳۰";
+            else if (prize == 10)
+                prizeString = "+۱۰";
+            else
+                prizeString = "+۵";
+
+            customizeTextView(prizeTextView, prizeString, lengthManager.getLevelAuthorTextSize());
+
+            Glide.with(getContext()).load(R.drawable.scarf).into(scarf);
+
+
+        } else {
+            prizeTextView.setVisibility(View.GONE);
+
+            scarf.setVisibility(View.GONE);
+        }
 
         int width = (int) (lengthManager.getScreenWidth() * 0.8f);
         int height = lengthManager.getHeightWithFixedWidth(
@@ -86,15 +95,21 @@ public class NextLevelDialog extends Dialog implements View.OnClickListener {
 
         Glide.with(getContext()).load(R.drawable.dialog_background).into(background);
 
-        ImageView scarf = findViewById(R.id.scarf_image_view);
-        Glide.with(getContext()).load(R.drawable.scarf).into(scarf);
+
 
 
         ImageView nextButton = findViewById(R.id.next_level_button);
         Glide.with(getContext()).load(R.drawable.next_button_dialog).into(nextButton);
 
+        nextButton.setOnClickListener(this);
+
         ImageView homeButton = findViewById(R.id.home_button);
         Glide.with(getContext()).load(R.drawable.hoem_button).into(homeButton);
+
+        homeButton.setOnClickListener(this);
+
+        ImageView tick = findViewById(R.id.tick);
+        Glide.with(getContext()).load(R.drawable.tick).into(tick);
 
     }
 
