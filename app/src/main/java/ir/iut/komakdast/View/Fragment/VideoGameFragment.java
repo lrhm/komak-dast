@@ -39,6 +39,7 @@ import ir.iut.komakdast.Object.Level;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.ImageManager;
 import ir.iut.komakdast.Util.LengthManager;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.Tools;
 import ir.iut.komakdast.View.Activity.MainActivity;
 import ir.iut.komakdast.View.Custom.CheatDrawable;
@@ -185,7 +186,16 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
                     int highlightColor = Color.parseColor("#A5FF0000");
 
-                    if (level.getImagesPath(packageId, getActivity()).get(R.integer.click_id_four).contains(level.getAnswer())) {
+                    Integer value = (Integer) view.getTag(R.integer.click_id_four);
+
+                    Logger.d("TAG", " this is value " + value );
+                    Logger.d("TAG", " this is value " + level.getImagesPath(packageId, getActivity()) );
+
+                    Logger.d("TAG", " this is value " + level.getAnswer() );
+
+                    Logger.d("TAG", " this is value " + level.getId() );
+
+                    if (level.getImagesPath(packageId, getActivity()).get(value).contains(level.getAnswer())) {
                         highlightColor = Color.parseColor("#A500FF00");
 //                        parent.findViewById(R.id.four_pic_next_button).setVisibility(View.VISIBLE);
 

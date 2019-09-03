@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -44,6 +46,14 @@ public class LoadingActivity extends Activity implements Runnable {
 
         startTime = System.currentTimeMillis();
 
+        if (Prefs.getBoolean("firstAppRun", true)) {
+
+            TextView textView = findViewById(R.id.textView);
+            textView.setText("بارگذاری اولیه" +
+                    "\n" +
+                    "مددتی طول می کشد");
+            textView.setVisibility(View.VISIBLE);
+        }
         Logger.d("Loading", "inLoading");
 
 
