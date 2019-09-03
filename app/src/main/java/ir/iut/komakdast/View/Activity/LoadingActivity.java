@@ -51,7 +51,7 @@ public class LoadingActivity extends Activity implements Runnable {
             TextView textView = findViewById(R.id.textView);
             textView.setText("بارگذاری اولیه" +
                     "\n" +
-                    "مددتی طول می کشد");
+                    "مدتی طول می کشد");
             textView.setVisibility(View.VISIBLE);
         }
         Logger.d("Loading", "inLoading");

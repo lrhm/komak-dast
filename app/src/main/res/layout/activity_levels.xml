@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         app:stl_customTabTextLayoutId="@layout/custom_tab_circle"
         app:stl_dividerThickness="0dp"
-        app:stl_indicatorColor="#88ffffff"
+        app:stl_indicatorColor="#D2CE8620"
         app:stl_indicatorCornerRadius="7dp"
         app:stl_indicatorInterpolation="linear"
         app:stl_indicatorThickness="16dp"
