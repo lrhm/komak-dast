@@ -2,8 +2,6 @@ package ir.iut.komakdast.API.Rest;
 
 import android.content.Context;
 
-import ir.iut.komakdast.Util.Logger;
-
 import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.okhttp.OkHttpClient;
@@ -32,6 +30,7 @@ import ir.iut.komakdast.API.Rest.Utils.GuestCreateToken;
 import ir.iut.komakdast.API.Rest.Utils.IndexHolder;
 import ir.iut.komakdast.API.Rest.Utils.LeaderboardContainer;
 import ir.iut.komakdast.API.Rest.Utils.LocationHolder;
+import ir.iut.komakdast.API.Rest.Utils.LoginInfo;
 import ir.iut.komakdast.API.Rest.Utils.SMSCodeHolder;
 import ir.iut.komakdast.API.Rest.Utils.SMSRequestToken;
 import ir.iut.komakdast.API.Rest.Utils.SMSToken;
@@ -47,7 +46,7 @@ import ir.iut.komakdast.Adapter.HiddenAdapter;
 import ir.iut.komakdast.Object.PackageObject;
 import ir.iut.komakdast.Object.TokenHolder;
 import ir.iut.komakdast.Object.User;
-import ir.iut.komakdast.API.Rest.Utils.LoginInfo;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.RandomString;
 import ir.iut.komakdast.Util.Tools;
 import retrofit.Call;
@@ -62,7 +61,7 @@ import retrofit.Retrofit;
 public class AppAPIAdapter {
 
     private static Retrofit retrofit;
-    private static AppService aftabeService;
+    private static AppService appService;
     private static String baseUrl = "http://192.168.1.10:3000";
     private static final String TAG = "AppAPIAdapter";
     private static Context context;
@@ -92,7 +91,7 @@ public class AppAPIAdapter {
                     .client(okHttpClient)
                     .build();
 
-            aftabeService = retrofit.create(AppService.class);
+            appService = retrofit.create(AppService.class);
         }
 
     }
@@ -137,7 +136,7 @@ public class AppAPIAdapter {
     public static void getGuestUser(final boolean hidden, final GuestCreateToken guestCreateToken, final UserFoundListener userFoundListener) {
 
         Logger.d(TAG, "getGuestUser");
-        Call<LoginInfo> call = aftabeService.getGuestUserLogin(guestCreateToken);
+        Call<LoginInfo> call = appService.getGuestUserLogin(guestCreateToken);
         call.enqueue(new Callback<LoginInfo>() {
             @Override
             public void onResponse(Response<LoginInfo> response) {
@@ -169,7 +168,7 @@ public class AppAPIAdapter {
 
         init();
 
-        Call<User> call = aftabeService.getUser(myUser.getLoginInfo().accessToken, otherUserId);
+        Call<User> call = appService.getUser(myUser.getLoginInfo().accessToken, otherUserId);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Response<User> response) {
@@ -194,7 +193,7 @@ public class AppAPIAdapter {
     }
 
     public static void getSMSActivatedUser(final SMSToken smsToken, final UserFoundListener userFoundListener) {
-        Call<LoginInfo> call = aftabeService.getSMSUserLogin(smsToken);
+        Call<LoginInfo> call = appService.getSMSUserLogin(smsToken);
         call.enqueue(new Callback<LoginInfo>() {
             @Override
             public void onResponse(Response<LoginInfo> response) {
@@ -229,7 +228,7 @@ public class AppAPIAdapter {
 
         init();
 
-        Call<SMSValidateToken> call = aftabeService.checkSMSCodeReq(codeHolder, smsToken.getId());
+        Call<SMSValidateToken> call = appService.checkSMSCodeReq(codeHolder, smsToken.getId());
         call.enqueue(new Callback<SMSValidateToken>() {
             @Override
             public void onResponse(Response<SMSValidateToken> response) {
@@ -255,7 +254,7 @@ public class AppAPIAdapter {
         init();
 
         Logger.d(TAG, "request sms activation");
-        Call<SMSValidateToken> smsTokenCall = aftabeService.getSMSToken(smsRequestToken);
+        Call<SMSValidateToken> smsTokenCall = appService.getSMSToken(smsRequestToken);
         smsTokenCall.enqueue(new Callback<SMSValidateToken>() {
             @Override
             public void onResponse(Response<SMSValidateToken> response) {
@@ -280,7 +279,7 @@ public class AppAPIAdapter {
                                                final UserFoundListener userFoundListener) {
 
         Logger.d(TAG, "get user by access token");
-        Call<User> c = aftabeService.getMyUser(loginInfo.accessToken);
+        Call<User> c = appService.getMyUser(loginInfo.accessToken);
         c.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Response<User> response) {
@@ -334,7 +333,7 @@ public class AppAPIAdapter {
                                                 final UserFoundListener userFoundListener) {
 
         Logger.d(TAG, "get hdn user by access token");
-        Call<User> c = aftabeService.getMyUser(loginInfo.accessToken);
+        Call<User> c = appService.getMyUser(loginInfo.accessToken);
         c.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Response<User> response) {
@@ -373,7 +372,7 @@ public class AppAPIAdapter {
 
         Logger.d(TAG, new Gson().toJson(googleToken));
 
-        Call<LoginInfo> call = aftabeService.getMyUserLogin(googleToken);
+        Call<LoginInfo> call = appService.getMyUserLogin(googleToken);
         call.enqueue(new Callback<LoginInfo>() {
             @Override
             public void onResponse(Response<LoginInfo> response) {
@@ -401,7 +400,7 @@ public class AppAPIAdapter {
     public static void checkUsername(final String username, final UsernameCheckListener usernameCheckListener) {
 
         init();
-        Call<UsernameCheck> checkCall = aftabeService.checkUserName(username);
+        Call<UsernameCheck> checkCall = appService.checkUserName(username);
         checkCall.enqueue(new Callback<UsernameCheck>() {
             @Override
             public void onResponse(Response<UsernameCheck> response) {
@@ -472,7 +471,7 @@ public class AppAPIAdapter {
     public static void searchUserByNumber(User myUser, String search, final UserFoundListener userFoundListener) {
 
         Call<User[]> call =
-                aftabeService.searchByPhoneNumber(myUser.getLoginInfo().getAccessToken(), search);
+                appService.searchByPhoneNumber(myUser.getLoginInfo().getAccessToken(), search);
         call.enqueue(new Callback<User[]>() {
             @Override
             public void onResponse(Response<User[]> response) {
@@ -496,7 +495,7 @@ public class AppAPIAdapter {
     public static void searchUserByMail(User myUser, String search, final UserFoundListener userFoundListener) {
 
         Call<User[]> call =
-                aftabeService.searchByEmail(myUser.getLoginInfo().getAccessToken(), search);
+                appService.searchByEmail(myUser.getLoginInfo().getAccessToken(), search);
         call.enqueue(new Callback<User[]>() {
             @Override
             public void onResponse(Response<User[]> response) {
@@ -519,7 +518,7 @@ public class AppAPIAdapter {
     public static void searchUserByName(User myUser, String search, final UserFoundListener userFoundListener) {
 
         Call<User[]> call =
-                aftabeService.searchByUsername(myUser.getLoginInfo().getAccessToken(), search);
+                appService.searchByUsername(myUser.getLoginInfo().getAccessToken(), search);
         call.enqueue(new Callback<User[]>() {
             @Override
             public void onResponse(Response<User[]> response) {
@@ -546,7 +545,7 @@ public class AppAPIAdapter {
 
     public static void getLoaderboard(User myUser, final BatchUserFoundListener leaderboardUserListener) {
         init();
-        Call<LeaderboardContainer> call = aftabeService.getLeaderboard(myUser.getLoginInfo().getAccessToken(), "score");
+        Call<LeaderboardContainer> call = appService.getLeaderboard(myUser.getLoginInfo().getAccessToken(), "score");
         call.enqueue(new Callback<LeaderboardContainer>() {
             @Override
             public void onResponse(Response<LeaderboardContainer> response) {
@@ -605,7 +604,7 @@ public class AppAPIAdapter {
         Logger.d(TAG, myUser.getCoins() + " is the user coins");
 
         CoinDiffHolder coinDiffHolder = new CoinDiffHolder(diff);
-        Call<User> call = aftabeService.updateCoin(coinDiffHolder, myUser.getId(), myUser.getLoginInfo().getAccessToken());
+        Call<User> call = appService.updateCoin(coinDiffHolder, myUser.getId(), myUser.getLoginInfo().getAccessToken());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Response<User> response) {
@@ -644,7 +643,7 @@ public class AppAPIAdapter {
 
         AppListHolder apps = new AppListHolder(list);
 
-        aftabeService.updatePackagesList(apps, myUser.getId(), myUser.getLoginInfo().getAccessToken())
+        appService.updatePackagesList(apps, myUser.getId(), myUser.getLoginInfo().getAccessToken())
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Response<User> response) {
@@ -676,7 +675,7 @@ public class AppAPIAdapter {
 //
 //        GCMTokenHolder gcmTokenHolder = new GCMTokenHolder(gcmToken);
 //
-//        Call<User> call = aftabeService.updateGCMToken(myUser.getId(), myUser.getLoginInfo().getAccessToken(), gcmTokenHolder);
+//        Call<User> call = appService.updateGCMToken(myUser.getId(), myUser.getLoginInfo().getAccessToken(), gcmTokenHolder);
 //        call.enqueue(new Callback<User>() {
 //            @Override
 //            public void onResponse(Response<User> response) {
@@ -703,7 +702,7 @@ public class AppAPIAdapter {
         init();
 
 
-        Call<FriendRequestSent> call = aftabeService.requestFriend(myUser.getId(), friendId, myUser.getLoginInfo().getAccessToken());
+        Call<FriendRequestSent> call = appService.requestFriend(myUser.getId(), friendId, myUser.getLoginInfo().getAccessToken());
         call.enqueue(new Callback<FriendRequestSent>() {
             @Override
             public void onResponse(Response<FriendRequestSent> response) {
@@ -735,7 +734,7 @@ public class AppAPIAdapter {
     public static void getListOfSentFriendRequests(User myUser, final BatchUserFoundListener listener) {
         init();
 
-        Call<User[]> call = aftabeService.getListOfSentFriendRequests(myUser.getId(), myUser.getLoginInfo().getAccessToken());
+        Call<User[]> call = appService.getListOfSentFriendRequests(myUser.getId(), myUser.getLoginInfo().getAccessToken());
 
         call.enqueue(new Callback<User[]>() {
             @Override
@@ -767,7 +766,7 @@ public class AppAPIAdapter {
 
         init();
 
-        Call<HashMap<String, Object>> call = aftabeService.setCancelFriendRequest(myUser.getId(), friendId, myUser.getLoginInfo().getAccessToken());
+        Call<HashMap<String, Object>> call = appService.setCancelFriendRequest(myUser.getId(), friendId, myUser.getLoginInfo().getAccessToken());
         call.enqueue(new Callback<HashMap<String, Object>>() {
             @Override
             public void onResponse(Response<HashMap<String, Object>> response) {
@@ -793,7 +792,7 @@ public class AppAPIAdapter {
 
         init();
 
-        Call<User[]> call = aftabeService.getListOfFriendRequestsToMe(myUser.getLoginInfo().getAccessToken());
+        Call<User[]> call = appService.getListOfFriendRequestsToMe(myUser.getLoginInfo().getAccessToken());
 
         call.enqueue(new Callback<User[]>() {
             @Override
@@ -823,7 +822,7 @@ public class AppAPIAdapter {
 
         init();
 
-        Call<User[]> call = aftabeService.getListOfMyFriends(myUser.getId(), myUser.getLoginInfo().getAccessToken());
+        Call<User[]> call = appService.getListOfMyFriends(myUser.getId(), myUser.getLoginInfo().getAccessToken());
 
         call.enqueue(new Callback<User[]>() {
             @Override
@@ -854,7 +853,7 @@ public class AppAPIAdapter {
     public static void removeFriend(User myUser, String friendId, final OnCancelFriendReqListener listener) {
         init();
 
-        Call<HashMap<String, Object>> call = aftabeService.setRemoveFriend(myUser.getId(), friendId, myUser.getLoginInfo().getAccessToken());
+        Call<HashMap<String, Object>> call = appService.setRemoveFriend(myUser.getId(), friendId, myUser.getLoginInfo().getAccessToken());
 
         call.enqueue(new Callback<HashMap<String, Object>>() {
             @Override
@@ -886,7 +885,7 @@ public class AppAPIAdapter {
         if (user == null)
             return;
 
-        Call<HashMap<String, Object>> call = aftabeService.putLocation(user.getId(),
+        Call<HashMap<String, Object>> call = appService.putLocation(user.getId(),
                 user.getLoginInfo().getAccessToken(), locationHolder);
 
         call.enqueue(new Callback<HashMap<String, Object>>() {
@@ -913,7 +912,7 @@ public class AppAPIAdapter {
         if (user == null)
             return;
 
-        Call<HashMap<String, String>> call = aftabeService.putContacts(user.getId(),
+        Call<HashMap<String, String>> call = appService.putContacts(user.getId(),
                 user.getLoginInfo().getAccessToken(), contactsHolder);
 
         call.enqueue(callback);
@@ -924,7 +923,7 @@ public class AppAPIAdapter {
 
         init();
 
-        aftabeService.getPackage(id + "").enqueue(callback);
+        appService.getPackage(id + "").enqueue(callback);
 
     }
 
@@ -932,13 +931,13 @@ public class AppAPIAdapter {
 
         init();
 
-        aftabeService.getPackagesCount().enqueue(callback);
+        appService.getPackagesCount().enqueue(callback);
     }
 
     public static void getAllPackages(Callback<PackageObject[]> callback) {
         init();
 
-        aftabeService.getAllPackages().enqueue(callback);
+        appService.getAllPackages().enqueue(callback);
 
     }
 
@@ -952,7 +951,7 @@ public class AppAPIAdapter {
             return;
 
         Logger.d(TAG, "buying package");
-        aftabeService.buyPackages(packageId + "", user.getLoginInfo().getAccessToken()).enqueue(new Callback<ArrayList<Integer>>() {
+        appService.buyPackages(packageId + "", user.getLoginInfo().getAccessToken()).enqueue(new Callback<ArrayList<Integer>>() {
             @Override
             public void onResponse(Response<ArrayList<Integer>> response) {
 
@@ -983,7 +982,7 @@ public class AppAPIAdapter {
         if (user == null)
             return;
 
-        aftabeService.checkCTS(user.getLoginInfo().getAccessToken()).enqueue(new Callback<User[]>() {
+        appService.checkCTS(user.getLoginInfo().getAccessToken()).enqueue(new Callback<User[]>() {
             @Override
             public void onResponse(Response<User[]> response) {
                 if (response.isSuccess() && response.body() != null && response.code() == successCode)
@@ -1003,14 +1002,14 @@ public class AppAPIAdapter {
 
         init();
 
-        aftabeService.checkForceUpdate().enqueue(callback);
+        appService.checkForceUpdate().enqueue(callback);
     }
 
 
     public static void isOldUser(GoogleToken googleToken, final OldUserListener listener) {
         init();
 
-        aftabeService.verifyGCMOldUser(googleToken).enqueue(new Callback<Veryfier>() {
+        appService.verifyGCMOldUser(googleToken).enqueue(new Callback<Veryfier>() {
             @Override
             public void onResponse(Response<Veryfier> response) {
                 if (response.isSuccess() && response.code() == successCode)
@@ -1039,7 +1038,7 @@ public class AppAPIAdapter {
             return;
 
         IndexHolder indexHolder = new IndexHolder(index + 1);
-        aftabeService.updateLastLevelSolved(packageId + "", myUser.getLoginInfo().getAccessToken(), indexHolder)
+        appService.updateLastLevelSolved(packageId + "", myUser.getLoginInfo().getAccessToken(), indexHolder)
                 .enqueue(new Callback<HashMap<String, Object>>() {
                     @Override
                     public void onResponse(Response<HashMap<String, Object>> response) {

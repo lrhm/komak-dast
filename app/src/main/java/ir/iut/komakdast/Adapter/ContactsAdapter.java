@@ -43,7 +43,7 @@ import retrofit.Response;
 public class ContactsAdapter implements BatchUserFoundListener {
 
     private static final String TAG = "ContactsAdapter";
-    private static final String TAG_CACHE = "contacts_cached_aftabe";
+    private static final String TAG_CACHE = "contacts_cached_komakdast";
 
     private Timer mTimer;
     private Context mContext;

@@ -2,13 +2,25 @@ package ir.iut.komakdast.Object;
 
 import android.content.Context;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 
 public class Level {
 
+    @Expose
     private int id;
+    @Expose
     private boolean resolved;
+    @Expose
     private String type;
+    @Expose
+    private String video;
+    @Expose
+    private String pics;
+    @Expose
+    private String answer;
+
 
     public String getPics() {
         return pics;
@@ -25,9 +37,6 @@ public class Level {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
-    private String pics;
-    private String answer;
 
 
     public int getId() {
@@ -57,7 +66,7 @@ public class Level {
 
     public String getVideoPath(int packageId, Context context) {
         return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
-                + "video.mp4";
+                + video;
 
     }
 
@@ -88,4 +97,11 @@ public class Level {
 
     }
 
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
 }

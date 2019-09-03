@@ -7,21 +7,20 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import ir.iut.komakdast.Util.Logger;
-
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import ir.iut.komakdast.Object.Level;
 import ir.iut.komakdast.Object.PackageObject;
+import ir.iut.komakdast.Util.Logger;
 
 public class DBAdapter {
     private static DBAdapter ourInstance;
 
     private static final String TAG = "DBAdapter";
-    private static final String DATABASE_NAME = "aftabe.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "komakdast.db";
+    private static final int DATABASE_VERSION = 4;
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
 
@@ -55,6 +54,7 @@ public class DBAdapter {
     private static final String LEVEL_SOLUTION = "LEVEL_SOLUTION";
     private static final String LEVEL_RESOLVE = "LEVEL_RESOLVE";
     private static final String LEVEL_PICS = "LEVEL_PICS";
+    private static final String LEVEL_VIDEO = "LEVEL_VIDEO";
     private static final String LEVEL_TYPE = "LEVEL_TYPE";
     private static final String LEVEL_PACKAGE_ID = "LEVEL_PACKAGE_ID";
 
@@ -63,6 +63,7 @@ public class DBAdapter {
             LEVEL_ID + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
             LEVEL_SOLUTION + TEXT_TYPE + COMMA_SEP +
             LEVEL_PICS + TEXT_TYPE + COMMA_SEP +
+            LEVEL_VIDEO + TEXT_TYPE + COMMA_SEP +
             LEVEL_TYPE + TEXT_TYPE + COMMA_SEP +
             LEVEL_RESOLVE + BLOB_TYPE + COMMA_SEP +
             LEVEL_PACKAGE_ID + INTEGER_TYPE + BRACKET_CLOSE_SEP + SEMICOLON;
@@ -146,7 +147,7 @@ public class DBAdapter {
     }
 
 
-    public void deletePackageOnly(int id){
+    public void deletePackageOnly(int id) {
         open();
 
         db.delete(PACKAGES, PACKAGE_ID + " = " + id, null);
@@ -206,11 +207,17 @@ public class DBAdapter {
     public void insertLevels(ArrayList<Level> levels, int packageID) {
         open();
 
+        Logger.d(TAG, "inserting levels");
         for (int i = 0; i < levels.size(); i++) {
+
+            Logger.d(TAG, "inserting level video " + levels.get(i).getVideo());
+
+
             ContentValues values = new ContentValues();
             values.put(LEVEL_ID, levels.get(i).getId());
             values.put(LEVEL_SOLUTION, levels.get(i).getAnswer());
             values.put(LEVEL_RESOLVE, false);
+            values.put(LEVEL_VIDEO, levels.get(i).getVideo());
             values.put(LEVEL_PICS, levels.get(i).getPics());
             values.put(LEVEL_TYPE, levels.get(i).getType());
             values.put(LEVEL_PACKAGE_ID, packageID);
@@ -223,7 +230,8 @@ public class DBAdapter {
         open();
         Cursor cursor = db.query(LEVELS,
                 new String[]{LEVEL_ID, LEVEL_SOLUTION, LEVEL_RESOLVE,
-                        LEVEL_PICS , LEVEL_TYPE},
+                        LEVEL_VIDEO,
+                        LEVEL_PICS, LEVEL_TYPE},
                 LEVEL_PACKAGE_ID + " = " + packageID + " AND " + LEVEL_ID + " = " + levelID,
                 null, null, null, null);
 
@@ -233,6 +241,8 @@ public class DBAdapter {
             level.setAnswer(cursor.getString(cursor.getColumnIndex(LEVEL_SOLUTION)));
             level.setResolved(cursor.getInt(cursor.getColumnIndex(LEVEL_RESOLVE)) > 0);
             level.setPics(cursor.getString(cursor.getColumnIndex(LEVEL_PICS)));
+            level.setVideo(cursor.getString(cursor.getColumnIndex(LEVEL_VIDEO)));
+
             level.setType(cursor.getString(cursor.getColumnIndex(LEVEL_TYPE)));
             close();
             return level;
@@ -245,7 +255,7 @@ public class DBAdapter {
         open();
         Cursor cursor = db.query(LEVELS,
                 new String[]{LEVEL_ID, LEVEL_SOLUTION, LEVEL_RESOLVE,
-                        LEVEL_PICS, LEVEL_TYPE},
+                        LEVEL_PICS, LEVEL_VIDEO , LEVEL_TYPE},
                 LEVEL_PACKAGE_ID + " = " + packageID,
                 null, null, null, null);
 
@@ -257,6 +267,7 @@ public class DBAdapter {
                 level.setAnswer(cursor.getString(cursor.getColumnIndex(LEVEL_SOLUTION)));
                 level.setResolved(cursor.getInt(cursor.getColumnIndex(LEVEL_RESOLVE)) > 0);
                 level.setPics(cursor.getString(cursor.getColumnIndex(LEVEL_PICS)));
+                level.setVideo(cursor.getString(cursor.getColumnIndex(LEVEL_VIDEO)));
                 level.setType(cursor.getString(cursor.getColumnIndex(LEVEL_TYPE)));
                 levels[i] = level;
             }

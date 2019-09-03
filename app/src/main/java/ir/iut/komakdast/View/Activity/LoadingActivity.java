@@ -109,7 +109,7 @@ public class LoadingActivity extends Activity implements Runnable {
 
         DBAdapter db = DBAdapter.getInstance(getApplication());
 
-        PackageTools.getInstance(this).checkOfflinePackageCompatibility();
+//        PackageTools.getInstance(this).checkOfflinePackageCompatibility();
 
         if (Prefs.getBoolean("firstAppRun", true)) {
 

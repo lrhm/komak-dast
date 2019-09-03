@@ -151,7 +151,7 @@ public class StoreAdapter {
     public static boolean startInstaIntent(Context context) {
         String appName = "com.instagram.android";
 
-        String parse = "http://instagram.com/_u/aftabe2";
+        String parse = "http://instagram.com/_u/komakdast2";
 
         String name = "اینستا";
 
@@ -163,7 +163,7 @@ public class StoreAdapter {
     public static boolean startTelegramIntent(Context context) {
         String appName = "org.telegram.messenger";
 
-        String parse = "https://telegram.me/aftabe2";
+        String parse = "https://telegram.me/komakdast2";
 
         String name = "تلگرام";
 

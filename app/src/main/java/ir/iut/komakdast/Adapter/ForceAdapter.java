@@ -32,7 +32,7 @@ public class ForceAdapter {
 
 
     private static final String TAG = "ForceAdapter";
-    private static String PREF_KEY_BASE = "aftabe_showed_version_";
+    private static String PREF_KEY_BASE = "komakdast_showed_version_";
     private static ForceAdapter instance;
     private static Object lock = new Object();
 
@@ -141,7 +141,7 @@ public class ForceAdapter {
     }
 
     private void deleteDownloadedFiles() {
-        final String path = (Environment.getExternalStorageDirectory() + "/download/aftabe");
+        final String path = (Environment.getExternalStorageDirectory() + "/download/komakdast");
         File file = new File(path + "/");
         if (file.exists()) {
             for (File f : file.listFiles()) {
@@ -154,7 +154,7 @@ public class ForceAdapter {
 
     private void downloadAPK(final ForceObject object) {
 
-        final String path = (Environment.getExternalStorageDirectory() + "/download/aftabe");
+        final String path = (Environment.getExternalStorageDirectory() + "/download/komakdast");
         deleteDownloadedFiles();
         File f = new File(path + "/");
         f.mkdirs();

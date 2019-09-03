@@ -25,7 +25,7 @@ import ir.iut.komakdast.Util.GlobalPrefs;
  */
 public class AppListAdapter {
 
-    private static final String KEY = "ap_list_aftabe_date";
+    private static final String KEY = "ap_list_komakdast_date";
     private static final String TAG = "AppListAdapter";
 
     private static AppListAdapter instance;

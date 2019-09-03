@@ -17,7 +17,7 @@ public class CoinAdapter {
     public static final int ALPHABET_HIDING_COST = 40;
     public static final int LETTER_REVEAL_COST = 50;
     public static final int SKIP_LEVEL_COST = 130;
-    public static final String SHARED_PREF_COIN_DIFF = "aftabe_wc";
+    public static final String SHARED_PREF_COIN_DIFF = "komakdast_wc";
 
     private static final String LAST_TIME_USER_UPDATE = "last_time_user_upd";
     private static final String LAST_TIME_DIFF_SENT = "last_time_diff_sent";

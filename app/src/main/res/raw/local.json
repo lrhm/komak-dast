@@ -4,30 +4,30 @@
       "id": 0,
       "price": 0,
       "name": "اموزشی",
-      "hash": "dee4eaee27b71aadafcc613e5de53033",
+      "hash": "e192c866ef856ac0d06da5ff5dfcc418",
       "sku": "sku_big",
       "file": {
-        "name": "video_package.zip"
+        "name": "package_0.zip"
       }
     },
     {
       "id": 1,
       "price": 0,
       "name": "حدس کلمه ای",
-      "hash": "dee4eaee27b71aadafcc613e5de53033",
+      "hash": "8d38485e4a26565bbe065d48db23f955",
       "sku": "sku_big",
       "file": {
-        "name": "video_package.zip"
+        "name": "package_1.zip"
       }
     },
     {
       "id": 2,
       "price": 0,
       "name": "حدس کلمه ای",
-      "hash": "dee4eaee27b71aadafcc613e5de53033",
+      "hash": "189a652781b3faceaa06edd87bbfc4e4",
       "sku": "sku_big",
       "file": {
-        "name": "video_package.zip"
+        "name": "package_2.zip"
       }
     }
   ]

@@ -17,7 +17,7 @@ import ir.iut.komakdast.API.Rest.Utils.ContactsHolder;
 public class ContactsCacheHolder {
 
     private static final String TAG = "ContactsCacheHolder";
-    private static final String KEY_TAG = "contacts_cached_aftabe";
+    private static final String KEY_TAG = "contacts_cached_komakdast";
 
     private static ContactsCacheHolder friendsHolder;
     private Object lock;

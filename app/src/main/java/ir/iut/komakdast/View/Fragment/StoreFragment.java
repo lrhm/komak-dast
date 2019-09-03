@@ -90,7 +90,7 @@ public class StoreFragment extends Fragment {
 //                    db.updateReviewed(true);
 //
 //
-//                    Intent browserIntent = new Intent(Intent.ACTION_EDIT, Uri.parse("http://cafebazaar.ir/app/ir.treeco.aftabe2/?l=fa"));
+//                    Intent browserIntent = new Intent(Intent.ACTION_EDIT, Uri.parse("http://cafebazaar.ir/app/ir.treeco.komakdast2/?l=fa"));
 //                    startActivity(browserIntent);
 //
 //                    coinAdapter.earnCoins(StoreAdapter.getCommentBazaarAmount());

@@ -153,7 +153,7 @@ public class LengthManager {
     }
 
     public int getLevelImageFrameWidth() {
-        return getScreenWidth() * 93 / 100;
+        return getScreenWidth() * 91 / 100;
     }
 
     public int getLevelImageFrameHeight() {

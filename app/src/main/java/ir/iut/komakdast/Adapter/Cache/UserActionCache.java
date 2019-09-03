@@ -12,7 +12,7 @@ import ir.iut.komakdast.API.Socket.Objects.UserAction.GameActionResult;
 public class UserActionCache {
 
     private static final String TAG = "UserActionCache";
-    private static final String KEY_TAG = "user_actions_cached_aftabe";
+    private static final String KEY_TAG = "user_actions_cached_komakdast";
 
     private static UserActionCache instance;
     private Object lock;

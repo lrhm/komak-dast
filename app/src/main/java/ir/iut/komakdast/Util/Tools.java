@@ -56,7 +56,7 @@ public class Tools {
 
 
     private static final String testUrl = "http://server.pakoo.ir:2020/";
-    private static final String baseUrl = "https://aftabe2.com:2020/";
+    private static final String baseUrl = "https://komakdast2.com:2020/";
 
     public static String getUrl() {
         if (test)
@@ -183,7 +183,7 @@ public class Tools {
 
     public void checkDB(Context context) {
 //        Logger.e("db", "check");
-//        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
+//        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "komakdast.db";
 //
 //        File currentDB = new File(currentDBPath);
 //
@@ -197,7 +197,7 @@ public class Tools {
 
 
         File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
+        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "komakdast.db";
         String backupDBPath = "Android/.amk";
         File currentDB = new File(currentDBPath);
         File backupDB = new File(sd, backupDBPath);
@@ -234,7 +234,7 @@ public class Tools {
     public void restoreDBJournal() {
 
         File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db-journal";
+        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "komakdast.db-journal";
         String backupDBPath = "Android/.bmk";
         File currentDB = new File(currentDBPath);
         File backupDB = new File(sd, backupDBPath);
@@ -300,7 +300,7 @@ public class Tools {
     public static void backUpDBAsync(Context context) {
 //
 //        File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-//        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "aftabe.db";
+//        String currentDBPath = context.getFilesDir().getParent() + "/databases/" + "komakdast.db";
 //        String backupDBPath = "Android/.amk";
 //        File currentDB = new File(currentDBPath);
 //        File backupDB = new File(sd, backupDBPath);
@@ -345,7 +345,7 @@ public class Tools {
     public static void backUpDBJournalAsync(Context context) {
 
 //        File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-//        String currentDBPath = context.getFilesDir().getAbsolutePath() + "/databases/" + "aftabe.db-journal";
+//        String currentDBPath = context.getFilesDir().getAbsolutePath() + "/databases/" + "komakdast.db-journal";
 //        String backupDBPath = "Android/.bmk";
 //        File currentDB = new File(currentDBPath);
 //        File backupDB = new File(sd, backupDBPath);

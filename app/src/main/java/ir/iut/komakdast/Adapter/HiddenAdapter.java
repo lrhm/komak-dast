@@ -15,7 +15,7 @@ import ir.iut.komakdast.Util.Tools;
  */
 public class HiddenAdapter {
 
-    private static final String KEY = "hdn_usr_aftabe";
+    private static final String KEY = "hdn_usr_komakdast";
     User hiddenUsr;
     private static HiddenAdapter instance;
     private static Object lock = new Object();

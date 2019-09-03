@@ -54,13 +54,13 @@ public class CreditsActivity extends Activity implements View.OnClickListener {
 
 
         ImageView credits = (ImageView) findViewById(R.id.credits_image_view);
-        ImageView aftabe = (ImageView) findViewById(R.id.credits_aftabe_image_view);
+        ImageView header = (ImageView) findViewById(R.id.credits_header_image_view);
 
         imageManager = ImageManager.getInstance(this);
         LengthManager lengthManager = new LengthManager(this);
 
 
-        aftabe.setImageBitmap(imageManager.loadImageFromResource(
+        header.setImageBitmap(imageManager.loadImageFromResource(
                 R.drawable.header, lengthManager.getScreenWidth(),
                 lengthManager.getScreenWidth() / 4
         ));

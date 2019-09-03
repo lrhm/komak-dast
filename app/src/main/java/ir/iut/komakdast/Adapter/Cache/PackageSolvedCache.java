@@ -18,7 +18,7 @@ public class PackageSolvedCache {
 
 
     private static final String TAG = "PackageSolvedCache";
-    private static final String KEY_TAG = "pkg_slvd_cached_aftabe";
+    private static final String KEY_TAG = "pkg_slvd_cached_komakdast";
 
     private static PackageSolvedCache instance;
     private static Object getInstanceLock = new Object();

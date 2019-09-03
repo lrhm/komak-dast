@@ -12,7 +12,7 @@
 
 
     <ImageView
-        android:id="@+id/credits_aftabe_image_view"
+        android:id="@+id/credits_header_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -22,7 +22,7 @@ import ir.iut.komakdast.View.Fragment.IntroFragment;
 public class IntroActivity extends FragmentActivity implements IntroFragment.OnFragmentButtonListener {
 
 
-    public static final String INTRO_SHOWN = "aftabe_intro_showed";
+    public static final String INTRO_SHOWN = "komakdast_intro_showed";
     FragmentAdapter adapter;
     IntroFragment[] fragments;
     ViewPager pager;

@@ -17,7 +17,7 @@ import ir.iut.komakdast.Object.User;
 public class FriendRequestState {
 
     private static final String TAG = "FriendRequestState";
-    private static final String KEY_TAG = "FriendRequestState_cached_aftabe";
+    private static final String KEY_TAG = "FriendRequestState_cached_komakdast";
 
     private static FriendRequestState instance;
 

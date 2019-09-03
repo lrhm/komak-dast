@@ -69,7 +69,7 @@ public class SaveHolder {
     public byte[] getAESKey() {
 
 
-        String str = "aftabe is a awesome game";
+        String str = "komakdast is a awesome game";
         try {
             byte[] key = new byte[16];
             byte[] strBytes;

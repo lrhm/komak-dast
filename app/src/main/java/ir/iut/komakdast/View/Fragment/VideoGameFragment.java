@@ -175,7 +175,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
             fourPics[i].setVisibility(View.VISIBLE);
 
-            fourPics[i].setTag(R.id.author, i);
+            fourPics[i].setTag(R.integer.click_id_four, i);
 
             fourPics[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -185,7 +185,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
                     int highlightColor = Color.parseColor("#A5FF0000");
 
-                    if (level.getImagesPath(packageId, getActivity()).get((Integer) view.getTag(R.id.author)).contains(level.getAnswer())) {
+                    if (level.getImagesPath(packageId, getActivity()).get(R.integer.click_id_four).contains(level.getAnswer())) {
                         highlightColor = Color.parseColor("#A500FF00");
 //                        parent.findViewById(R.id.four_pic_next_button).setVisibility(View.VISIBLE);
 

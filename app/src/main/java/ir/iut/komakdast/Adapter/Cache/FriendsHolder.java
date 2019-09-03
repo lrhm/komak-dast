@@ -19,7 +19,7 @@ import ir.iut.komakdast.Object.User;
 public class FriendsHolder {
 
     private static final String TAG = "FriendsHolder";
-    private static final String KEY_TAG = "friends_cached_aftabe";
+    private static final String KEY_TAG = "friends_cached_komakdast";
 
     private static FriendsHolder friendsHolder;
     private static Object getInstanceLock = new Object();
