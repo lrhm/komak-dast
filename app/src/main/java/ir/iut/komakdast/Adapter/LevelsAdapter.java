@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,8 +17,10 @@ import com.bumptech.glide.Glide;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.Level;
 import ir.iut.komakdast.R;
+import ir.iut.komakdast.Util.FontsHolder;
 import ir.iut.komakdast.Util.LengthManager;
 import ir.iut.komakdast.Util.SizeManager;
+import ir.iut.komakdast.Util.Tools;
 import ir.iut.komakdast.Util.UiUtil;
 import ir.iut.komakdast.View.Activity.MainActivity;
 import ir.iut.komakdast.View.Fragment.VideoGameFragment;
@@ -41,9 +44,11 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
         ImageView frame;
+        TextView textView;
 
         public ViewHolder(View v) {
             super(v);
+            textView = itemView.findViewById(R.id.itemLevel_textView);
             imageView = (ImageView) itemView.findViewById(R.id.itemLevel);
             frame = (ImageView) itemView.findViewById(R.id.itemLevel_frame);
             int size = (int) (SizeManager.getScreenWidth() * 0.235);
@@ -51,6 +56,11 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 
             imageView.getLayoutParams().width = size - myPadding * 2;
             imageView.getLayoutParams().height = size - myPadding * 2;
+
+            textView.getLayoutParams().width = size - myPadding * 2;
+            textView.getLayoutParams().height = size - myPadding * 2;
+
+            textView.setTypeface(FontsHolder.getNumeralSansBold(context));
 
             UiUtil.setWidth(frame, size - myPadding);
             UiUtil.setHeight(frame, size - myPadding);
@@ -73,7 +83,7 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
                 gameFragment.setArguments(bundle);
 
                 FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, gameFragment , OFFLINE_GAME_FRAGMENT_TAG);
+                transaction.replace(R.id.fragment_container, gameFragment, OFFLINE_GAME_FRAGMENT_TAG);
                 transaction.addToBackStack(null);
                 transaction.commitAllowingStateLoss();
             }
@@ -108,11 +118,15 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 
 //            Glide.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
             Glide.with(context).load(Uri.parse(imagePath)).into(viewHolder.imageView);
-            Glide.with(context).load(R.drawable.level_locked).into(viewHolder.frame);
+            viewHolder.textView.setText(Tools.numeralStringToPersianDigits(levels[levelPosition].getId()+""));
+            viewHolder.textView.setVisibility(View.VISIBLE);
+            Glide.with(context).load(R.drawable.unlock).into(viewHolder.frame);
 
             viewHolder.imageView.setVisibility(View.VISIBLE);
         } else {
             viewHolder.imageView.setVisibility(View.GONE);
+            viewHolder.textView.setVisibility(View.GONE);
+
 //            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
 //                    + packageId + "_levelLocked.png";
 

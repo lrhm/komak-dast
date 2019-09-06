@@ -20,13 +20,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
+        <TextView
+            android:id="@+id/itemLevel_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:visibility="gone" />
         <ImageView
             android:id="@+id/itemLevel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             />
+
+
 
     </FrameLayout>
 
