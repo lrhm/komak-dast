@@ -153,9 +153,20 @@ public class PackageTools {
                     if (inDb.getId() == object.getId())
                         continue;
                 }
-            String zipFileName = object.getFileName().substring(0, object.getFileName().length() - 4);
+
+            addLevelListToPackage(object, object.getId());
+
+            DBAdapter db = DBAdapter.getInstance(context);
+            if (db.getLevels(object.getId()) == null) {
+                db.insertPackage(object);
+            }
+
             writeRawFiles(object, "package_" + object.getId() + "_front", "png", object.getId());
-            writeRawFiles(object, zipFileName, "zip", object.getId());
+
+
+//            String zipFileName = object.getFileName().substring(0, object.getFileName().length() - 4);
+//            writeRawFiles(object, "package_" + object.getId() + "_front", "png", object.getId());
+//            writeRawFiles(object, zipFileName, "zip", object.getId());
         }
     }
 
@@ -201,8 +212,18 @@ public class PackageTools {
 
         try {
             Logger.d(TAG, "addLevelListToPackage");
-            String a = context.getFilesDir().getPath() + "/Packages/package_" + id + "/" + "levels.json";
-            InputStream inputStream = new FileInputStream(a);
+            String a;
+            if (!packageObject.getLocal())
+                a = context.getFilesDir().getPath() + "/Packages/package_" + id + "/" + "levels.json";
+            else
+                a = "file://android_asset" + "/Packages/package_" + id + "/" + "levels.json";
+
+            InputStream inputStream;
+            if (!packageObject.getLocal())
+                 inputStream = new FileInputStream(a);
+            else
+                inputStream = Tools.getAsset("Packages/package_" + id + "/" + "levels.json", context);
+
             Reader reader = new InputStreamReader(inputStream, "UTF-8");
             Gson gson = new GsonBuilder().create();
 
@@ -497,7 +518,6 @@ public class PackageTools {
                 DBAdapter db = DBAdapter.getInstance(context);
                 if (db.getLevels(id) == null) {
                     db.insertLevels(packageObject.getLevels(), packageObject.getId());
-
 
                 }
 

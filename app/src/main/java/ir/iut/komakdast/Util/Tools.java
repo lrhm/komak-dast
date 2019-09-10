@@ -3,6 +3,7 @@ package ir.iut.komakdast.Util;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -33,8 +35,6 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import ir.iut.komakdast.API.Rest.AppAPIAdapter;
-import ir.iut.komakdast.API.Socket.SocketAdapter;
 import ir.iut.komakdast.Adapter.DBAdapter;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.TokenHolder;
@@ -527,7 +527,7 @@ public class Tools {
 
             if (!user.isGuest()) {
 
-                   }
+            }
         }
 
     }
@@ -642,10 +642,38 @@ public class Tools {
 
 //        if (signature[0].hashCode() == -1769074008 || signature[0].hashCode() == 254943616) {
 
-            sigChk = "TTy";
+        sigChk = "TTy";
 //        }
 
         return sigChk;
+    }
+
+    public static boolean isAssetExists(String pathInAssetsDir, Context context) {
+        AssetManager assetManager = context.getResources().getAssets();
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open(pathInAssetsDir);
+            if (null != inputStream) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static InputStream getAsset(String path, Context context) {
+        AssetManager assetManager = context.getResources().getAssets();
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open(path);
+            return inputStream;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

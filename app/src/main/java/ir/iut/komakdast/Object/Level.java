@@ -4,20 +4,26 @@ import android.content.Context;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Level {
 
     @Expose
     private int id;
+
     @Expose
     private boolean resolved;
+
     @Expose
     private String type;
+
     @Expose
     private String video;
+
     @Expose
     private String pics;
+
     @Expose
     private String answer;
 
@@ -65,8 +71,16 @@ public class Level {
     }
 
     public String getVideoPath(int packageId, Context context) {
-        return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+
+        String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                 + video;
+        String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
+                + video;
+        if ((new File(filesPath)).exists())
+            return filesPath;
+        return assetsPath;
+//        return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+//                + video;
 
     }
 
@@ -80,7 +94,14 @@ public class Level {
                     "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                             + pic;
 
-            list.add(path);
+            String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+                    + pic;
+            String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
+                    + pic;
+
+            if ((new File(filesPath)).exists())
+                list.add(filesPath);
+            else list.add(assetsPath);
         }
 
         return list;
@@ -88,13 +109,31 @@ public class Level {
     }
 
     public String getAnswerImgPath(int packageId, Context context) {
-        if (type.equals("4pics"))
-            return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+
+
+
+        if (type.equals("4pics")) {
+            String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                     + answer;
-        else
-            return "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+            String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
+                    + answer;
+            if ((new File(filesPath)).exists())
+                return filesPath;
+            return assetsPath;
+
+
+        } else {
+
+            String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+                    + pics;
+            String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
                     + pics;
 
+            if ((new File(filesPath)).exists())
+                return filesPath;
+            return assetsPath;
+
+        }
     }
 
     public String getVideo() {

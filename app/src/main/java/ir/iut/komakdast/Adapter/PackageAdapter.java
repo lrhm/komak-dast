@@ -160,7 +160,11 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
             File file = new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/");
 
-            if (!file.exists()) { // not downloaded
+
+            String assetsPath = "Packages/package_" + id + "/";
+
+
+            if (!file.exists() && Tools.isAssetExists( assetsPath, context)) { // not downloaded
 
 
                 final CoinAdapter coinAdapter = ((MainActivity) context).getCoinAdapter();
@@ -329,6 +333,9 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
         File file = new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/");
 
+        String assetsPath = " Packages/package_" + id + "/";
+
+
 
 //        Level[] list = dbAdapter.getLevels(id);
 //        if (list != null && list[list.length - 1].isResolved()) {
@@ -338,7 +345,7 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
         Glide.with(context).load(R.drawable.package_price).into(viewHolder.packagePrice);
 
-        if (!file.exists()) {
+        if (!file.exists() && Tools.isAssetExists(assetsPath, context)) {
 
 
             viewHolder.packagePrice.setVisibility(View.VISIBLE);

@@ -44,9 +44,21 @@ public class PackageObject {
     @Expose
     int revision;
 
+
+    @Expose
+    Boolean local = true;
+
     URLHolder offer;
 
     private ArrayList<Level> levels;
+
+    public Boolean getLocal() {
+        return local;
+    }
+
+    public void setLocal(Boolean local) {
+        this.local = local;
+    }
 
     public String getName() {
         return name;
@@ -124,7 +136,9 @@ public class PackageObject {
     }
 
     public boolean isPackageDownloaded(Context context) {
-        return new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/").exists();
+        return new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/").exists()
+
+                ||  Tools.isAssetExists("Packages/package_" + id + "/", context);
     }
 
     public boolean isThereOffer() {
