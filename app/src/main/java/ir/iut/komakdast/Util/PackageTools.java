@@ -28,7 +28,6 @@ import java.util.HashMap;
 import ir.iut.komakdast.API.Rest.AppAPIAdapter;
 import ir.iut.komakdast.API.Rest.Utils.CountHolder;
 import ir.iut.komakdast.Adapter.DBAdapter;
-import ir.iut.komakdast.Adapter.NotificationAdapter;
 import ir.iut.komakdast.Object.Level;
 import ir.iut.komakdast.Object.PackageObject;
 import ir.iut.komakdast.Object.User;
@@ -270,8 +269,8 @@ public class PackageTools {
 //                            checkPackagesValidity(listener);
 //                        }
 
-                        checkPackagesValidity(listener);
-                        checkLocalPackages();
+//                        checkPackagesValidity(listener);
+//                        checkLocalPackages();
                     }
                 } else {
                     Logger.d(TAG, "response is not cool");
@@ -300,29 +299,30 @@ public class PackageTools {
                 if (!response.isSuccess() || response.body().length == 0 || savePackages.length == 0)
                     return;
 
-                for (PackageObject object : response.body())
-                    for (PackageObject savePackageObject : savePackages)
-                        if (object.getId() == savePackageObject.getId()) {
-
-                            Logger.d(TAG, "online is " + new Gson().toJson(object));
-
-                            Logger.d(TAG, "saved is " + new Gson().toJson(savePackageObject));
-
-                            if (savePackageObject.getRevisionFile() != object.getRevisionFile()) {
-                                // package is corrupted
-                                listener.onPackageInvalid(savePackageObject);
-
-                                dbAdapter.deletePackage(savePackageObject.getId());
-                                onPackageCorrupted(savePackageObject.getId());
-
-                            } else if (!savePackageObject.isThereOffer() && object.isThereOffer()
-                                    || savePackageObject.getOffer() != null && !savePackageObject.getOfferImageURL().equals(object.getOfferImageURL())
-                                    || savePackageObject.getOffer() != null && !savePackageObject.isOfferDownloaded(context)) {
-
-                                onNewOffer(object, listener);
-
-                            }
-                        }
+//                for (PackageObject object : response.body())
+//                    for (PackageObject savePackageObject : savePackages)
+//                        if (object.getId() == savePackageObject.getId()) {
+//
+//                            Logger.d(TAG, "online is " + new Gson().toJson(object));
+//
+//                            Logger.d(TAG, "saved is " + new Gson().toJson(savePackageObject));
+//
+//                            if (savePackageObject.getRevisionFile() != object.getRevisionFile()) {
+//                                // package is corrupted
+//                                listener.onPackageInvalid(savePackageObject);
+//
+//                                dbAdapter.deletePackage(savePackageObject.getId());
+//                                onPackageCorrupted(savePackageObject.getId());
+//
+//                            }
+////                            else if (!savePackageObject.isThereOffer() && object.isThereOffer()
+////                                    || savePackageObject.getOffer() != null && !savePackageObject.getOfferImageURL().equals(object.getOfferImageURL())
+////                                    || savePackageObject.getOffer() != null && !savePackageObject.isOfferDownloaded(context)) {
+////
+////                                onNewOffer(object, listener);
+////
+////                            }
+//                        }
 
             }
 
@@ -422,6 +422,7 @@ public class PackageTools {
                         PackageObject packageObject = response.body();
                         packageObject.setDownloaded(false);
                         packageObject.setPurchased(packageObject.getPrice() == 0);
+                        packageObject.setLocal(false);
 
                         downloadPicture(packageObject, listener);
 
@@ -454,6 +455,7 @@ public class PackageTools {
             public void onDownloadSuccess() {
                 Logger.d(TAG, "downloaded picture");
                 DBAdapter dbAdapter = DBAdapter.getInstance(context);
+
                 dbAdapter.insertPackage(object);
 
                 if (listener != null) listener.onNewPackage(object);
@@ -481,13 +483,13 @@ public class PackageTools {
         final String url = packageObject.getUrl();
         final int id = packageObject.getId();
         final String path = context.getFilesDir().getPath();
-        final NotificationAdapter notificationAdapter = new NotificationAdapter(id, context, packageObject.getName());
+//        final NotificationAdapter notificationAdapter = new NotificationAdapter(id, context, packageObject.getName());
 
         Logger.d(TAG, "file length is " + packageObject.getPackageSize());
         new DownloadTask(context, new DownloadTask.DownloadTaskListener() {
             @Override
             public void onProgress(int progress) {
-                notificationAdapter.notifyDownload(progress, id, packageObject.getName());
+//                notificationAdapter.notifyDownload(progress, id, packageObject.getName());
                 listener.onProgress(progress);
                 Logger.d(TAG, "on progress " + progress);
 
@@ -504,7 +506,7 @@ public class PackageTools {
                     File file = new File(path);
                     if (file.exists())
                         file.delete();
-                    notificationAdapter.faildDownload(id, name);
+//                    notificationAdapter.faildDownload(id, name);
                     isDownloadInProgress.put(packageObject.getId(), false);
 
                     return;
@@ -512,6 +514,9 @@ public class PackageTools {
 
                 Zip zip = new Zip();
                 zip.unpackZip(path + "/p_" + packageObject.getId() + ".zip", id, context);
+
+                Logger.d(TAG, "unzipping downloaded fileeee");
+
                 addLevelListToPackage(packageObject, id);
 
 
@@ -534,13 +539,13 @@ public class PackageTools {
 
                 listener.onDownloadSuccess();
 
-                notificationAdapter.dissmiss(id, packageObject.getName());
+//                notificationAdapter.dissmiss(id, packageObject.getName());
             }
 
             @Override
             public void onDownloadError(String error) {
                 isDownloadInProgress.put(packageObject.getId(), false);
-                notificationAdapter.faildDownload(id, packageObject.getName());
+//                notificationAdapter.faildDownload(id, packageObject.getName());
 
                 listener.onDownloadError(error);
 

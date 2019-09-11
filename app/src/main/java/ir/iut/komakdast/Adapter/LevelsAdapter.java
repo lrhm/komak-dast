@@ -1,7 +1,6 @@
 package ir.iut.komakdast.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,7 +116,7 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 //                    + packageId + "_levelUnlocked.png";
 
 //            Glide.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
-            Glide.with(context).load(Uri.parse(imagePath)).into(viewHolder.imageView);
+//            Glide.with(context).load(Uri.parse(imagePath)).into(viewHolder.imageView);
             viewHolder.textView.setText(Tools.numeralStringToPersianDigits(levels[levelPosition].getId()+""));
             viewHolder.textView.setVisibility(View.VISIBLE);
             Glide.with(context).load(R.drawable.unlock).into(viewHolder.frame);

@@ -23,6 +23,7 @@
         android:largeHeap="true"
         android:screenOrientation="portrait"
         android:theme="@style/fullScreenTheme"
+        android:usesCleartextTraffic="true"
         >
         <receiver
             android:name="ir.iut.komakdast.Synchronization.Synchronize"

@@ -52,10 +52,10 @@ public class Tools {
     private final static String TAG = "Tools";
 
 
-    private static boolean test = false;
+    private static boolean test = true;
 
 
-    private static final String testUrl = "http://server.pakoo.ir:2020/";
+    private static final String testUrl = "http://192.168.1.33:3000/";
     private static final String baseUrl = "https://komakdast2.com:2020/";
 
     public static String getUrl() {
@@ -649,11 +649,13 @@ public class Tools {
     }
 
     public static boolean isAssetExists(String pathInAssetsDir, Context context) {
+        Logger.d("Package", "checking asset");
         AssetManager assetManager = context.getResources().getAssets();
         InputStream inputStream = null;
         try {
             inputStream = assetManager.open(pathInAssetsDir);
             if (null != inputStream) {
+                inputStream.close();
                 return true;
             }
         } catch (IOException e) {

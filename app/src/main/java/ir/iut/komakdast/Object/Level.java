@@ -72,7 +72,7 @@ public class Level {
 
     public String getVideoPath(int packageId, Context context) {
 
-        String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+        String filesPath =  context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                 + video;
         String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
                 + video;
@@ -90,11 +90,9 @@ public class Level {
 
         for (String pic : pics.split(",")) {
 
-            String path =
-                    "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
-                            + pic;
 
-            String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+
+            String filesPath =  context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                     + pic;
             String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
                     + pic;
@@ -113,7 +111,7 @@ public class Level {
 
 
         if (type.equals("4pics")) {
-            String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+            String filesPath =  context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                     + answer;
             String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
                     + answer;
@@ -124,7 +122,7 @@ public class Level {
 
         } else {
 
-            String filesPath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
+            String filesPath =  context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                     + pics;
             String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
                     + pics;

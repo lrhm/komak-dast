@@ -62,7 +62,7 @@ public class AppAPIAdapter {
 
     private static Retrofit retrofit;
     private static AppService appService;
-    private static String baseUrl = "http://192.168.1.10:3000";
+    private static String baseUrl = "http://192.168.1.33:3000";
     private static final String TAG = "AppAPIAdapter";
     private static Context context;
 

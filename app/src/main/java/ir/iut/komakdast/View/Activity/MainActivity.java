@@ -58,7 +58,6 @@ import ir.iut.komakdast.Adapter.DBAdapter;
 import ir.iut.komakdast.Adapter.ForceAdapter;
 import ir.iut.komakdast.Adapter.FriendsAdapter;
 import ir.iut.komakdast.Adapter.HiddenAdapter;
-import ir.iut.komakdast.Adapter.MediaAdapter;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
@@ -984,8 +983,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onPause() {
 
         Logger.d(TAG, "onPAuse");
-
-        MediaAdapter.getInstance(this).free();
 
 
 

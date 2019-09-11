@@ -11,9 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import ir.iut.komakdast.Adapter.ContactsAdapter;
 import ir.iut.komakdast.Adapter.DBAdapter;
-import ir.iut.komakdast.Adapter.LocationAdapter;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.PackageTools;
@@ -66,8 +64,6 @@ public class LoadingActivity extends Activity implements Runnable {
     public void run() {
 
         initUtils();
-        new LocationAdapter(this);
-        new ContactsAdapter(this);
         long diff = System.currentTimeMillis() - startTime;
 
         if (diff < 1000)

@@ -29,7 +29,6 @@ import ir.iut.komakdast.API.Rest.Utils.SMSCodeHolder;
 import ir.iut.komakdast.API.Rest.Utils.SMSRequestToken;
 import ir.iut.komakdast.API.Rest.Utils.SMSToken;
 import ir.iut.komakdast.API.Rest.Utils.SMSValidateToken;
-import ir.iut.komakdast.Adapter.MediaAdapter;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.FontsHolder;
 import ir.iut.komakdast.Util.ImageManager;

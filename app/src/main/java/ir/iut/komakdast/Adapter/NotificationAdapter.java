@@ -28,10 +28,10 @@ public class NotificationAdapter {
         if (apiVersion >= Build.VERSION_CODES.HONEYCOMB) {
             notify = true;
 
-            nBuilder = new NotificationCompat.Builder(context);
+            nBuilder = new NotificationCompat.Builder(context, "CH_323#");
             nBuilder.setContentTitle(name)
-                    .setContentText("در حال آبگیری")
-//                    .setSmallIcon(R.drawable.icon)
+                    .setContentText("در حال دانلود")
+                    .setSmallIcon(R.drawable.new_icon)
                     .setOngoing(true)
                     .setAutoCancel(true)
                     .setProgress(0, 0, true);

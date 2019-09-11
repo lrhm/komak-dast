@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ir.iut.komakdast.Adapter.Cache.PackageSolvedCache;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.Tools;
 
 public class PackageObject {
@@ -136,9 +137,20 @@ public class PackageObject {
     }
 
     public boolean isPackageDownloaded(Context context) {
-        return new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/").exists()
+        try {
+            boolean exist = new File(context.getFilesDir().getPath() + "/Packages/package_" + id + "/").exists();
+            if(exist)
+                return true;
 
-                ||  Tools.isAssetExists("Packages/package_" + id + "/", context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Logger.d("Package", "file didnt exist, cheking assets");
+
+        return
+
+                 Tools.isAssetExists("Packages/package_" + id + "/levels.json", context);
     }
 
     public boolean isThereOffer() {
