@@ -1,9 +1,6 @@
 package ir.iut.komakdast.View.Custom;
 
 import android.content.Context;
-
-import ir.iut.komakdast.Util.Logger;
-
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,13 +11,13 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.ImageManager;
 import ir.iut.komakdast.Util.LengthManager;
+import ir.iut.komakdast.Util.Logger;
 import ir.iut.komakdast.Util.SizeConverter;
 import ir.iut.komakdast.Util.SizeManager;
 
@@ -50,6 +47,7 @@ public class KeyboardView extends RelativeLayout {
 
     double mReaminingLenght;
     int mMargin;
+    private OnClickListener mListener;
 
 
     public KeyboardView(Context context, String solution) {
@@ -415,7 +413,7 @@ public class KeyboardView extends RelativeLayout {
     }
 
     public boolean removeSome() {
-        int len = getButtonEmptyCount() / 5;
+        int len = getButtonEmptyCount() / 4;
         if (len >= getButtonEmptyCount()
                 - solution.replace("/", "").replace(" ", "").length())
             return false;
@@ -444,6 +442,27 @@ public class KeyboardView extends RelativeLayout {
         return true;
 
     }
+
+
+    public void setAdditionalClickListener(OnClickListener listener) {
+        mListener = listener;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+
+        Logger.d(TAG, "motionEvent");
+
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            if (mListener != null) {
+                mListener.onClick(this);
+            }
+        }
+
+        return super.onInterceptTouchEvent(ev);
+    }
+
+
 
     public int findIndexOfCharacter(Character character) {
 
@@ -523,6 +542,42 @@ public class KeyboardView extends RelativeLayout {
 
         // return true;
     }
+
+
+    public boolean setAnswered() {
+        int answerCount = getEmptyAnswersCount();
+        int buttonEmptyCount = getButtonEmptyCount();
+        if (answerCount == 0 || buttonEmptyCount == 0)
+            return false;
+
+        String temp = levelAnswer;
+        while (true) {
+            int random = new Random().nextInt(levelAnswer.length());
+            Character character = levelAnswer.charAt(random);
+
+            temp.replace(character + "", "");
+            for (KeyView key : buttons) {
+                if (key.character.equals(character)
+                        && key.state == KeyView.STATE_NORMAL) {
+                    if (findIndexOfCharacter(key.character) != -1) {
+                        String temp2 = "";
+                        for (int i = 0; i < levelAnswer.length(); i++)
+                            if (i != random)
+                                temp2 += (levelAnswer.charAt(i) + "");
+                        levelAnswer = temp2;
+                        key.setAnswered();
+                        return true;
+                    }
+                }
+            }
+            if (temp.length() == 0)
+                return false;
+
+        }
+
+        // return true;
+    }
+
 
     public int getUnTocuhDrawableForButton(int type) {
         switch (type) {

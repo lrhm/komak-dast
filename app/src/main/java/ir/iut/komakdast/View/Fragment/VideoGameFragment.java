@@ -54,6 +54,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     private Integer packageId;
 
     KeyboardView keyboardView;
+    FrameLayout keyboardContainer;
     PlayerView playerView;
     SimpleExoPlayer player;
     Tools tools;
@@ -142,13 +143,13 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
         if (level.getType().equals("keyboard")) {
             imageView.setVisibility(View.GONE);
 
-            FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.fragment_game_keyboard_container);
+            keyboardContainer = (FrameLayout) view.findViewById(R.id.fragment_game_keyboard_container);
 
-            frameLayout.setVisibility(View.VISIBLE);
+            keyboardContainer.setVisibility(View.VISIBLE);
 
             keyboardView = new KeyboardView(getContext(), level.getAnswer());
             keyboardView.onKeyboardEvent = this;
-            frameLayout.addView(keyboardView);
+            keyboardContainer.addView(keyboardView);
 
             ((MainActivity) getActivity()).setupCheatButton(packageId);
 
@@ -188,12 +189,12 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
                     Integer value = (Integer) view.getTag(R.integer.click_id_four);
 
-                    Logger.d("TAG", " this is value " + value );
-                    Logger.d("TAG", " this is value " + level.getImagesPath(packageId, getActivity()) );
+                    Logger.d("TAG", " this is value " + value);
+                    Logger.d("TAG", " this is value " + level.getImagesPath(packageId, getActivity()));
 
-                    Logger.d("TAG", " this is value " + level.getAnswer() );
+                    Logger.d("TAG", " this is value " + level.getAnswer());
 
-                    Logger.d("TAG", " this is value " + level.getId() );
+                    Logger.d("TAG", " this is value " + level.getId());
 
                     if (level.getImagesPath(packageId, getActivity()).get(value).contains(level.getAnswer())) {
                         highlightColor = Color.parseColor("#A500FF00");
@@ -290,8 +291,6 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
 
         Glide.with(getContext()).load(R.drawable.frame).into(frame);
 //        frame.setImageBitmap(imageManager.loadImageFromResource(R.drawable.frame, lengthManager.getLevelImageFrameWidth(), lengthManager.getLevelImageFrameHeight()));
-
-
 
 
         if (level.getType().equals("keyboard")) {
@@ -398,7 +397,8 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
                 coinAdapter.earnCoins(CoinAdapter.LEVEL_COMPELETED_PRIZE);
             }
 
-            nextLevel(30);
+            if (!skiped)
+                nextLevel(30);
 
         }
     }
@@ -530,12 +530,38 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     }
 
     private void cheatNext() {
+
+
         if (level.isResolved()) {
-            nextLevel(30);
+
+            skiped = true;
+            while (keyboardView.showOne()) {
+
+            }
+            keyboardView.setAdditionalClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    nextLevel(30);
+                    Logger.d("TAG", "keyboard view clickd?");
+
+                }
+            });
+//            nextLevel(0);
         } else if (coinAdapter.spendCoins(CoinAdapter.SKIP_LEVEL_COST)) {
             skiped = true;
             resulved = true;
-            nextLevel(30);
+            db.resolveLevel(packageId, levelId);
+
+            while (keyboardView.showOne()) {
+
+            }
+            keyboardView.setAdditionalClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    nextLevel(30);
+                }
+            });
+//            nextLevel(30);
         }
     }
 
