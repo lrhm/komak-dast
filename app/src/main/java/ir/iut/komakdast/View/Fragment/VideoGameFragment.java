@@ -535,7 +535,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
         if (level.isResolved()) {
 
             skiped = true;
-            while (keyboardView.showOne()) {
+            while (keyboardView.setAnswered()) {
 
             }
             keyboardView.setAdditionalClickListener(new View.OnClickListener() {
@@ -552,7 +552,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
             resulved = true;
             db.resolveLevel(packageId, levelId);
 
-            while (keyboardView.showOne()) {
+            while (keyboardView.setAnswered()) {
 
             }
             keyboardView.setAdditionalClickListener(new View.OnClickListener() {

@@ -550,6 +550,8 @@ public class KeyboardView extends RelativeLayout {
         if (answerCount == 0 || buttonEmptyCount == 0)
             return false;
 
+        clearAnswers();
+
         String temp = levelAnswer;
         while (true) {
             int random = new Random().nextInt(levelAnswer.length());
