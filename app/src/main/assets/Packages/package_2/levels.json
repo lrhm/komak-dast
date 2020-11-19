@@ -101,7 +101,7 @@
       "id" : 13,
       "video" : "film.mp4",
       "type" : "keyboard",
-      "answer": "اسم این خیابان چیه",
+      "answer": "اسم این/خیابان چیه",
       "resolved": false
 
     },
@@ -125,7 +125,7 @@
       "id" : 16,
       "video" : "film.mp4",
       "type" : "keyboard",
-      "answer": "پیش دبستانی",
+      "answer": "پیش/دبستانی",
       "resolved": false
 
     },
@@ -459,7 +459,7 @@
       "id" : 58,
       "video" : "film.mp4",
       "type" : "keyboard",
-      "answer": "کارشناسی ارشد",
+      "answer": "کارشناسی/ارشد",
       "resolved": false
 
     },
@@ -499,7 +499,7 @@
       "id" : 63,
       "video" : "film.mp4",
       "type" : "keyboard",
-      "answer": "فنی حرفه ای",
+      "answer": "فنی/حرفه ای",
       "resolved": false
 
     },
@@ -530,7 +530,7 @@
       "id" : 67,
       "video" : "film.mp4",
       "type" : "keyboard",
-      "answer": "فوق لیسانس",
+      "answer": "فوق/لیسانس",
       "resolved": false
 
     },
@@ -637,45 +637,6 @@
       "answer": "گفتن",
       "resolved": false
 
-    },
-    {
-      "id" : 81,
-      "video" : "film.mp4",
-      "type" : "keyboard",
-      "answer": "",
-      "resolved": false
-
-    },
-    {
-      "id" : 82,
-      "video" : "film.mp4",
-      "type" : "keyboard",
-      "answer": "",
-      "resolved": false
-
-    },
-    {
-      "id" : 83,
-      "video" : "film.mp4",
-      "type" : "keyboard",
-      "answer": "",
-      "resolved": false
-
-    },
-    {
-      "id" : 84,
-      "video" : "film.mp4",
-      "type" : "keyboard",
-      "answer": "",
-      "resolved": false
-
-    },
-    {
-      "id" : 85,
-      "video" : "film.mp4",
-      "type" : "keyboard",
-      "answer": "",
-      "resolved": false
     }
   ]
 
