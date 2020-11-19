@@ -2,17 +2,24 @@ package ir.iut.komakdast.View.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import ir.iut.komakdast.R;
+import ir.iut.komakdast.Util.SizeConverter;
 import ir.iut.komakdast.Util.SizeManager;
 import ir.iut.komakdast.View.Fragment.IntroFragment;
 
@@ -35,21 +42,37 @@ public class IntroActivity extends FragmentActivity implements IntroFragment.OnF
 
         SizeManager.initSizes(this);
 
-        pager = (ViewPager) findViewById(R.id.intro_activity_pager);
+        ImageView background = findViewById(R.id.background);
+        Glide.with(this).load(R.drawable.background).centerCrop().into(background);
+
+        Glide.with(this).load(R.drawable.package_0_front).into((ImageView) findViewById(R.id.imageView6));
+
+        Glide.with(this).load(R.drawable.package_1_front).into((ImageView) findViewById(R.id.imageView5));
+
+        Glide.with(this).load(R.drawable.package_2_front).into((ImageView) findViewById(R.id.imageView7));
 
 
-        fragments = new IntroFragment[2];
-
-        fragments[1] = IntroFragment.getInstance(R.drawable.intro_one, 1);
-        fragments[0] = IntroFragment.getInstance(R.drawable.intro_two, 0);
-
-        fragments[0].setOnFragmentButtonListner(this);
-        fragments[1].setOnFragmentButtonListner(this);
-
-        adapter = new FragmentAdapter(getSupportFragmentManager());
-        pager.setAdapter(adapter);
+        Button button = findViewById(R.id.button);
+        SizeConverter buttonSize = SizeConverter.SizeConvertorFromWidth(SizeManager.getScreenWidth() * 0.4f, 776, 245);
 
 
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) button.getLayoutParams();
+        params.width = buttonSize.mWidth;
+        params.height = buttonSize.mHeight;
+        button.setLayoutParams(params);
+
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Prefs.putBoolean(INTRO_SHOWN, true);
+
+                Intent intent = new Intent(IntroActivity.this, LoadingActivity.class);
+
+                startActivity(intent);
+
+                finish();
+            }
+        });
     }
 
     @Override
