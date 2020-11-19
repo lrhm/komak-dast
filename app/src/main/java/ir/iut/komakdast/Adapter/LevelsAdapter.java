@@ -70,6 +70,7 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
         @Override
         public void onClick(View v) {
             int levelPosition = page * 16 + getAdapterPosition();
+//            Logger.d("TAG", "level is " + levels[levelPosition].getId() + " clicked");
             if (levelPosition == 0 || levels[levelPosition].isResolved() || levels[levelPosition - 1].isResolved()) {
 
 

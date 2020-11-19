@@ -70,6 +70,7 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
     private boolean skiped = false;
     private boolean resulved = false;
     private View blackWidow;
+    private int lastLevelId;
 
     public VideoGameFragment() {
         // Required empty public constructor
@@ -100,6 +101,9 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
         coinAdapter = new CoinAdapter(getActivity(), getActivity());
 
         level = db.getLevel(packageId, levelId);
+        Level[] levels = db.getLevels(packageId);
+        lastLevelId = levels[levels.length - 1].getId();
+
         packageSize = db.getLevels(packageId).length;
 
 
@@ -349,6 +353,12 @@ public class VideoGameFragment extends Fragment implements KeyboardView.OnKeyboa
                 new FinishLevel() {
                     @Override
                     public void NextLevel() {
+
+                        if (level.getId() == lastLevelId) {
+
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            return;
+                        }
 
 
                         Bundle bundle = new Bundle();

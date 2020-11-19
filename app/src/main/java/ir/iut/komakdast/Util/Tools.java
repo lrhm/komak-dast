@@ -35,7 +35,6 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import ir.iut.komakdast.Adapter.DBAdapter;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.TokenHolder;
 import ir.iut.komakdast.Object.User;
@@ -275,24 +274,24 @@ public class Tools {
 
     public static void backUpDB(final Context context) {
 
-        synchronized (lock) {
-            if (isBackupInProgress)
-                return;
-            isBackupInProgress = true;
-        }
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                backUpDBAsync(context);
-
-                synchronized (lock) {
-                    isBackupInProgress = false;
-
-                }
-            }
-        }).start();
+//        synchronized (lock) {
+//            if (isBackupInProgress)
+//                return;
+//            isBackupInProgress = true;
+//        }
+//
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                backUpDBAsync(context);
+//
+//                synchronized (lock) {
+//                    isBackupInProgress = false;
+//
+//                }
+//            }
+//        }).start();
 
 
     }
@@ -493,42 +492,42 @@ public class Tools {
     }
 
     public static void updateSharedPrefsToken(Context context, User user, TokenHolder tokenHolder) {
-        Gson gson = new Gson();
-        Prefs.putString(SHARED_PREFS_TOKEN, gson.toJson(tokenHolder));
-        String oldKey = Prefs.getString(ENCRYPT_KEY, "");
-        User cachedUser = getCachedUser(null);
-
-
-        Logger.d(TAG, "updateSharedPrefsToken");
-        Prefs.putDouble(Tools.SHARED_PREFS_SEED, user.getSeed());
-        Prefs.putString(USER_SAVED_DATA, new Gson().toJson(user));
-
-        if (!oldKey.equals(user.getKey()) || cachedUser == null || !cachedUser.getId().equals(user.getId())
-                || !cachedUser.getLoginInfo().getAccessToken().equals(tokenHolder.getLoginInfo().accessToken)
-                || !cachedUser.getName().equals(user.getName())) { // first login
-
-            Logger.d(TAG, "updateSharedPrefsToken do it");
-            Prefs.putString(ENCRYPT_KEY, user.getKey());
-            storeKey();
-            backUpDB(context);
-            DBAdapter dbAdapter = DBAdapter.getInstance(context);
-
-            for (User.PackageInfo info : user.getPackageInfos()) {
-                File file = new File(context.getFilesDir().getPath() + "/Packages/package_" + info.getId() + "/");
-                if (file.exists()) {
-//                    Logger.d(TAG, "package " + info.getId() + " exist");
-                    for (int i = 0; i < info.getIndex(); i++) {
-                        dbAdapter.resolveLevel(info.getId(), i);
-//                        Logger.d(TAG, "resloving level " + i);
-                    }
-                }
-
-            }
-
-            if (!user.isGuest()) {
-
-            }
-        }
+//        Gson gson = new Gson();
+//        Prefs.putString(SHARED_PREFS_TOKEN, gson.toJson(tokenHolder));
+//        String oldKey = Prefs.getString(ENCRYPT_KEY, "");
+//        User cachedUser = getCachedUser(null);
+//
+//
+//        Logger.d(TAG, "updateSharedPrefsToken");
+//        Prefs.putDouble(Tools.SHARED_PREFS_SEED, user.getSeed());
+//        Prefs.putString(USER_SAVED_DATA, new Gson().toJson(user));
+//
+//        if (!oldKey.equals(user.getKey()) || cachedUser == null || !cachedUser.getId().equals(user.getId())
+//                || !cachedUser.getLoginInfo().getAccessToken().equals(tokenHolder.getLoginInfo().accessToken)
+//                || !cachedUser.getName().equals(user.getName())) { // first login
+//
+//            Logger.d(TAG, "updateSharedPrefsToken do it");
+//            Prefs.putString(ENCRYPT_KEY, user.getKey());
+//            storeKey();
+//            backUpDB(context);
+//            DBAdapter dbAdapter = DBAdapter.getInstance(context);
+//
+//            for (User.PackageInfo info : user.getPackageInfos()) {
+//                File file = new File(context.getFilesDir().getPath() + "/Packages/package_" + info.getId() + "/");
+//                if (file.exists()) {
+////                    Logger.d(TAG, "package " + info.getId() + " exist");
+//                    for (int i = 0; i < info.getIndex(); i++) {
+//                        dbAdapter.resolveLevel(info.getId(), i);
+////                        Logger.d(TAG, "resloving level " + i);
+//                    }
+//                }
+//
+//            }
+//
+//            if (!user.isGuest()) {
+//
+//            }
+//        }
 
     }
 

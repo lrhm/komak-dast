@@ -2,7 +2,6 @@ package ir.iut.komakdast.View.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -57,7 +56,6 @@ import ir.iut.komakdast.Adapter.CoinAdapter;
 import ir.iut.komakdast.Adapter.DBAdapter;
 import ir.iut.komakdast.Adapter.ForceAdapter;
 import ir.iut.komakdast.Adapter.FriendsAdapter;
-import ir.iut.komakdast.Adapter.HiddenAdapter;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
@@ -140,20 +138,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         SizeManager.initSizes(this);
 
 
-        SocketAdapter.setContext(this);
-        SocketAdapter.addSocketListener(this);
-        SocketAdapter.addFriendRequestListener(this);
-        SocketAdapter.addFriendSocketListener(this);
+//        SocketAdapter.setContext(this);
+//        SocketAdapter.addSocketListener(this);
+//        SocketAdapter.addFriendRequestListener(this);
+//        SocketAdapter.addFriendSocketListener(this);
 
         initActivity();
 
 
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+//        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 //        ToastMaker.show(this, "THIS IS SPARTA ! VERSION " + BuildConfig.VERSION_CODE, Toast.LENGTH_SHORT);
 
 
-        HiddenAdapter.getInstance().createHiddenUsr();
+//        HiddenAdapter.getInstance().createHiddenUsr();
 
         AppListAdapter.getInstance(this);
 
@@ -989,14 +987,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         pauseTime = System.currentTimeMillis();
 
 //        SocketAdapter.disconnect();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (isPaused && System.currentTimeMillis() - pauseTime >= 2 * 55 * 1000)
-                    SocketAdapter.disconnect();
-
-            }
-        }, 2 * 60 * 1000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (isPaused && System.currentTimeMillis() - pauseTime >= 2 * 55 * 1000)
+//                    SocketAdapter.disconnect();
+//
+//            }
+//        }, 2 * 60 * 1000);
 
         isPaused = true;
 
@@ -1010,7 +1008,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         isPaused = false;
 
 
-        SocketAdapter.reconnect();
+//        SocketAdapter.reconnect();
 
 
         super.onResume();
@@ -1019,9 +1017,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         checkExtras(getIntent().getExtras());
 
 
-        AppAPIAdapter.tryToLogin(this);
+//        AppAPIAdapter.tryToLogin(this);
 
-        checkForceUpdate();
+//        checkForceUpdate();
 
 
         Logger.d(TAG, "super.onResume ended");
