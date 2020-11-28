@@ -14,10 +14,7 @@ import java.util.Random;
 
 import ir.iut.komakdast.Object.PackageObject;
 import ir.iut.komakdast.R;
-import ir.iut.komakdast.Service.ActionEventReceiver;
-import ir.iut.komakdast.Service.NotifObjects.ActionHolder;
-import ir.iut.komakdast.Service.NotifObjects.NotifHolder;
-import ir.iut.komakdast.Service.ServiceConstants;
+
 import ir.iut.komakdast.View.Activity.LoadingActivity;
 
 /**
@@ -46,7 +43,7 @@ public class NotificationManager {
                 .setContentText(packageObject.getName())
                 .setAutoCancel(true);
 
-        showNotification(builder, ServiceConstants.newPackageId);
+
     }
 
     private NotificationCompat.Builder createBasicNotification(String title, String content, int drawable) {
@@ -76,123 +73,6 @@ public class NotificationManager {
         mNotificationManager.cancelAll();
     }
 
-    public void createNotification(NotifHolder notifHolder) {
-
-
-        PendingIntent pendingIntent = null;
-        String title = null;
-        String content = null;
-        int drawable = R.drawable.notificon;
-        final int notifID = new Random(System.currentTimeMillis()).nextInt();
-        NotificationCompat.Builder builder = null;
-        if (notifHolder.isFriendRequest()) {
-
-            title = "درخواست دوستی";
-            content = "از " + notifHolder.getFriendSF().getUser().getName();
-            if (notifHolder.getFriendSF().isRequest()) {
-                pendingIntent = getIntentForFriendRequest(notifHolder, notifID);
-            } else {
-                return;
-            }
-            builder = createBasicNotification(title, content, drawable);
-            builder.addAction(R.drawable.notif_yes, "باشه", getAcceptPendingIntent(notifHolder, true, notifID));
-
-        } else if (notifHolder.isMatchRequest()) {
-
-            title = "درخواست بازی";
-            content = "از " + notifHolder.getMatchSF().getFriend().getName();
-            pendingIntent = getIntentForMatchRequest(notifHolder, notifID);
-            builder = createBasicNotification(title, content, drawable);
-            builder.addAction(R.drawable.notif_yes, "باشه", getAcceptPendingIntent(notifHolder, true, notifID));
-
-        } else if (notifHolder.isNotif()) {
-            title = notifHolder.getNotif().getTitle();
-            content = notifHolder.getNotif().getContent();
-            pendingIntent = getNotifPendingInent(notifHolder, notifID);
-        }
-
-        if (builder == null) builder = createBasicNotification(title, content, drawable);
-
-        if (!notifHolder.isNotif())
-            builder.addAction(R.drawable.notif_no, "نه", getRejectPendingIntent(notifHolder, notifID));
-
-        if (pendingIntent != null) {
-            builder.setContentIntent(pendingIntent);
-        }
-        showNotification(builder, notifID);
-
-        if (notifHolder.isMatchRequest())
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Logger.d(TAG, "after 20 sec");
-                    NotificationManager.dismissNotification(getBaseContext(), notifID);
-                }
-            }, 20000);
-
-
-    }
-
-    private PendingIntent getNotifPendingInent(NotifHolder notifHolder, int id) {
-        Intent intent = new Intent(getBaseContext(), LoadingActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        ActionHolder actionHolder = ActionHolder.getAdNotificationActionHolder(notifHolder, id);
-        intent.putExtra(ServiceConstants.ACTION_DATA_INTENT, new Gson().toJson(actionHolder));
-
-        return PendingIntent.getActivity(getBaseContext(),
-                ServiceConstants.FRIEND_REQUEST_RQ_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    }
-
-    private PendingIntent getAcceptPendingIntent(NotifHolder notifHolder, boolean accept, int id) {
-        Intent intent;
-        if (notifHolder.isFriendRequest())
-            intent = new Intent(getBaseContext(), ActionEventReceiver.class);
-        else {
-
-            intent = new Intent(getBaseContext(), LoadingActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        }
-        ActionHolder actionHolder = new ActionHolder(notifHolder, id, accept, accept);
-        intent.putExtra(ServiceConstants.ACTION_DATA_INTENT, new Gson().toJson(actionHolder));
-
-        if (notifHolder.isFriendRequest())
-            return PendingIntent.getBroadcast(getBaseContext(), 45, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return PendingIntent.getActivity(getBaseContext(),
-                ServiceConstants.MATCH_REQUEST_RQ_ID + 31, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
-
-    private PendingIntent getRejectPendingIntent(NotifHolder notifHolder, int id) {
-        Intent intent = new Intent(getBaseContext(), ActionEventReceiver.class);
-        ActionHolder actionHolder = ActionHolder.getRejectedActionHolder(notifHolder, id);
-        intent.putExtra(ServiceConstants.ACTION_DATA_INTENT, new Gson().toJson(actionHolder));
-
-        return PendingIntent.getBroadcast(getBaseContext(), 47, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
-    private PendingIntent getIntentForFriendRequest(NotifHolder notifHolder, int id) {
-        Intent intent = new Intent(getBaseContext(), LoadingActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        ActionHolder actionHolder = ActionHolder.getNonSpecifiedActionHolder(notifHolder, id);
-        intent.putExtra(ServiceConstants.ACTION_DATA_INTENT, new Gson().toJson(actionHolder));
-
-        return PendingIntent.getActivity(getBaseContext(),
-                ServiceConstants.FRIEND_REQUEST_RQ_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-    }
-
-    private PendingIntent getIntentForMatchRequest(NotifHolder notifHolder, int id) {
-        Intent intent = new Intent(getBaseContext(), LoadingActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        ActionHolder actionHolder = ActionHolder.getNonSpecifiedActionHolder(notifHolder, id);
-        intent.putExtra(ServiceConstants.ACTION_DATA_INTENT, new Gson().toJson(actionHolder));
-
-        return PendingIntent.getActivity(getBaseContext(),
-                ServiceConstants.MATCH_REQUEST_RQ_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
 
 
 }

@@ -4,10 +4,8 @@ import android.app.Application;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.crashlytics.android.Crashlytics;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import io.fabric.sdk.android.Fabric;
 
 
 import ir.iut.komakdast.Util.ImageManager;
@@ -26,7 +24,6 @@ public class MainApplication extends MultiDexApplication {
     public void onCreate() {
 
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
 
 
         new Prefs.Builder()

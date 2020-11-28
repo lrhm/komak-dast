@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import ir.iut.komakdast.API.Rest.AppAPIAdapter;
 import ir.iut.komakdast.API.Rest.Interfaces.OnFriendRequest;
-import ir.iut.komakdast.API.Socket.SocketAdapter;
 import ir.iut.komakdast.Adapter.Cache.FriendsHolder;
 import ir.iut.komakdast.Adapter.FriendsAdapter;
 import ir.iut.komakdast.MainApplication;
@@ -124,7 +123,7 @@ public class FriendRequestDialog extends Dialog implements View.OnClickListener,
         isActed = true;
 
         if (v.getId() == R.id.uv_start_chat_button) {
-            SocketAdapter.answerFriendRequest(mUser.getId(), false);
+
         }
 
         if (v.getId() == R.id.uv_match_button) {
@@ -164,15 +163,7 @@ public class FriendRequestDialog extends Dialog implements View.OnClickListener,
     @Override
     public void onFriendRequestFailedToSend() {
 
-        new Handler(Looper.myLooper()).post(new Runnable() {
-            @Override
-            public void run() {
 
-                ((MainActivity) context).mFriendsAdapter.addUser(mUser, FriendsAdapter.TYPE_REQUEST);
-                ToastMaker.show(context, context.getResources().getString(R.string.connection_to_internet_sure), Toast.LENGTH_SHORT);
-
-            }
-        });
     }
 }
 

@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 
 import java.util.HashMap;
 
-import ir.iut.komakdast.API.Socket.Objects.UserAction.GameActionResult;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
@@ -369,37 +368,6 @@ public class UserLevelView extends LinearLayout implements View.OnClickListener 
         stateView.setVisibility(View.GONE);
         mFirstState = true;
     }
-
-    public void setOnlineState(GameActionResult gameActionResult) {
-
-
-        Logger.d(this.getClass().getSimpleName(), "got user action " + mFirstState + " " +  gameActionResult.getResult().toString());
-
-
-//        if (mFirstState) {
-//            expView.setImageBitmap(imageManager.loadImageFromResource(getDrawableIdForRight(gameActionResult), imageConverter.mWidth, imageConverter.mHeight));
-//            expView.setVisibility(View.VISIBLE);
-//            mFirstState = false;
-//            return;
-//        }
-//        stateView.setImageBitmap(imageManager.loadImageFromResource(getDrawableIdForLeft(gameActionResult), imageConverter.mWidth, imageConverter.mHeight));
-//        stateView.setVisibility(View.VISIBLE);
-
-
-    }
-
-
-//    private int getDrawableIdForLeft(GameActionResult gameActionResult) {
-//        if (gameActionResult.isWrong() || gameActionResult.isSkiped())
-//            return R.drawable.wrong1;
-//        return R.drawable.correct1;
-//    }
-//
-//    private int getDrawableIdForRight(GameActionResult gameActionResult) {
-//        if (gameActionResult.isWrong() || gameActionResult.isSkiped())
-//            return R.drawable.wrong2;
-//        return R.drawable.correct2;
-//    }
 
     private long lastTimeClicked = 0;
 

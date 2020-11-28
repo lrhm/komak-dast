@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import ir.iut.komakdast.API.Rest.Interfaces.OnFriendRequest;
-import ir.iut.komakdast.API.Socket.SocketAdapter;
 import ir.iut.komakdast.Adapter.Cache.FriendRequestState;
 import ir.iut.komakdast.Adapter.Cache.FriendsHolder;
 import ir.iut.komakdast.Object.User;
@@ -243,7 +242,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                                 return;
                             }
 
-                            SocketAdapter.requestToAFriend(user.getId());
+
                         }
                     });
 
@@ -328,7 +327,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                     }
 
                     removeUser(user, type);
-                    SocketAdapter.answerFriendRequest(user.getId(), false);
+
                 }
             });
 

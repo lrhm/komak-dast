@@ -21,7 +21,6 @@ import android.widget.Toast;
 import ir.iut.komakdast.API.Rest.AppAPIAdapter;
 import ir.iut.komakdast.API.Rest.Interfaces.OnCancelFriendReqListener;
 import ir.iut.komakdast.API.Rest.Interfaces.OnFriendRequest;
-import ir.iut.komakdast.API.Socket.SocketAdapter;
 import ir.iut.komakdast.Adapter.Cache.FriendRequestState;
 import ir.iut.komakdast.Adapter.FriendsAdapter;
 import ir.iut.komakdast.MainApplication;
@@ -312,7 +311,6 @@ public class UserViewDialog extends Dialog implements View.OnClickListener {
                     if (!((MainActivity) context).getCoinAdapter().spendCoinDiffless(100))
                         return;
 
-                    SocketAdapter.requestToAFriend(mUser.getId());
 
                 }
             });

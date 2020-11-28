@@ -18,8 +18,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import ir.iut.komakdast.API.Rest.Utils.ForceObject;
-import ir.iut.komakdast.API.Socket.Objects.Notifs.AdNotification;
-import ir.iut.komakdast.API.Socket.SocketAdapter;
 import ir.iut.komakdast.Adapter.ForceAdapter;
 import ir.iut.komakdast.R;
 import ir.iut.komakdast.Util.DownloadTask;
@@ -37,14 +35,14 @@ public class ForceUpdateDialog extends Dialog implements View.OnClickListener, D
     private static final String TAG = "ForceUpdateDialog";
     Context context;
     ForceObject forceObject;
-    AdNotification adNotification;
+
     TextView progresTextView;
     boolean textProgressVisiblity = false;
     String imageUri;
 
     public ForceUpdateDialog(Context context, ForceObject object) {
         super(context);
-        SocketAdapter.disconnect();
+
         this.context = context;
         forceObject = object;
         ForceAdapter.getInstance(context).setListener(this);
@@ -53,13 +51,7 @@ public class ForceUpdateDialog extends Dialog implements View.OnClickListener, D
 
     }
 
-    public ForceUpdateDialog(Context context, AdNotification notification) {
-        super(context);
-        adNotification = notification;
-        this.context = context;
-        imageUri = adNotification.getImgUrl();
 
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,13 +98,7 @@ public class ForceUpdateDialog extends Dialog implements View.OnClickListener, D
         if (forceObject != null && forceObject.isForceUpdate())
             ForceAdapter.getInstance(context).openCafeBazzarAppPage((MainActivity) context);
 
-        if (adNotification != null) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(adNotification.getRedirectURL()));
-            context.startActivity(intent);
-            dismiss();
 
-        }
     }
 
     @Override

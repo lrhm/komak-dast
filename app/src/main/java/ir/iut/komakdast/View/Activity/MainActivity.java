@@ -24,11 +24,7 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.BillingWrapper;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.PurchaseEvent;
-import com.crashlytics.android.answers.StartCheckoutEvent;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -38,17 +34,7 @@ import java.util.ArrayList;
 import ir.iut.komakdast.API.Rest.AppAPIAdapter;
 import ir.iut.komakdast.API.Rest.Interfaces.UserFoundListener;
 import ir.iut.komakdast.API.Rest.Utils.ForceObject;
-import ir.iut.komakdast.API.Socket.Interfaces.FriendRequestListener;
-import ir.iut.komakdast.API.Socket.Interfaces.SocketFriendMatchListener;
-import ir.iut.komakdast.API.Socket.Interfaces.SocketListener;
-import ir.iut.komakdast.API.Socket.Objects.Friends.MatchRequestSFHolder;
-import ir.iut.komakdast.API.Socket.Objects.Friends.MatchResultHolder;
-import ir.iut.komakdast.API.Socket.Objects.Friends.OnlineFriendStatusHolder;
-import ir.iut.komakdast.API.Socket.Objects.GameResult.GameResultHolder;
-import ir.iut.komakdast.API.Socket.Objects.GameStart.GameStartObject;
-import ir.iut.komakdast.API.Socket.Objects.Result.ResultHolder;
-import ir.iut.komakdast.API.Socket.Objects.UserAction.UserActionHolder;
-import ir.iut.komakdast.API.Socket.SocketAdapter;
+
 import ir.iut.komakdast.Adapter.Cache.AppListAdapter;
 import ir.iut.komakdast.Adapter.Cache.FriendRequestState;
 import ir.iut.komakdast.Adapter.Cache.FriendsHolder;
@@ -59,8 +45,6 @@ import ir.iut.komakdast.Adapter.FriendsAdapter;
 import ir.iut.komakdast.MainApplication;
 import ir.iut.komakdast.Object.User;
 import ir.iut.komakdast.R;
-import ir.iut.komakdast.Service.NotifObjects.ActionHolder;
-import ir.iut.komakdast.Service.ServiceConstants;
 import ir.iut.komakdast.Util.FontsHolder;
 import ir.iut.komakdast.Util.ImageManager;
 import ir.iut.komakdast.Util.LengthManager;
@@ -81,9 +65,8 @@ import ir.iut.komakdast.View.Fragment.VideoGameFragment;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,
-        BillingProcessor.IBillingHandler, CoinAdapter.CoinsChangedListener,
-        GoogleApiClient.OnConnectionFailedListener, UserFoundListener, SocketListener,
-        SocketFriendMatchListener, FriendRequestListener, ForceAdapter.ForceListener {
+      CoinAdapter.CoinsChangedListener,
+       UserFoundListener, ForceAdapter.ForceListener {
 
 
     private static final String MAIN_FRAGMENT_TAG = "FRAGMENT_MAIN_TAG";
@@ -216,7 +199,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setUpHeader();
         setOriginalBackground(R.drawable.circles);
 
-        billingProcessor = new BillingProcessor(this, BillingWrapper.KEY_CAFE_BAZAAR, this);
 
 //        mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //                .requestEmail()
@@ -230,7 +212,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //                .build();
 
 
-        String tapsellKey = "rraernffrdhehkkmdtabokdtidjelnbktrnigiqnrgnsmtkjlibkcloprioabedacriasm";
 
 
 //        Intent intent = new Intent(this, RegistrationIntentService.class);
@@ -521,40 +502,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
 
-    @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
-
-
-        Integer price = StoreAdapter.getPrice(productId);
-        if (price == null)
-            price = 500;
-
-        Answers.getInstance().logPurchase(new PurchaseEvent()
-                .putItemPrice(BigDecimal.valueOf(price))
-                .putItemId(productId));
-
-
-        Integer amount = StoreAdapter.getSkuAmount(productId);
-        if (amount != null)
-            coinAdapter.earnCoins(amount);
-
-        billingProcessor.consumePurchase(productId);
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-    }
-
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
-        Logger.e("IAB", "Got error(" + errorCode + "):");
-    }
-
-    @Override
-    public void onBillingInitialized() {
-        Logger.d("IAB", "Billing initialized.");
-    }
-
 
     @Override
     public void changed(int newAmount) {
@@ -564,12 +511,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (myUser != null) AppAPIAdapter.updateCoin(myUser);
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-        ToastMaker.show(this, getResources().getString(R.string.connection_to_internet_sure), Toast.LENGTH_SHORT);
-
-    }
 
     @Override
     public void onGetUser(User user) {
@@ -632,86 +573,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Prefs.remove(Tools.SHARED_PREFS_TOKEN);
         Prefs.remove(Tools.USER_SAVED_DATA);
 
-        SocketAdapter.closeSocket();
 
         FriendsHolder.getInstance().clearAll();
         mFriendsAdapter.clearAll();
     }
 
 
-    @Override
-    public void onMatchRequest(final MatchRequestSFHolder request) {
 
-    }
-
-    @Override
-    public void onOnlineFriendStatus(OnlineFriendStatusHolder status) {
-
-    }
-
-    @Override
-    public void onMatchResultToSender(MatchResultHolder result) {
-
-    }
-
-    @Override
-    public void onFriendRequest(final User user) {
-
-
-
-
-    }
-
-    @Override
-    public void onFriendRequestReject(final User user) {
-
-        FriendRequestState.getInstance().friendRequestEvent(user, true);
-
-        if (mFriendsAdapter.getFriendList().contains(user)) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-
-                    if (!isFinishing()) {
-                        mFriendsAdapter.removeUser(user, FriendsAdapter.TYPE_FRIEND);
-                        mFriendsAdapter.removeUser(user, FriendsAdapter.TYPE_ONLINE_FRIENDS);
-
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onFriendRequestAccept(final User user) {
-
-        FriendRequestState.getInstance().friendRequestEvent(user, false);
-
-        if (!user.isFriend()) {
-            user.setIsFriend(true);
-        }
-
-        FriendsHolder friendsHolder = FriendsHolder.getInstance();
-        friendsHolder.addFriendToList(user);
-
-        if (!isFinishing())
-            new Handler(getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    mFriendsAdapter.addUser(user, FriendsAdapter.TYPE_FRIEND);
-                    mFriendsAdapter.removeUser(user, FriendsAdapter.TYPE_REQUEST);
-
-                }
-            });
-        else if (!isPaused) {
-            new Handler(getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    onFriendRequestAccept(user);
-                }
-            }, 1000);
-        }
-    }
 
     public boolean isPaused() {
         return isPaused;
@@ -767,16 +635,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void purchase(String sku, int price) {
 
 
-        if (billingProcessor.isInitialized()) {
-            Answers.getInstance().logStartCheckout(new StartCheckoutEvent()
-                    .putTotalPrice(BigDecimal.valueOf(price))
-                    .putCustomAttribute("sku", sku));
-
-
-            billingProcessor.purchase(this, sku);
-        } else {
-            ToastMaker.show(this, "در حال برقراری ارتباط با کافه بازار، کمی دیگر تلاش کنید.", Toast.LENGTH_SHORT);
-        }
     }
 
     @Override
@@ -840,86 +698,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mUserFoundListeners.add(userFoundListener);
     }
 
-    @Override
-    public void onGotGame(final GameResultHolder gameHolder) {
-
-
-
-    }
-
-    @Override
-    public void onGameStart(GameStartObject gameStartObject) {
-
-    }
-
-    @Override
-    public void onGotUserAction(final UserActionHolder actionHolder) {
-
-
-
-    }
 
 
     private long lastOnFinish = 0;
     private Object lock = new Object();
 
-    @Override
-    public void onFinishGame(final ResultHolder resultHolder) {
-
-
-        synchronized (lock) {
-            long curTime = System.currentTimeMillis();
-
-            if (curTime - lastOnFinish < 3000) {
-                return;
-            }
-
-            lastOnFinish = curTime;
-        }
-        final User mUser = Tools.getCachedUser(this);
-
-
-        mUser.setScore(mUser.getScore() + resultHolder.getMyScoreResult(mUser));
-        Tools.cacheUser(mUser);
-
-        int coin = 160;
-        if (resultHolder.getScores()[0].isWinner() && resultHolder.getScores()[1].isWinner()) {
-            // draw
-            coin = 80;
-        }
-        if (!resultHolder.amIWinner(mUser)) {
-
-            mUser.increaseLoses();
-            coin = 0;
-        }
-
-        if (resultHolder.amIWinner(mUser)) {
-            mUser.increaseWins();
-        }
-
-
-        new Handler(getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-
-                Logger.d(TAG, "earn coin on finish " + resultHolder.getMyCoin(mUser) + " " + CoinAdapter.getCoinDiff());
-                coinAdapter.setCoinsCount(resultHolder.getMyCoin(mUser) + CoinAdapter.getCoinDiff());
-                mUser.setFromServer(false);
-                onGetMyUser(mUser);
-            }
-        });
-
-
-//        if(resultHolder.getStatus().)
-
-    }
-
-
-    public void requestRandomGame() {
-
-
-
-    }
 
 
     public void setGameResult(boolean doSet) {
@@ -1047,33 +830,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         if (bundle == null)
             return;
-
-
-        String data = bundle.getString(ServiceConstants.ACTION_DATA_INTENT);
-
-        if (data == null || data.equals(""))
-            return;
-
-        final ActionHolder actionHolder = new Gson().fromJson(data, ActionHolder.class);
-
-        Intent intent = getIntent();
-        intent.putExtra(ServiceConstants.ACTION_DATA_INTENT, "");
-        setIntent(intent);
-
-        NotificationManager.dismissNotification(this, actionHolder.getNotificationID());
-
-        if (actionHolder.isAdNotification()) {
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    new ForceUpdateDialog(MainActivity.this, actionHolder.getNotifHolder().getNotif()).show();
-
-                }
-            }, 1000);
-
-            return;
-        }
 
 
 
