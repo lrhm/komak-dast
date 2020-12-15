@@ -164,3 +164,6 @@ Temporary Items
 /app/src/main/res/values/secret_info.xml
 
 app/google-services.json
+
+app/release/
+
