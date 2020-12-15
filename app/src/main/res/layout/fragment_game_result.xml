@@ -23,7 +23,7 @@
           >
 
 
-            <ir.iut.komakdast.View.Custom.UserLevelView
+            <xyz.lrhm.komakdast.View.Custom.UserLevelView
                 android:id="@+id/fragment_result_my_user_level_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
 
                 />
 
-            <ir.iut.komakdast.View.Custom.UserLevelView
+            <xyz.lrhm.komakdast.View.Custom.UserLevelView
                 android:id="@+id/fragment_result_op_user_level_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ir.iut.komakdast.View.Custom.VerticalViewPager
+    <xyz.lrhm.komakdast.View.Custom.VerticalViewPager
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_online_menu_vertical_view_pager"

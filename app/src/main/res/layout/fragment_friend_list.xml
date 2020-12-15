@@ -51,7 +51,7 @@
 
             >
 
-            <ir.iut.komakdast.View.Custom.MyAutoCompleteTextView
+            <xyz.lrhm.komakdast.View.Custom.MyAutoCompleteTextView
                 android:id="@+id/search_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

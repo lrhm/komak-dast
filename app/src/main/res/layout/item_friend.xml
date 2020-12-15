@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <ir.iut.komakdast.View.Custom.UserLevelView
+        <xyz.lrhm.komakdast.View.Custom.UserLevelView
             android:id="@+id/friend_list_mark_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             app:textAlign="left">
 
 
-        </ir.iut.komakdast.View.Custom.UserLevelView>
+        </xyz.lrhm.komakdast.View.Custom.UserLevelView>
 
     </LinearLayout>
 </RelativeLayout>

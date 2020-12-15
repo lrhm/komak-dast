@@ -98,19 +98,19 @@
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }
--keep class ir.treeco.aftabe2.API.Rest.Utils.** {*;}
--keep class ir.treeco.aftabe2.API.Socket.Objects.Friends.** {*;}
--keep class ir.treeco.aftabe2.API.Socket.Objects.** {*;}
--keep class ir.treeco.aftabe2.Object.** { *;}
--keep class ir.treeco.aftabe2.Util.PackageTool.PackageObjectListHolder { *;}
--keep class ir.treeco.aftabe2.Util.PackageTool.LevelListHolder { *;}
--keep interface ir.treeco.aftabe2.Util.Savior
--keep class ir.treeco.aftabe2.Adapter.Cache.** { *;}
-#-keepnames class * implements ir.treeco.aftabe2.Util.Savior { *;}
-#-keepattributes class * implements ir.treeco.aftabe2.Util.Savior { *;}
--keep class ir.treeco.aftabe2.Service.NotifObjects.** {*;}
+-keep class xyz.lrhm.komakdast.API.Rest.Utils.** {*;}
+-keep class xyz.lrhm.komakdast.API.Socket.Objects.Friends.** {*;}
+-keep class xyz.lrhm.komakdast.API.Socket.Objects.** {*;}
+-keep class xyz.lrhm.komakdast.Object.** { *;}
+-keep class xyz.lrhm.komakdast.Util.PackageTool.PackageObjectListHolder { *;}
+-keep class xyz.lrhm.komakdast.Util.PackageTool.LevelListHolder { *;}
+-keep interface xyz.lrhm.komakdast.Util.Savior
+-keep class xyz.lrhm.komakdast.Adapter.Cache.** { *;}
+#-keepnames class * implements xyz.lrhm.komakdast.Util.Savior { *;}
+#-keepattributes class * implements xyz.lrhm.komakdast.Util.Savior { *;}
+-keep class xyz.lrhm.komakdast.Service.NotifObjects.** {*;}
 
--keep class * implements ir.treeco.aftabe2.Util.Savior { *;}
+-keep class * implements xyz.lrhm.komakdast.Util.Savior { *;}
 
 ##---------------End: proguard configuration for Gson ----------
 -keep public class * implements com.bumptech.glide.module.GlideModule

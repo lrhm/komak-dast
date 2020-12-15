@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ir.iut.komakdast"
+    package="xyz.lrhm.komakdast"
     android:versionCode="8"
     android:versionName="1.0.7">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="ir.iut.komakdast.MainApplication"
+        android:name="xyz.lrhm.komakdast.MainApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -16,18 +16,11 @@
         android:theme="@style/fullScreenTheme"
         android:usesCleartextTraffic="true"
         >
-        <receiver
-            android:name="ir.iut.komakdast.Synchronization.Synchronize"
-            android:label="NetChangeReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
+
 
         <activity
-            android:name="ir.iut.komakdast.View.Activity.MainActivity"
-            android:label="Aftabe"
+            android:name="xyz.lrhm.komakdast.View.Activity.MainActivity"
+            android:label="App"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
@@ -37,7 +30,7 @@
         </activity>
 
         <activity
-            android:name="ir.iut.komakdast.View.Activity.LoadingActivity"
+            android:name="xyz.lrhm.komakdast.View.Activity.LoadingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,19 +40,16 @@
         </activity>
 
         <activity
-            android:name="ir.iut.komakdast.View.Activity.IntroActivity"
+            android:name="xyz.lrhm.komakdast.View.Activity.IntroActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name="ir.iut.komakdast.View.Activity.CreditsActivity"
+            android:name="xyz.lrhm.komakdast.View.Activity.CreditsActivity"
             android:screenOrientation="portrait">
 
         </activity>
-
-
-        <receiver android:name="ir.iut.komakdast.Service.ActionEventReceiver" />
 
 
 

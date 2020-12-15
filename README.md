@@ -1,33 +1,22 @@
-# Guess The Picture - Android
-
-this is a guess based puzzle game . there is a hidden answer in picture. player wins by guessing easter egg in the picture.
-
-### Features :
- * Integrated with Fabric (Analytics and Crash reporter).
- * 98% Crash Free Users
- * Integrated with Google Sign in and SMS based Sign in .
- * Friends, Registration and lots more implemented with Retrofit API.
- * Online 1vs1 implemented with SocketIO
- * Level Packages are addable , changeable and giving special offer to buy from server.
- * Push Notification with GCM , Push Notification Custom Style
- * Encrypted coin system
- * And more :)  
+# Komak Dast - Android
 
 
- ## Demo :
- [video demo](doc_2016-09-21_22-07-33.mp4)
-#### Screenshots
-![](screenshot/0.jpg)
+Persian Sign Language Learning Assistant Native Android Application for children with the use of visual learning techniques by providing videos and images.
 
-![](screenshot/1.jpg)
+## Disclaimer
+The code source is not maintained.
 
-![](screenshot/2.jpg)
+## Adding Packages
+Adding packages are easy, there are three locations you need to know.
+* `res/raw`
+* `assets/Packages`
 
-![](screenshot/3.jpg)
+### `res/raw`
+In this folder you need to define the package, look at the `local.json` file and add another package accordingly, you need to add a picture for each package too, the format is `package_$id_front.png`
 
-![](screenshot/4.jpg)
+### `assets/Packages`
+In this folder, the package exists, each package must have a `levels.json` file that defines the levels, and subfolder containing images and videos
 
-![](screenshot/5.jpg)
 
 ## License
 ### "THE BEERWARE LICENSE" (Revision 42):
