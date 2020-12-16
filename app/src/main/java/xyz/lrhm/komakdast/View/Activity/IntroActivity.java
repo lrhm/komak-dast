@@ -66,7 +66,25 @@ public class IntroActivity extends FragmentActivity implements IntroFragment.OnF
             public void onClick(View view) {
                 Prefs.putBoolean(INTRO_SHOWN, true);
 
-                Intent intent = new Intent(IntroActivity.this, LoadingActivity.class);
+
+                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                startActivity(intent);
+
+                finish();
+            }
+        });
+
+        View container = findViewById(R.id.container);
+        container.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.putBoolean(INTRO_SHOWN, true);
+
+
+                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
                 startActivity(intent);
 
@@ -84,7 +102,11 @@ public class IntroActivity extends FragmentActivity implements IntroFragment.OnF
 
         Prefs.putBoolean(INTRO_SHOWN, true);
 
-        Intent intent = new Intent(this, LoadingActivity.class);
+//        Intent intent = new Intent(this, LoadingActivity.class);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
 
         startActivity(intent);
 

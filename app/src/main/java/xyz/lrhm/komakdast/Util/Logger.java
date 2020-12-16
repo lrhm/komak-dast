@@ -2,12 +2,14 @@ package xyz.lrhm.komakdast.Util;
 
 import android.util.Log;
 
+import xyz.lrhm.komakdast.BuildConfig;
+
 /**
  * Created by al on 6/5/16.
  */
 public class Logger {
 
-    private static boolean debug = true;
+    private static boolean debug = BuildConfig.DEBUG;
 
 
     public static boolean isDebug() {

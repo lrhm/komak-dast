@@ -3,7 +3,8 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
 
@@ -18,16 +19,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="200dp">
 
             <ImageView
                 android:id="@+id/coin_box"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/coin_box" />
+                android:layout_height="0dp"
+                android:contentDescription="@string/coin_box"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.78"
+                tools:layout_width="100dp" />
 
             <TextView
                 android:id="@+id/digits"
@@ -40,30 +50,41 @@
                 android:shadowRadius="1"
                 android:singleLine="true"
                 android:textColor="#ffffff"
-            />
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/coin_box"
+                app:layout_constraintEnd_toEndOf="@+id/coin_box"
+                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintStart_toStartOf="@+id/coin_box"
+                app:layout_constraintTop_toTopOf="@+id/coin_box" />
 
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/logo" />
-
-            <Button
-                android:id="@+id/activity_main_credits_button"
-                android:background="@android:color/transparent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:contentDescription="@string/logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.975"
+                app:layout_constraintHorizontal_bias="0.89"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_width="100dp" />
 
             <ImageView
                 android:id="@+id/cheat_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/nothing"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/logo"
+                app:layout_constraintEnd_toEndOf="@+id/logo"
+                app:layout_constraintStart_toStartOf="@+id/logo"
+                app:layout_constraintTop_toTopOf="@+id/logo" />
 
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:id="@+id/fragment_container"

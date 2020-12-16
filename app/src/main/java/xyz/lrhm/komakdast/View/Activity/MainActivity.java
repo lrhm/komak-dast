@@ -156,9 +156,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         cheatButton.setOnClickListener(this);
 
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) cheatButton.getLayoutParams();
-        layoutParams.leftMargin = (int) (0.724 * lengthManager.getScreenWidth());
-        layoutParams.topMargin = (int) (0.07 * lengthManager.getScreenWidth());
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) cheatButton.getLayoutParams();
+//        layoutParams.leftMargin = (int) (0.724 * lengthManager.getScreenWidth());
+//        layoutParams.topMargin = (int) (0.07 * lengthManager.getScreenWidth());
         UiUtil.setWidth(cheatButton, lengthManager.getCheatButtonSize());
         UiUtil.setHeight(cheatButton, lengthManager.getCheatButtonSize());
 
@@ -271,7 +271,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     private void setHeaderVisiblity(boolean visible) {
-        int headerViewsVisibility = (!visible ? View.GONE : View.VISIBLE);
+        int headerViewsVisibility = (!visible ? View.INVISIBLE : View.VISIBLE);
         logo.setVisibility(headerViewsVisibility);
         creditsButton.setVisibility(headerViewsVisibility);
         coinBox.setVisibility(headerViewsVisibility);
@@ -285,26 +285,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void setUpCoinBox() {
         coinBox = (ImageView) findViewById(R.id.coin_box);
 
-        int coinBoxWidth = lengthManager.getScreenWidth() * 8 / 20;
-        int coinBoxHeight = lengthManager.getHeightWithFixedWidth(R.drawable.coinholder, coinBoxWidth);
-        coinBox.setImageBitmap(imageManager.loadImageFromResource(R.drawable.coinholder, coinBoxWidth, coinBoxHeight));
+        Glide.with(this).load(R.drawable.coinholder).into(coinBox);
 
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) coinBox.getLayoutParams();
-        layoutParams.topMargin = lengthManager.getScreenWidth() / 15;
-        layoutParams.leftMargin = lengthManager.getScreenWidth() / 50;
-
-        RelativeLayout.LayoutParams digitsLayoutParams = (RelativeLayout.LayoutParams) digits.getLayoutParams();
-        digitsLayoutParams.topMargin = lengthManager.getScreenWidth() * 32 / 400;
-        digitsLayoutParams.leftMargin = lengthManager.getScreenWidth() * 377 / 3600;
-        digitsLayoutParams.width = (int) (0.98 * lengthManager.getScreenWidth() / 5);
-
-
-        Logger.d(TAG, "density dpi is " + coinBoxHeight);
+//        int coinBoxWidth = lengthManager.getScreenWidth() * 8 / 20;
+//        int coinBoxHeight = lengthManager.getHeightWithFixedWidth(R.drawable.coinholder, coinBoxWidth);
+//        coinBox.setImageBitmap(imageManager.loadImageFromResource(R.drawable.coinholder, coinBoxWidth, coinBoxHeight));
+//
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) coinBox.getLayoutParams();
+//        layoutParams.topMargin = lengthManager.getScreenWidth() / 15;
+//        layoutParams.leftMargin = lengthManager.getScreenWidth() / 50;
+//
+//        RelativeLayout.LayoutParams digitsLayoutParams = (RelativeLayout.LayoutParams) digits.getLayoutParams();
+//        digitsLayoutParams.topMargin = lengthManager.getScreenWidth() * 32 / 400;
+//        digitsLayoutParams.leftMargin = lengthManager.getScreenWidth() * 377 / 3600;
+//        digitsLayoutParams.width = (int) (0.98 * lengthManager.getScreenWidth() / 5);
+//
+//
+//        Logger.d(TAG, "density dpi is " + coinBoxHeight);
 
         if (SizeManager.getScreenWidth() < 800)
             digits.setShadowLayer(0.5f, 1, 1, Color.BLACK);
         digits.setTypeface(FontsHolder.getNumeralSansMedium(this));
-        digits.setTextSize(TypedValue.COMPLEX_UNIT_PX, coinBoxHeight * 0.475f);
+//        digits.setTextSize(TypedValue.COMPLEX_UNIT_PX, coinBoxHeight * 0.475f);
 
         coinBox.setOnClickListener(this);
 
@@ -316,30 +318,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void setUpHeader() {
 
-        RelativeLayout header = (RelativeLayout) findViewById(R.id.header);
-        header.setLayoutParams(new LinearLayout.LayoutParams(
-                lengthManager.getScreenWidth(),
-                lengthManager.getHeaderHeight()
-        ));
+        Glide.with(this).load(R.drawable.cheat_button).into(cheatButton);
 
-        if (logo == null) logo = (ImageView) findViewById(R.id.logo);
-//
-//        logo.setImageBitmap(imageManager.loadImageFromResource(
-//                R.drawable.header, lengthManager.getScreenWidth(),
-//                lengthManager.getScreenWidth() / 4
+//        RelativeLayout header = (RelativeLayout) findViewById(R.id.header);
+//        header.setLayoutParams(new LinearLayout.LayoutParams(
+//                lengthManager.getScreenWidth(),
+//                lengthManager.getHeaderHeight()
 //        ));
 //
-        UiUtil.setWidth(logo, (int) (lengthManager.getScreenWidth() * 0.2f));
-
-        UiUtil.setLeftMargin(logo,(int) (lengthManager.getScreenWidth() * 0.7) );
+//        if (logo == null) logo = (ImageView) findViewById(R.id.logo);
+////
+////        logo.setImageBitmap(imageManager.loadImageFromResource(
+////                R.drawable.header, lengthManager.getScreenWidth(),
+////                lengthManager.getScreenWidth() / 4
+////        ));
+////
+//        UiUtil.setWidth(logo, (int) (lengthManager.getScreenWidth() * 0.2f));
+//
+//        UiUtil.setLeftMargin(logo,(int) (lengthManager.getScreenWidth() * 0.7) );
 
         Glide.with(this).load(R.drawable.new_icon).into(logo);
 
-        creditsButton = (Button) findViewById(R.id.activity_main_credits_button);
-
-        UiUtil.setLeftMargin(creditsButton, (int) (lengthManager.getScreenWidth() * 0.55));
-        UiUtil.setWidth(creditsButton, (int) (SizeManager.getScreenWidth() * 0.4));
-        UiUtil.setHeight(creditsButton, lengthManager.getScreenWidth() / 4);
+//        creditsButton = (Button) findViewById(R.id.activity_main_credits_button);
+//
+//        UiUtil.setLeftMargin(creditsButton, (int) (lengthManager.getScreenWidth() * 0.55));
+//        UiUtil.setWidth(creditsButton, (int) (SizeManager.getScreenWidth() * 0.4));
+//        UiUtil.setHeight(creditsButton, lengthManager.getScreenWidth() / 4);
 
 //        creditsButton.setOnClickListener(new View.OnClickListener() {
 //
@@ -427,12 +431,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void setupCheatButton(int id) {
         cheatButton.setVisibility(View.VISIBLE);
         logo.setVisibility(View.INVISIBLE);
-        creditsButton.setVisibility(View.INVISIBLE);
+//        creditsButton.setVisibility(View.INVISIBLE);
         areCheatsVisible = false;
         currentLevel = id;
 
 
-        Glide.with(this).load(R.drawable.cheat_button).into(cheatButton);
     }
 
     public void hideCheatButton() {
