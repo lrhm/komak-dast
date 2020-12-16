@@ -164,16 +164,7 @@ public class StoreFragment extends Fragment {
             items[i] = (FrameLayout) itemsList.getChildAt(i);
 
         for (int i = 0; i < items.length; i++) {
-            String persianPrice = "فقط " + tools.numeralStringToPersianDigits("" + prices[i]) + " تومان";
-
-            if (i == 6)
-                persianPrice = "فالو اینستا";
-            if (i == 5)
-                persianPrice = "عضو کانال تلگرام";
-            if (i == 4) {
-                persianPrice = "تبلیغ ببین سکه ببر";
-
-            }
+            String persianPrice = "مجانی";
             setupItem(items[i], persianPrice, revenues[i], i % 2 == 1);
         }
     }
