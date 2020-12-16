@@ -81,7 +81,7 @@ public class LengthManager {
     }
 
     public int getHeaderHeight() {
-        return getScreenWidth() / 4;
+        return (int) (getScreenHeight() * 0.12f);
     }
 
     public int getTabsHeight() {

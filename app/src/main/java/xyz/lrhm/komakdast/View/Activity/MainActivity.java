@@ -172,15 +172,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         bundle.putInt("id", 0);
 
-        PackageFragment packageFragment = new PackageFragment();
-        packageFragment.setArguments(bundle);
+//        PackageFragment packageFragment = new PackageFragment();
+//        packageFragment.setArguments(bundle);
 
 
         PackagesFragment packagesFragment = new PackagesFragment();
 
 //        transaction.addToBackStack(null);
 
-        VideoGameFragment videoGameFragment = new VideoGameFragment();
+//        VideoGameFragment videoGameFragment = new VideoGameFragment();
 
         fragmentTransaction.replace(R.id.fragment_container, packagesFragment, MAIN_FRAGMENT_TAG);
         fragmentTransaction.commitAllowingStateLoss();

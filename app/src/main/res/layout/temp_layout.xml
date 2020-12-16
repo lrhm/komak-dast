@@ -10,8 +10,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:textColor="#000000"
         android:text="@string/keyboard_desc"
+        android:textColor="#000000"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -21,11 +22,11 @@
         android:id="@+id/imageView7"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintWidth_percent="0.3"
         app:srcCompat="@drawable/package_2_front" />
 
@@ -33,22 +34,23 @@
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintWidth_percent="0.3"
         app:srcCompat="@drawable/package_0_front" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="0dp"
-        android:textColor="#000000"
-
         android:layout_height="wrap_content"
+
         android:gravity="right"
         android:text="@string/puzzle_desc"
+        android:textColor="#000000"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -59,10 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:textColor="#000000"
-
         android:text="به این نرم افزار خوش امدید"
-        android:textSize="18sp"
+
+        android:textColor="#000000"
+        android:textSize="@dimen/_20ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,10 +77,11 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:textColor="#000000"
-
         android:layout_marginRight="24dp"
+
         android:text="@string/intro_main"
+        android:textColor="#000000"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -87,7 +90,7 @@
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,9 +103,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:textColor="#000000"
-
         android:text="@string/alefba_desc"
+
+        android:textColor="#000000"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
@@ -111,14 +115,14 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:background="@drawable/buybutton"
         android:text="باشه"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:layout_constraintWidth_percent="0.4" />
 </androidx.constraintlayout.widget.ConstraintLayout>
