@@ -271,7 +271,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     private void setHeaderVisiblity(boolean visible) {
-        int headerViewsVisibility = (!visible ? View.INVISIBLE : View.VISIBLE);
+        int headerViewsVisibility = (!visible ? View.GONE : View.VISIBLE);
         logo.setVisibility(headerViewsVisibility);
         creditsButton.setVisibility(headerViewsVisibility);
         coinBox.setVisibility(headerViewsVisibility);
