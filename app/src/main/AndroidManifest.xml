@@ -14,7 +14,6 @@
         android:largeHeap="true"
         android:screenOrientation="portrait"
         android:theme="@style/fullScreenTheme"
-        android:usesCleartextTraffic="true"
         >
 
 
@@ -44,13 +43,6 @@
             android:screenOrientation="portrait">
 
         </activity>
-
-        <activity
-            android:name="xyz.lrhm.komakdast.View.Activity.CreditsActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
 
 
 

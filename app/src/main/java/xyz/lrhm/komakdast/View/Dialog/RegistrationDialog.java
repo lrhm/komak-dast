@@ -62,8 +62,8 @@ public class RegistrationDialog extends Dialog {
         ImageView phoneImageView = (ImageView) findViewById(R.id.phone_registration_image_view);
 
 
-        gmailImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.login_gmail, sizeConverter.mWidth, sizeConverter.mHeight));
-        phoneImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.login_phone, sizeConverter.mWidth, sizeConverter.mHeight));
+//        gmailImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.login_gmail, sizeConverter.mWidth, sizeConverter.mHeight));
+//        phoneImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.login_phone, sizeConverter.mWidth, sizeConverter.mHeight));
 
 
         gmailImageView.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class RegistrationDialog extends Dialog {
 
             UiUtil.setTopMargin(guestImageView , (int) (SizeManager.getScreenHeight() * 0.03));
 
-            guestImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.login_guest, sizeConverter.mWidth, sizeConverter.mHeight));
+//            guestImageView.setImageBitmap(imageManager.loadImageFromResource(R.drawable.login_guest, sizeConverter.mWidth, sizeConverter.mHeight));
             guestImageView.setVisibility(View.VISIBLE);
             guestImageView.setOnClickListener(new View.OnClickListener() {
                 @Override

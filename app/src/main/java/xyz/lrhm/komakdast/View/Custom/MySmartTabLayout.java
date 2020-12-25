@@ -47,8 +47,8 @@ import xyz.lrhm.komakdast.Util.UiUtil;
  * <p/>
  * To use the component, simply add it to your view hierarchy. Then in your
  * {@link android.app.Activity} or {@link android.app.Fragment}, {@link
- * android.support.v4.app.Fragment} call
- * {@link #setViewPager(android.support.v4.view.ViewPager)} providing it the ViewPager this layout
+ * androidx.core.app.Fragment} call
+ * {@link #setViewPager(androidx.core.view.ViewPager)} providing it the ViewPager this layout
  * is being used for.
  * <p/>
  * The colors can be customized in two ways. The first and simplest is to provide an array of
@@ -228,7 +228,7 @@ public class MySmartTabLayout extends HorizontalScrollView {
 
     /**
      * Set the color used for styling the tab text. This will need to be called prior to calling
-     * {@link #setViewPager(android.support.v4.view.ViewPager)} otherwise it will not get set
+     * {@link #setViewPager(androidx.core.view.ViewPager)} otherwise it will not get set
      *
      * @param color to use for tab text
      */
@@ -238,7 +238,7 @@ public class MySmartTabLayout extends HorizontalScrollView {
 
     /**
      * Sets the colors used for styling the tab text. This will need to be called prior to calling
-     * {@link #setViewPager(android.support.v4.view.ViewPager)} otherwise it will not get set
+     * {@link #setViewPager(androidx.core.view.ViewPager)} otherwise it will not get set
      *
      * @param colors ColorStateList to use for tab text
      */
