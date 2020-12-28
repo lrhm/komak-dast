@@ -17,7 +17,6 @@ public class PackageObject {
     @Expose
     int id;
 
-
     @Expose
     int price;
 

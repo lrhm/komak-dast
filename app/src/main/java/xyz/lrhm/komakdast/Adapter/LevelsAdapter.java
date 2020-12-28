@@ -108,28 +108,13 @@ public class LevelsAdapter extends RecyclerView.Adapter<LevelsAdapter.ViewHolder
 
         int levelPosition = page * 16 + position;
         if (levelPosition == 0 || levels[levelPosition].isResolved() || levels[levelPosition - 1].isResolved()) {
-
-//            String imagePath = "file://" + context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/"
-//                    + levels[levelPosition].getResources();
-
-            String imagePath = levels[levelPosition].getAnswerImgPath(packageId, context);
-//            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
-//                    + packageId + "_levelUnlocked.png";
-
-//            Glide.with(context).load(imagePath).fit().centerCrop().into(viewHolder.imageView);
-//            Glide.with(context).load(Uri.parse(imagePath)).into(viewHolder.imageView);
             viewHolder.textView.setText(Tools.numeralStringToPersianDigits(levels[levelPosition].getId()+""));
             viewHolder.textView.setVisibility(View.VISIBLE);
             Glide.with(context).load(R.drawable.unlock).into(viewHolder.frame);
-
             viewHolder.imageView.setVisibility(View.VISIBLE);
         } else {
             viewHolder.imageView.setVisibility(View.GONE);
             viewHolder.textView.setVisibility(View.GONE);
-
-//            String frame = "file://" + context.getFilesDir().getPath() + "/Downloaded/"
-//                    + packageId + "_levelLocked.png";
-
             Glide.with(context).load(R.drawable.level_locked).into(viewHolder.frame);
         }
     }

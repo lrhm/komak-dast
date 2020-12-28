@@ -90,8 +90,6 @@ public class Level {
 
         for (String pic : pics.split(",")) {
 
-
-
             String filesPath =  context.getFilesDir().getPath() + "/Packages/package_" + packageId + "/" + id + "/"
                     + pic;
             String assetsPath = "file:///android_asset" + "/Packages/package_" + packageId + "/" + id + "/"
